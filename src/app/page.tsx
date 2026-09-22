@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ModelCard } from "@/components/model-card";
 import { models, modelMap } from "@/data/models";
 import { newsSorted } from "@/data/news";
-import { getProvider, providers } from "@/data/providers";
+import { getProvider, providerMap, providers } from "@/data/providers";
 import { benchmarks } from "@/data/benchmarks";
 
 const featuredSlugs = [
@@ -11,7 +11,7 @@ const featuredSlugs = [
   "gemini-3-8-flash",
   "kimi-k3",
   "mimo-v2-6-pro",
-  "muse-spark",
+  "grok-4-7",
 ];
 
 const tagColors: Record<string, string> = {
@@ -21,6 +21,25 @@ const tagColors: Record<string, string> = {
   industry: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
   "open-source": "bg-rose-500/10 text-rose-600 dark:text-rose-400",
 };
+
+// OpenRouter usage, week of Sep 14–21 2026 (openrouter.ai/rankings, CC BY 4.0)
+const usageLeaders = [
+  { providerId: "openai", name: "GPT-5.6 Luna", tokens: "50.3T", note: "+208% month over month" },
+  { providerId: "tencent", name: "Hy4 Preview", tokens: "49T", note: "new, already #2" },
+  { providerId: "zai", name: "GLM 5.3 Flash", tokens: "48.9T", note: "$0.15 input" },
+  { providerId: "deepseek", name: "DeepSeek V4 Flash", tokens: "48.3T", note: "+53%" },
+  { providerId: "xiaomi", name: "MiMo V2.5", tokens: "28.7T", note: "open weights" },
+];
+
+const marketShare = [
+  { id: "deepseek", label: "DeepSeek", share: 25.4 },
+  { id: "google", label: "Google", share: 18.6 },
+  { id: "openai", label: "OpenAI", share: 17.0 },
+  { id: "zai", label: "Z.ai", share: 9.4 },
+  { id: "alibaba", label: "Qwen", share: 6.7 },
+  { id: "tencent", label: "Tencent", share: 6.4 },
+  { id: "anthropic", label: "Anthropic", share: 2.7 },
+];
 
 export default function HomePage() {
   const featured = featuredSlugs
@@ -44,18 +63,18 @@ export default function HomePage() {
         <div className="relative text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-border-subtle bg-surface px-3.5 py-1.5 text-xs text-muted">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-            Updated September 2026 · {models.length} models · {providers.length} providers
+            {models.length} models · {providers.length} labs · last checked Sep 22, 2026
           </span>
           <h1 className="mx-auto mt-6 max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-6xl">
-            Every frontier AI model,{" "}
+            Every AI model that matters,{" "}
             <span className="bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent">
-              decoded
+              in one place
             </span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base text-muted sm:text-lg">
-            Benchmarks, context windows, pricing and community insights for the
-            newest AI models — including the context you won&apos;t find on any
-            official page.
+            Specs, real pricing, benchmark scores and what communities actually
+            say about these models. If a number can&apos;t be verified, we print a
+            dash instead of a guess.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
@@ -68,15 +87,15 @@ export default function HomePage() {
               href="/models"
               className="rounded-xl border border-border-subtle bg-surface px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent/40"
             >
-              Browse the catalog
+              Browse all {models.length}
             </Link>
           </div>
 
           <div className="mx-auto mt-12 grid max-w-2xl grid-cols-3 gap-3 text-center">
             {[
               { value: String(models.length), label: "model pages" },
-              { value: String(benchmarks.length), label: "benchmarks tracked" },
-              { value: "100%", label: "community-driven" },
+              { value: String(benchmarks.length), label: "benchmarks explained" },
+              { value: String(providers.length), label: "labs tracked" },
             ].map((s) => (
               <div key={s.label} className="rounded-2xl border border-border-subtle bg-surface px-2 py-4">
                 <div className="font-mono text-2xl font-bold text-accent">{s.value}</div>
@@ -91,9 +110,9 @@ export default function HomePage() {
       <section className="py-10">
         <div className="mb-6 flex items-end justify-between">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight">The podium, right now</h2>
+            <h2 className="text-2xl font-bold tracking-tight">Who&apos;s on top</h2>
             <p className="mt-1 text-sm text-muted">
-              Top models by the Artificial Analysis Intelligence Index (v4.3.2)
+              Artificial Analysis Intelligence Index v4.3.2, September 2026
             </p>
           </div>
           <Link href="/compare" className="hidden text-sm text-accent hover:underline sm:block">
@@ -152,11 +171,77 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Real usage */}
+      <section className="py-10">
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold tracking-tight">What people actually run</h2>
+          <p className="mt-1 max-w-2xl text-sm text-muted">
+            Leaderboards measure preference. This measures traffic: tokens pushed
+            through OpenRouter, the routing layer half the internet codes on.
+            The gap between the two lists is the interesting part.
+          </p>
+        </div>
+        <div className="grid gap-4 lg:grid-cols-2">
+          <div className="rounded-2xl border border-border-subtle bg-surface p-5">
+            <h3 className="text-sm font-semibold">Top models by tokens, last 30 days</h3>
+            <div className="mt-4 space-y-3">
+              {usageLeaders.map((u) => {
+                const p = providerMap.get(u.providerId);
+                return (
+                  <div key={u.name} className="flex items-center gap-3">
+                    <span
+                      className="h-2.5 w-2.5 shrink-0 rounded-full"
+                      style={{ background: p?.color ?? "var(--accent)" }}
+                    />
+                    <span className="w-36 shrink-0 truncate text-sm font-medium">{u.name}</span>
+                    <span className="font-mono text-sm font-bold text-accent">{u.tokens}</span>
+                    <span className="ml-auto truncate text-xs text-muted">{u.note}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="mt-4 text-xs text-muted">
+              Notice who&apos;s missing from the top five. Preference and usage are
+              different sports.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-border-subtle bg-surface p-5">
+            <h3 className="text-sm font-semibold">Share of text requests by lab</h3>
+            <div className="mt-4 space-y-2.5">
+              {marketShare.map((s) => {
+                const p = providerMap.get(s.id);
+                return (
+                  <div key={s.id} className="flex items-center gap-3">
+                    <span className="w-20 shrink-0 text-xs text-muted">{s.label}</span>
+                    <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-surface-2">
+                      <div
+                        className="h-full rounded-full"
+                        style={{
+                          width: `${(s.share / 25.4) * 100}%`,
+                          background: p?.color ?? "var(--accent)",
+                        }}
+                      />
+                    </div>
+                    <span className="w-12 shrink-0 text-right font-mono text-xs tabular-nums">
+                      {s.share}%
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="mt-4 text-xs text-muted">
+              DeepSeek alone serves a quarter of all routed requests. Anthropic
+              runs 2.7% by request count and still tops every quality board.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Featured models */}
       <section className="py-10">
         <div className="mb-6 flex items-end justify-between">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight">Models everyone is talking about</h2>
+            <h2 className="text-2xl font-bold tracking-tight">Start here</h2>
             <p className="mt-1 text-sm text-muted">The releases defining this generation</p>
           </div>
           <Link href="/models" className="hidden text-sm text-accent hover:underline sm:block">
@@ -174,8 +259,8 @@ export default function HomePage() {
       <section className="py-10">
         <div className="mb-6 flex items-end justify-between">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight">Latest from the frontier</h2>
-            <p className="mt-1 text-sm text-muted">Releases, benchmarks and the stuff that matters</p>
+            <h2 className="text-2xl font-bold tracking-tight">Latest</h2>
+            <p className="mt-1 text-sm text-muted">Releases and benchmark shake-ups, newest first</p>
           </div>
           <Link href="/news" className="hidden text-sm text-accent hover:underline sm:block">
             All news →

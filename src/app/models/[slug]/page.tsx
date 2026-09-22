@@ -129,6 +129,39 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
         )}
       </header>
 
+      {/* Capabilities video */}
+      {model.video && (
+        <a
+          href={model.video.url}
+          target="_blank"
+          rel="noreferrer"
+          className="group mt-8 flex items-center gap-4 overflow-hidden rounded-2xl border border-border-subtle bg-surface p-5 transition-all hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5"
+        >
+          <span
+            className="relative flex h-14 w-20 shrink-0 items-center justify-center rounded-xl"
+            style={{ background: `linear-gradient(135deg, ${provider.color}, ${provider.color}88)` }}
+          >
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur transition-transform group-hover:scale-110">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+                <path d="M8 5.5v13l11-6.5-11-6.5Z" />
+              </svg>
+            </span>
+          </span>
+          <div className="min-w-0">
+            <div className="text-[11px] uppercase tracking-wider text-muted">Capabilities video</div>
+            <div className="mt-0.5 truncate font-medium group-hover:text-accent">
+              {model.video.label}
+            </div>
+          </div>
+          <svg
+            className="ml-auto shrink-0 text-muted transition-transform group-hover:translate-x-0.5"
+            width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+          >
+            <path d="M7 17 17 7M7 7h10v10" />
+          </svg>
+        </a>
+      )}
+
       {/* Specs */}
       <section className="mt-10">
         <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">Specifications</h2>

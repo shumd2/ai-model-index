@@ -99,6 +99,60 @@ export const benchmarks: Benchmark[] = [
       "Agentic real-world work tasks derived from OpenAI's GDPval set, scored by Artificial Analysis. Measures economically valuable output quality.",
   },
   {
+    id: "deepswe",
+    name: "DeepSWE v1.1",
+    source: "Agentica / Google-reported",
+    scale: "% tasks resolved",
+    format: "percent",
+    description:
+      "Agentic software engineering: models operate a real terminal and coding environment to resolve tasks end-to-end, over long horizons. Community favourite for spotting under-hyped models — a high DeepSWE score with low buzz (see Gemini 3.8 Flash) is the classic hidden-gem signal.",
+  },
+  {
+    id: "osworld",
+    name: "OSWorld-2.0",
+    source: "Google-reported",
+    scale: "% partial score",
+    format: "percent",
+    description:
+      "Agentic computer use: models complete real tasks inside a full desktop OS — files, browsers, apps. The closest thing to measuring 'can it use a computer like a person'.",
+  },
+  {
+    id: "arc-agi-2",
+    name: "ARC-AGI-2",
+    source: "ARC Prize Foundation",
+    scale: "% solved",
+    format: "percent",
+    description:
+      "Abstract fluid-intelligence puzzles designed to be easy for humans and hard for AI. ARC-AGI-3 (2026) extends this to interactive novel environments where agents must learn the rules by playing. Efficiency matters: cost-per-task is part of the leaderboard.",
+  },
+  {
+    id: "lmarena-vision",
+    name: "LMArena Vision Elo",
+    source: "LMArena (vision)",
+    scale: "Elo (≈1000–1350)",
+    format: "elo",
+    description:
+      "Crowd-sourced Elo for image understanding — models answer questions about images and humans vote on the better response.",
+  },
+  {
+    id: "lmarena-search",
+    name: "LMArena Search Elo",
+    source: "LMArena (search)",
+    scale: "Elo (≈1000–1300)",
+    format: "elo",
+    description:
+      "Search-grounded answers with citations, voted on head-to-head. Measures how well a model finds and synthesizes fresh information.",
+  },
+  {
+    id: "lmarena-t2v",
+    name: "LMArena Text-to-Video Elo",
+    source: "LMArena (video)",
+    scale: "Elo (≈1000–1550)",
+    format: "elo",
+    description:
+      "Prompt-to-video generation, voted head-to-head. The reference leaderboard for generative video models.",
+  },
+  {
     id: "scicode",
     name: "SciCode",
     source: "Artificial Analysis",

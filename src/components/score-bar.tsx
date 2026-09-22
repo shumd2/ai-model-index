@@ -11,6 +11,16 @@ const ranges: Record<string, { min: number; max: number }> = {
   "lmarena-text": { min: 1150, max: 1550 },
   "lmarena-webdev": { min: 1200, max: 1850 },
   "lmarena-agent": { min: 0, max: 15 },
+  hle: { min: 0, max: 60 },
+  deepswe: { min: 0, max: 80 },
+  "terminal-bench": { min: 0, max: 60 },
+  "gdpval-aa": { min: 1300, max: 1900 },
+  "gdp-pdf": { min: 0, max: 45 },
+  osworld: { min: 0, max: 80 },
+  "lmarena-vision": { min: 1100, max: 1350 },
+  "lmarena-search": { min: 1100, max: 1300 },
+  "lmarena-t2v": { min: 1300, max: 1550 },
+  "arc-agi-2": { min: 0, max: 40 },
 };
 
 export function ScoreBar({
