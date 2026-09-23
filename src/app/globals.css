@@ -94,3 +94,19 @@ body {
   background: var(--border-subtle);
   border-radius: 999px;
 }
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.bg-dots {
+  background-image: radial-gradient(var(--border-subtle) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.fade-mask {
+  mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+}

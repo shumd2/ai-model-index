@@ -9,6 +9,24 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "gpt-6-sol-luna-launch",
+    date: "2026-09-23",
+    title: "GPT-6 Sol and GPT-6 Luna ship — Luna lands at $0.10 input",
+    summary:
+      "The GPT-6 line expanded below Astra today: Sol brings frontier reasoning to $2/$10 with the same 1.05M context, and Luna halves 5.6 Luna's price to $0.10/$0.50. Pro reasoning modes cost nothing extra on either.",
+    tag: "release",
+    provider: "openai",
+  },
+  {
+    slug: "claude-opus-5-5-price-drop",
+    date: "2026-09-23",
+    title: "Claude Opus 5.5 appears at $4/$20 — a first for Opus pricing",
+    summary:
+      "Spotted live on OpenRouter: Opus 5.5 with a full 1M context at $4/$20, undercutting Opus 5's $5/$25. Opus-tier pricing has only ever moved up before; batch runs at $2/$10.",
+    tag: "release",
+    provider: "anthropic",
+  },
+  {
     slug: "claude-fable-5-1-mythos-5-1",
     date: "2026-09-01",
     title: "Anthropic launches Claude Fable 5.1 and Claude Mythos 5.1",
