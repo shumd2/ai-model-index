@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ModelCard } from "@/components/model-card";
 import { modelsByProvider } from "@/data/models";
-import { Reveal } from "@/components/reveal";
 import { providers } from "@/data/providers";
 
 export const dynamicParams = false;
@@ -85,7 +84,7 @@ export default async function ProviderPage({ params }: PageProps<"/providers/[sl
 
       {/* Highlights as animated cards */}
       <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {provider.highlights.map((h, i) => (
+        {provider.highlights.map((h) => (
           <div key={h} className="group relative overflow-hidden rounded-2xl border border-border-subtle bg-surface p-5 transition-all hover:-translate-y-0.5 hover:border-accent/30">
             <span
               className="absolute -bottom-6 -right-6 h-16 w-16 rounded-full blur-[40px]"

@@ -674,6 +674,24 @@ export const providers: Provider[] = [
       "Open-weights releases",
     ],
   },
+  {
+    id: "fireworks",
+    name: "Fireworks AI",
+    shortName: "Fireworks",
+    color: "#f97316",
+    gradient: "from-orange-500 to-red-600",
+    tagline: "High-throughput inference for frontier models",
+    hq: "San Mateo, USA",
+    founded: "2022",
+    website: "https://fireworks.ai",
+    description:
+      "Fireworks AI provides ultra-fast inference for open-weight and frontier models. Its Ember-1 reasoning model, built on Kimi K3, produces 40% shorter reasoning traces at comparable quality — making it ideal for coding and agentic workloads where latency and cost matter.",
+    highlights: [
+      "Ember-1: built on Kimi K3, 40% fewer reasoning tokens",
+      "Specialized inference engine for high throughput",
+      "Competitive pricing for agentic workloads",
+    ],
+  },
 ];
 
 export const providerMap = new Map(providers.map((p) => [p.id, p]));
