@@ -137,58 +137,58 @@ export default function HomePage() {
             </div>
           </Reveal>
 
-          {/* Right: hero cards with floating effect */}
+          {/* Right: hero cards with floating effect — big and spacious */}
           <Reveal delay={1} className="col-span-12 lg:col-span-5">
-            <div className="relative hidden min-h-[380px] lg:block">
+            <div className="relative hidden min-h-[440px] lg:block">
               {/* Opus 5.5 — big floating card */}
-              <div className="hero-card absolute -right-4 top-8 z-10 w-80 rounded-2xl border border-border-subtle bg-surface/80 backdrop-blur-xl p-5 shadow-2xl shadow-violet-500/10">
-                <div className="flex items-center gap-2">
+              <div className="hero-card absolute -right-6 top-4 z-10 w-96 rounded-2xl border border-border-subtle bg-surface/90 backdrop-blur-md p-6 shadow-2xl shadow-violet-500/10">
+                <div className="flex items-center justify-between">
                   <span className="tag-pill bg-amber-500/20 text-amber-600 dark:text-amber-400">
                     ● Live
                   </span>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted">AA #1</span>
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-muted">AA #1</span>
                 </div>
-                <div className="mt-4 flex items-end gap-3">
-                  <span className="font-mono text-6xl font-bold text-[#d97757] tabular-nums">58</span>
+                <div className="mt-5 flex items-end gap-4">
+                  <span className="font-mono text-7xl font-bold text-[#d97757] tabular-nums leading-none">58</span>
                   <div>
-                    <div className="text-base font-semibold">Claude Opus 5.5</div>
-                    <div className="text-[11px] text-muted">Fable-class · 40% cheaper than Opus 5</div>
+                    <div className="text-xl font-semibold">Claude Opus 5.5</div>
+                    <div className="mt-1 text-sm text-muted">Fable-class · 40% cheaper than Opus 5</div>
                   </div>
                 </div>
-                <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-surface-2">
-                  <div className="h-full w-[85%] rounded-full bg-gradient-to-r from-[#d97757] to-amber-500" />
+                <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-surface-2">
+                  <div className="h-full w-[85%] rounded-full bg-gradient-to-r from-[#d97757] to-amber-500 progress-sheen" />
                 </div>
               </div>
 
               {/* GPT-6 Sol — medium card */}
-              <div className="hero-card absolute left-0 top-[140px] z-20 w-72 rounded-2xl border border-accent/20 bg-surface/80 backdrop-blur-xl p-5 shadow-xl shadow-emerald-500/10">
+              <div className="hero-card absolute left-2 top-[160px] z-20 w-80 rounded-2xl border border-accent/20 bg-surface/90 backdrop-blur-md p-6 shadow-xl shadow-emerald-500/10">
                 <div className="flex items-center justify-between">
                   <span className="tag-pill bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">New</span>
-                  <span className="font-mono text-[10px] text-muted">1.05M ctx</span>
+                  <span className="font-mono text-[11px] text-muted">1.05M ctx</span>
                 </div>
-                <div className="mt-4">
-                  <div className="text-lg font-bold">GPT-6 Sol</div>
-                  <div className="mt-1 font-mono text-2xl font-bold text-accent">$2<span className="text-sm text-muted"> / </span>$10</div>
+                <div className="mt-5">
+                  <div className="text-xl font-bold">GPT-6 Sol</div>
+                  <div className="mt-2 font-mono text-3xl font-bold text-accent">$2<span className="text-base text-muted"> / </span>$10</div>
                 </div>
-                <div className="mt-3 flex items-center gap-2">
+                <div className="mt-4 flex items-center gap-3">
                   <div className="flex-1 overflow-hidden rounded-full bg-surface-2">
-                    <div className="h-full w-[92%] rounded-full bg-gradient-to-r from-accent to-emerald-400" />
+                    <div className="h-full w-[92%] rounded-full bg-gradient-to-r from-accent to-emerald-400 progress-sheen" />
                   </div>
-                  <span className="text-[11px] font-mono text-muted">AA 48</span>
+                  <span className="text-[12px] font-mono text-muted">AA 48</span>
                 </div>
               </div>
 
               {/* Luna — small card */}
-              <div className="hero-card absolute -bottom-4 right-8 z-30 w-64 rounded-2xl border border-border-subtle bg-surface/80 backdrop-blur-xl p-4 shadow-xl">
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted">Cheap</span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <div className="hero-card absolute -bottom-2 right-6 z-30 w-72 rounded-2xl border border-border-subtle bg-surface/90 backdrop-blur-md p-5 shadow-xl">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-muted">Cheap</span>
+                  <span className="h-2 w-2 rounded-full bg-emerald-400" />
                 </div>
-                <div className="mt-2">
-                  <div className="font-semibold">GPT-6 Luna</div>
-                  <div className="font-mono text-xl font-bold text-emerald-500">$0.0045/task</div>
+                <div className="mt-3">
+                  <div className="text-lg font-semibold">GPT-6 Luna</div>
+                  <div className="font-mono text-2xl font-bold text-emerald-500">$0.0045/task</div>
                 </div>
-                <div className="mt-2 text-[11px] text-muted">AA 37 max · cheapest on the board</div>
+                <div className="mt-3 text-sm text-muted">AA 37 max · cheapest on the board</div>
               </div>
             </div>
           </Reveal>

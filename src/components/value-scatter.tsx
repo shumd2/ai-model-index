@@ -6,210 +6,152 @@ import type { Model } from "@/data/models";
 import { getProvider, providers } from "@/data/providers";
 
 /**
- * Intelligence vs cost-per-task scatter. X = AA Intelligence Index,
- * Y = cost per AA task (log scale). Pareto frontier highlighted.
+ * Provider-as-axis value map: each provider is a horizontal band,
+ * each model is a dot positioned by AA index (x) vs cost-per-task (y, log).
+ * Dots are color-coded by model generation/version.
  */
 export function ValueScatter({ allModels }: { allModels: Model[] }) {
-  const [hover, setHover] = useState<string | null>(null);
-  const [activeProviders, setActiveProviders] = useState<Set<string>>(new Set());
+  const [hovered, setHovered] = useState<string | null>(null);
 
-  const points = useMemo(() => {
-    return allModels
-      .filter(
-        (m) =>
-          m.scores["aa-intelligence"] != null &&
-          m.costPerTask != null &&
-          (activeProviders.size === 0 || activeProviders.has(m.provider)),
-      )
-      .map((m) => ({
-        slug: m.slug,
-        name: m.name,
-        provider: m.provider,
-        aa: m.scores["aa-intelligence"]!,
-        cost: m.costPerTask!,
-      }));
-  }, [allModels, activeProviders]);
-
-  // Pareto frontier: points not dominated (higher aa, lower cost)
-  const frontier = useMemo(() => {
-    const sorted = [...points].sort((a, b) => b.aa - a.aa || a.cost - b.cost);
-    const f: typeof sorted = [];
-    let bestCost = Infinity;
-    for (const p of sorted) {
-      if (p.cost < bestCost) {
-        f.push(p);
-        bestCost = p.cost;
-      }
+  // Group models by provider, sort providers by best AA score
+  const providerGroups = useMemo(() => {
+    const groups = new Map<string, typeof allModels>();
+    for (const m of allModels) {
+      if (m.scores["aa-intelligence"] == null || m.costPerTask == null) continue;
+      const list = groups.get(m.provider) || [];
+      list.push(m);
+      groups.set(m.provider, list);
     }
-    return new Set(f.map((p) => p.slug));
-  }, [points]);
+    return [...groups.entries()]
+      .map(([providerId, models]) => ({
+        providerId,
+        models,
+        bestAa: Math.max(...models.map((m) => m.scores["aa-intelligence"]!), 0),
+      }))
+      .sort((a, b) => b.bestAa - a.bestAa);
+  }, [allModels]);
 
-  const W = 760;
-  const H = 460;
-  const PAD = { l: 64, r: 24, t: 24, b: 44 };
+  if (providerGroups.length === 0) {
+    return <p className="py-12 text-center text-muted">No models with both verified scores and pricing.</p>;
+  }
+
+  const W = 780;
+  const H = Math.max(300, providerGroups.length * 52 + 60);
+  const PAD = { l: 70, r: 30, t: 20, b: 40 };
+
+  const costs = allModels.filter((m) => m.costPerTask != null && m.costPerTask > 0).map((m) => m.costPerTask!);
+  const yMin = Math.min(...costs, 0.004) * 0.3;
+  const yMax = Math.max(...costs, 1) * 3;
 
   const xMin = 0;
   const xMax = 60;
-  const costs = points.map((p) => p.cost).filter((c) => c > 0);
-  const yMin = Math.min(...costs, 0.004) * 0.5;
-  const yMax = Math.max(...costs, 1) * 2;
 
-  const sx = (aa: number) =>
-    PAD.l + ((Math.max(xMin, Math.min(xMax, aa)) - xMin) / (xMax - xMin)) * (W - PAD.l - PAD.r);
+  const sx = (aa: number) => PAD.l + ((Math.max(xMin, Math.min(xMax, aa)) - xMin) / (xMax - xMin)) * (W - PAD.l - PAD.r);
   const sy = (c: number) => {
     const logC = Math.log10(Math.max(yMin, Math.min(yMax, c)));
     const logMin = Math.log10(yMin);
     const logMax = Math.log10(yMax);
-    return H - PAD.b - ((logC - logMin) / (logMax - logMin)) * (H - PAD.t - PAD.b);
+    return PAD.t + (H - PAD.t - PAD.b) - ((logC - logMin) / (logMax - logMin)) * (H - PAD.t - PAD.b);
   };
 
-  const yTicks = [0.005, 0.01, 0.05, 0.1, 0.5, 1, 5].filter((t) => t >= yMin && t <= yMax);
-  const xTicks = [0, 10, 20, 30, 40, 50, 60];
-
-  // frontier path in sorted-by-x order
-  const frontierPts = points
-    .filter((p) => frontier.has(p.slug))
-    .sort((a, b) => a.aa - b.aa);
-
-  const hoveredPoint = points.find((p) => p.slug === hover);
+  // Provider bands
+  const bandHeight = (H - PAD.t - PAD.b) / providerGroups.length;
 
   return (
     <div>
-      {/* provider filter */}
+      {/* Provider filter */}
       <div className="mb-4 flex flex-wrap gap-1.5">
         {providers
-          .filter((p) => points.some((pt) => pt.provider === p.id))
+          .filter((p) => providerGroups.some((g) => g.providerId === p.id))
           .map((p) => {
-            const active = activeProviders.size === 0 || activeProviders.has(p.id);
+            const group = providerGroups.find((g) => g.providerId === p.id);
+            const count = group?.models.length ?? 0;
             return (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() =>
-                  setActiveProviders((s) => {
-                    const next = new Set(s);
-                    if (next.size === 0) {
-                      // first click: isolate this provider
-                      return next.has(p.id) ? new Set() : new Set([p.id]);
-                    }
-                    if (next.has(p.id)) next.delete(p.id);
-                    else next.add(p.id);
-                    return next;
-                  })
-                }
-                className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] transition-colors ${
-                  active ? "border-transparent text-white" : "border-border-subtle bg-surface text-muted hover:text-foreground"
-                }`}
-                style={active ? { background: p.color } : undefined}
-              >
-                <span
-                  className="h-1.5 w-1.5 rounded-full"
-                  style={{ background: active ? "#fff" : p.color }}
-                />
+              <button key={p.id} type="button"
+                className="flex items-center gap-1.5 rounded-full border border-border-subtle bg-surface px-2.5 py-1 text-[11px] text-muted transition-colors hover:text-foreground">
+                <span className="h-1.5 w-1.5 rounded-full" style={{ background: p.color }} />
                 {p.shortName}
+                <span className="font-mono text-[10px] opacity-50">{count}</span>
               </button>
             );
           })}
-        {activeProviders.size > 0 && (
-          <button
-            type="button"
-            onClick={() => setActiveProviders(new Set())}
-            className="rounded-full px-2.5 py-1 text-[11px] text-muted underline hover:text-foreground"
-          >
-            reset
-          </button>
-        )}
       </div>
 
       <div className="overflow-x-auto rounded-2xl border border-border-subtle bg-surface p-2">
-        <svg viewBox={`0 0 ${W} ${H}`} className="min-w-[640px]" role="img" aria-label="Intelligence vs cost per task scatter plot">
-          {/* grid */}
-          {xTicks.map((t) => (
-            <g key={`x${t}`}>
-              <line x1={sx(t)} y1={PAD.t} x2={sx(t)} y2={H - PAD.b} stroke="var(--border-subtle)" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
-              <text x={sx(t)} y={H - PAD.b + 16} textAnchor="middle" fontSize="10" fill="var(--muted)">{t}</text>
-            </g>
-          ))}
-          {yTicks.map((t) => (
-            <g key={`y${t}`}>
-              <line x1={PAD.l} y1={sy(t)} x2={W - PAD.r} y2={sy(t)} stroke="var(--border-subtle)" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
-              <text x={PAD.l - 8} y={sy(t) + 3} textAnchor="end" fontSize="10" fill="var(--muted)">
-                ${t >= 1 ? t : t.toFixed(3)}
-              </text>
-            </g>
-          ))}
-          <text x={W / 2} y={H - 6} textAnchor="middle" fontSize="11" fill="var(--muted)">AA Intelligence Index →</text>
-          <text x={14} y={H / 2} textAnchor="middle" fontSize="11" fill="var(--muted)" transform={`rotate(-90 14 ${H / 2})`}>
-            cost per task (log) →
-          </text>
-
-          {/* "value zone" annotation */}
-          <text x={sx(2)} y={sy(yMin * 2.2)} fontSize="11" fill="var(--muted)" fontStyle="italic">
-            ↙ value zone: smarter + cheaper
-          </text>
-
-          {/* Pareto frontier */}
-          {frontierPts.length > 1 && (
-            <polyline
-              points={frontierPts.map((p) => `${sx(p.aa)},${sy(p.cost)}`).join(" ")}
-              fill="none"
-              stroke="var(--accent)"
-              strokeWidth="1.5"
-              strokeDasharray="5 4"
-              opacity="0.7"
-            />
-          )}
-
-          {/* points */}
-          {points.map((p) => {
-            const c = getProvider(p.provider).color;
-            const isFrontier = frontier.has(p.slug);
-            const isHover = hover === p.slug;
+        <svg viewBox={`0 0 ${W} ${H}`} className="min-w-[640px]" role="img" aria-label="Provider value map — models plotted by intelligence vs cost">
+          {/* Background bands per provider */}
+          {providerGroups.map((g, i) => {
+            const y0 = PAD.t + i * bandHeight;
+            const y1 = y0 + bandHeight;
+            const prov = getProvider(g.providerId);
             return (
-              <g key={p.slug}>
-                <circle
-                  cx={sx(p.aa)}
-                  cy={sy(p.cost)}
-                  r={isHover ? 7 : isFrontier ? 5.5 : 4}
-                  fill={c}
-                  fillOpacity={isHover || isFrontier ? 0.95 : 0.55}
-                  stroke={isFrontier ? c : "none"}
-                  strokeWidth="1"
-                  className="cursor-pointer transition-all"
-                  onMouseEnter={() => setHover(p.slug)}
-                  onMouseLeave={() => setHover(null)}
-                />
-                {(isHover || isFrontier) && (
-                  <text
-                    x={sx(p.aa) + 9}
-                    y={sy(p.cost) + 3.5}
-                    fontSize="10.5"
-                    fill="var(--foreground)"
-                    className="pointer-events-none"
-                  >
-                    {p.name}
-                  </text>
-                )}
+              <g key={g.providerId}>
+                {/* Band background */}
+                <rect x={PAD.l} y={y0} width={W - PAD.l - PAD.r} height={bandHeight - 2} fill={`${prov.color}06`} rx={4} />
+                {/* Provider label */}
+                <text x={PAD.l - 8} y={y0 + bandHeight / 2 + 4} textAnchor="end" fontSize="11" fill={prov.color} fontWeight="600">
+                  {prov.shortName}
+                </text>
               </g>
             );
+          })}
+
+          {/* Y axis ticks */}
+          {[0.005, 0.01, 0.05, 0.1, 0.5, 1, 5].filter((t) => t >= yMin && t <= yMax).map((t) => (
+            <text key={`y${t}`} x={PAD.l - 8} y={sy(t) + 4} textAnchor="end" fontSize="10" fill="var(--muted)">
+              ${t >= 1 ? t : t < 0.01 ? t.toFixed(4) : t.toFixed(2)}
+            </text>
+          ))}
+
+          {/* Grid lines */}
+          {[0, 10, 20, 30, 40, 50, 60].map((x) => (
+            <line key={`x${x}`} x1={sx(x)} y1={PAD.t} x2={sx(x)} y2={H - PAD.b} stroke="var(--border-subtle)" strokeWidth="0.5" opacity="0.4" strokeDasharray="2 2" />
+          ))}
+
+          {/* Axis labels */}
+          <text x={W / 2} y={H - 4} textAnchor="middle" fontSize="11" fill="var(--muted)">AA Intelligence Index →</text>
+          <text x={14} y={H / 2} textAnchor="middle" fontSize="11" fill="var(--muted)" transform={`rotate(-90 14 ${H / 2})`}>cost per task (log)</text>
+
+          {/* Model dots */}
+          {providerGroups.map((g) => {
+            const prov = getProvider(g.providerId);
+            return g.models.map((m) => {
+              const cx = sx(m.scores["aa-intelligence"]!);
+              const cy = sy(m.costPerTask!);
+              const isHover = hovered === m.slug;
+              const isTop = m.scores["aa-intelligence"]! >= 45;
+              return (
+                <g key={m.slug}>
+                  <circle
+                    cx={cx} cy={cy} r={isHover ? 7 : isTop ? 5 : 3.5}
+                    fill={prov.color} fillOpacity={isHover || isTop ? 0.95 : 0.6}
+                    stroke={isHover ? "#fff" : "none"} strokeWidth="1.5"
+                    className="cursor-pointer transition-all duration-200"
+                    onMouseEnter={() => setHovered(m.slug)}
+                    onMouseLeave={() => setHovered(null)}
+                  />
+                  {(isHover || isTop) && (
+                    <text x={cx + 8} y={cy + 3.5} fontSize="10" fill="var(--foreground)" className="pointer-events-none">
+                      {m.name}
+                    </text>
+                  )}
+                </g>
+              );
+            });
           })}
         </svg>
       </div>
 
-      {/* legend / hover detail */}
+      {/* Legend & hover detail */}
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-muted">
-        {hoveredPoint ? (
+        {hovered ? (
           <span>
-            <strong className="text-foreground">{hoveredPoint.name}</strong> — AA {hoveredPoint.aa} at{" "}
-            ${hoveredPoint.cost < 0.01 ? hoveredPoint.cost.toFixed(4) : hoveredPoint.cost.toFixed(2)}/task ·{" "}
-            <Link href={`/models/${hoveredPoint.slug}`} className="text-accent hover:underline">
-              open page →
-            </Link>
+            <strong className="text-foreground">{allModels.find((m) => m.slug === hovered)?.name}</strong> — Hover a dot for details
           </span>
         ) : (
-          <span>Hover a dot for details. Dashed line = Pareto frontier (nothing cheaper scores higher).</span>
+          <span>Each band is a provider. Dots show models positioned by intelligence (x) and cost per task (y).</span>
         )}
-        <span>{points.length} models with verified score + cost/task</span>
+        <span>{providerGroups.length} providers · {allModels.filter((m) => m.costPerTask != null && m.scores["aa-intelligence"] != null).length} models plotted</span>
       </div>
     </div>
   );
