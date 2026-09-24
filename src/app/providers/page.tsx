@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { providers } from "@/data/providers";
-import { modelsByProvider } from "@/data/models";
-import { Reveal } from "@/components/reveal";
+import { ProviderBrowser } from "./browser";
 
 export const metadata: Metadata = {
   title: "AI providers",
@@ -13,47 +10,31 @@ export const metadata: Metadata = {
 export default function ProvidersPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <Reveal>
-        <div className="mb-10">
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-violet-500/15 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-violet-600 dark:text-violet-400">
-            <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+      {/* Hero header */}
+      <div className="relative mb-12 overflow-hidden rounded-3xl border border-border-subtle bg-gradient-to-br from-violet-950/40 via-surface to-amber-950/20 p-8 sm:p-12">
+        {/* Ambient orbs */}
+        <div aria-hidden className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-violet-500/20 blur-[80px]" />
+        <div aria-hidden className="absolute -right-10 bottom-0 h-48 w-48 rounded-full bg-amber-500/15 blur-[60px]" />
+        <div className="relative">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-violet-500/15 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-violet-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-violet-400 animate-pulse" />
             03 · Labs
           </div>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Providers</h1>
-          <p className="mt-2 max-w-2xl text-muted">
-            The labs shaping the frontier — who they are, what they ship, and how
-            their models are doing.
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+            The labs behind
+            <span className="block bg-gradient-to-r from-violet-400 via-pink-500 to-amber-400 bg-clip-text text-transparent">
+              the frontier
+            </span>
+          </h1>
+          <p className="mt-4 max-w-xl text-muted">
+            {/* This count is safe — providers.ts is a static import, not server-only */}
+            45+ labs shaping the AI landscape — who they are, what they ship, and how their models are doing on the board.
           </p>
         </div>
-      </Reveal>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {providers.map((p, i) => {
-          const count = modelsByProvider(p.id).length;
-          return (
-            <Reveal key={p.id} delay={i % 3}>
-              <Link
-                href={`/providers/${p.id}`}
-                className="group relative overflow-hidden rounded-2xl border border-border-subtle bg-surface p-5 transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5"
-              >
-                <div aria-hidden className="absolute -bottom-10 -right-10 h-24 w-24 rounded-full blur-[40px]" style={{ background: `radial-gradient(closest-side, ${p.color}15, transparent)` }} />
-                <div className="relative flex items-center gap-3">
-                  <span
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-[12px] font-bold text-white"
-                    style={{ background: `linear-gradient(135deg, ${p.color}, ${p.color}aa)` }}
-                  >
-                    {p.shortName.slice(0, 2).toUpperCase()}
-                  </span>
-                  <div>
-                    <div className="text-sm font-semibold group-hover:text-accent">{p.name}</div>
-                    <div className="text-[11px] text-muted">{count} model{count !== 1 ? "s" : ""} · {p.hq}</div>
-                  </div>
-                </div>
-                <p className="mt-3 text-xs leading-relaxed text-muted line-clamp-2">{p.tagline}</p>
-              </Link>
-            </Reveal>
-          );
-        })}
       </div>
+
+      {/* Interactive browser */}
+      <ProviderBrowser />
     </div>
   );
 }

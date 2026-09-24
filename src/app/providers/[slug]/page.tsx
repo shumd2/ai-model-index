@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ModelCard } from "@/components/model-card";
 import { modelsByProvider } from "@/data/models";
+import { Reveal } from "@/components/reveal";
 import { providers } from "@/data/providers";
 
 export const dynamicParams = false;
@@ -39,12 +40,16 @@ export default async function ProviderPage({ params }: PageProps<"/providers/[sl
       </nav>
 
       <header
-        className="mt-6 overflow-hidden rounded-3xl border border-border-subtle p-8 sm:p-10"
+        className="relative mt-6 overflow-hidden rounded-3xl border border-border-subtle bg-gradient-to-br from-surface to-surface-2 p-8 sm:p-10"
         style={{
           background: `linear-gradient(135deg, ${provider.color}14, transparent 60%)`,
         }}
       >
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+        {/* Ambient glow */}
+        <div aria-hidden className="absolute -right-20 -top-20 h-48 w-48 rounded-full blur-[80px]" style={{ background: `radial-gradient(closest-side, ${provider.color}25, transparent)` }} />
+        <div aria-hidden className="absolute -left-10 bottom-0 h-32 w-32 rounded-full blur-[60px]" style={{ background: `radial-gradient(closest-side, ${provider.color}15, transparent)` }} />
+
+        <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center">
           <span
             className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl text-2xl font-bold text-white shadow-xl"
             style={{
@@ -78,17 +83,19 @@ export default async function ProviderPage({ params }: PageProps<"/providers/[sl
         <p className="mt-6 max-w-3xl leading-relaxed text-muted">{provider.description}</p>
       </header>
 
-      <section className="mt-8 grid gap-3 sm:grid-cols-3">
-        {provider.highlights.map((h) => (
-          <div
-            key={h}
-            className="rounded-2xl border border-border-subtle bg-surface p-4 text-sm leading-relaxed"
-          >
+      {/* Highlights as animated cards */}
+      <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {provider.highlights.map((h, i) => (
+          <div key={h} className="group relative overflow-hidden rounded-2xl border border-border-subtle bg-surface p-5 transition-all hover:-translate-y-0.5 hover:border-accent/30">
             <span
-              className="mb-2 block h-1 w-8 rounded-full"
+              className="absolute -bottom-6 -right-6 h-16 w-16 rounded-full blur-[40px]"
+              style={{ background: `radial-gradient(closest-side, ${provider.color}12, transparent)` }}
+            />
+            <span
+              className="mb-3 inline-block h-1 w-8 rounded-full"
               style={{ background: provider.color }}
             />
-            {h}
+            <p className="text-sm leading-relaxed text-muted group-hover:text-foreground">{h}</p>
           </div>
         ))}
       </section>

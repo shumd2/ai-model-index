@@ -88,22 +88,36 @@ export function CostCalculator({
       .sort((a, b) => a.monthly - b.monthly);
   }, [allModels, slugs, inTok, outTok, reqs, cache, batch]);
 
-  // Recommendations within budget
+  // Complexity-defined token volumes
+  const complexityTokens: Record<string, { input: number; output: number }> = {
+    casual: { input: 300_000, output: 5_000 },
+    standard: { input: 1_000_000, output: 10_000 },
+    heavy: { input: 10_000_000, output: 50_000 },
+    enterprise: { input: 50_000_000, output: 200_000 },
+  };
+
+  // Monthly cost per model for the selected complexity, ranked by intelligence
   const recommendations = useMemo(() => {
     if (!budgetMode) return [];
-    const affordable = allModels
+    const vol = complexityTokens[complexity] ?? complexityTokens.standard;
+    return allModels
       .filter((m) => m.pricing?.input != null && m.pricing?.output != null && m.scores["aa-intelligence"] != null)
       .map((m) => {
         const p = m.pricing!;
-        // Cost per task for a standard workload (10K input, 500 output, 70% cache)
-        const cacheTok = 10000 * 0.7;
-        const freshTok = 10000 - cacheTok;
-        const costPerTask = (freshTok * (p.input ?? 0) + cacheTok * (p.cacheRead ?? p.input ?? 0) + 500 * (p.output ?? 0)) / 1_000_000;
-        return { model: m, costPerTask, aa: m.scores["aa-intelligence"]! };
+        const cacheRate = p.cacheRead ?? p.input ?? 0;
+        const cacheTok = vol.input * 0.7;
+        const freshTok = vol.input - cacheTok;
+        const monthly = ((freshTok * (p.input ?? 0) + cacheTok * cacheRate + vol.output * (p.output ?? 0)) / 1_000_000) * 30;
+        return { model: m, monthly, aa: m.scores["aa-intelligence"]! };
       })
-      .sort((a, b) => b.aa / b.costPerTask - a.aa / a.costPerTask);
-    return affordable.filter((r) => r.costPerTask <= budgetAmount / 1000); // budget per month, costPerTask per 13k tokens
-  }, [allModels, budgetAmount, budgetMode]);
+      .sort((a, b) => {
+        const aIn = a.monthly <= budgetAmount;
+        const bIn = b.monthly <= budgetAmount;
+        if (aIn && !bIn) return -1;
+        if (!aIn && bIn) return 1;
+        return b.aa - a.aa;
+      });
+  }, [allModels, budgetAmount, complexity, budgetMode]);
 
   const max = Math.max(...results.map((r) => r.monthly), 0.0001);
 
@@ -185,10 +199,13 @@ export function CostCalculator({
                   {fmtMoney(budgetAmount)}/month
                 </div>
                 <div className="mt-0.5 text-[11px] text-muted">
-                  {complexity === "casual" && "~300K input tokens/day at $0.05/M"}
-                  {complexity === "standard" && "~1M input tokens/day at $0.10/M"}
-                  {complexity === "heavy" && "~10M input tokens/day at $0.20/M"}
-                  {complexity === "enterprise" && "~100M+ input tokens/day"}
+                  {complexity === "casual" && "~300K in + 5K out/day"}
+                  {complexity === "standard" && "~1M in + 10K out/day"}
+                  {complexity === "heavy" && "~10M in + 50K out/day"}
+                  {complexity === "enterprise" && "~50M in + 200K out/day"}
+                </div>
+                <div className="mt-2 font-mono text-[11px] text-accent">
+                  {recommendations.filter((r) => r.monthly <= budgetAmount).length} of {recommendations.length} models fit in budget
                 </div>
               </div>
             </div>
@@ -248,21 +265,27 @@ export function CostCalculator({
 
       {/* Results */}
       <div className="lg:col-span-3">
-        {budgetMode && recommendations.length > 0 && (
+        {budgetMode && (
           <div className="mb-6 rounded-2xl border border-accent/30 bg-accent-soft p-5">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">Models within budget, ranked by value</h3>
-            <p className="mt-1 text-xs text-muted">Sorted by AA Intelligence Index per dollar. Cached rates included.</p>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">Models ranked by intelligence within budget</h3>
+            <p className="mt-1 text-xs text-muted">
+              {complexity} complexity · {fmtMoney(budgetAmount)}/month · cached rates
+            </p>
             <div className="mt-4 space-y-2">
-              {recommendations.slice(0, 8).map((r, i) => {
+              {recommendations.slice(0, 10).map((r, i) => {
                 const p = getProvider(r.model.provider);
+                const inBudget = r.monthly <= budgetAmount;
                 return (
-                  <div key={r.model.slug} className="flex items-center gap-3 rounded-xl border border-border-subtle bg-surface/60 px-4 py-3">
+                  <div key={r.model.slug} className={`flex items-center gap-3 rounded-xl border px-4 py-3 ${inBudget ? "border-emerald-500/20 bg-emerald-500/5" : "border-border-subtle bg-surface-2/30 opacity-50"}`}>
                     <span className="font-mono text-[11px] font-bold text-muted">#{i + 1}</span>
                     <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: p.color }} />
                     <span className="flex-1 text-sm font-medium">{r.model.name}</span>
                     <span className="font-mono text-sm tabular-nums" style={{ color: p.color }}>AA {r.aa}</span>
-                    <span className="font-mono text-sm text-muted">${r.costPerTask.toFixed(4)}/task</span>
-                    <Link href={`/models/${r.model.slug}`} className="text-[11px] text-accent hover:underline">page →</Link>
+                    <span className="font-mono text-sm tabular-nums" style={{ color: inBudget ? "var(--emerald-600)" : "var(--muted)" }}>
+                      {fmtMoney(r.monthly)}/mo
+                    </span>
+                    {inBudget && <span className="text-[10px] text-emerald-600">✓ fits</span>}
+                    {!inBudget && <span className="text-[10px] text-muted">over</span>}
                   </div>
                 );
               })}
@@ -315,7 +338,7 @@ export function CostCalculator({
             </div>
           )}
           <p className="mt-5 border-t border-dashed border-border-subtle pt-3 text-xs text-muted">
-            Cache-priced at each provider&apos;s published cache-read rate where known; otherwise billed as fresh input. {budgetMode ? "Recommendations based on cost-per-task within your budget." : "Estimates only — verify against your provider bill."}
+            Cache-priced at each provider&rsquo;s published cache-read rate where known; otherwise billed as fresh input. {budgetMode ? "Recommendations based on cost-per-task within your budget." : "Estimates only — verify against your provider bill."}
           </p>
         </div>
       </div>
