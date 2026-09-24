@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { formatScore } from "@/data/benchmarks";
 import type { Model } from "@/data/models";
 import { formatContext } from "@/data/models";
@@ -15,7 +15,9 @@ type SortKey =
   | "lmarena-agent"
   | "context"
   | "input"
-  | "output";
+  | "output"
+  | "costPerTask"
+  | "value";
 
 type Row = {
   model: Model;
@@ -27,31 +29,42 @@ type Row = {
   context: number | null;
   input: number | null;
   output: number | null;
+  costPerTask: number | null;
+  value: number | null; // AA index points per $/task
 };
 
 const columns: { key: SortKey; label: string; hint: string; numeric: boolean }[] = [
   { key: "name", label: "Model", hint: "", numeric: false },
-  { key: "aa-intelligence", label: "AA Index", hint: "0–100", numeric: true },
+  { key: "aa-intelligence", label: "AA Index", hint: "0–60", numeric: true },
   { key: "lmarena-text", label: "Text Elo", hint: "arena", numeric: true },
   { key: "lmarena-webdev", label: "WebDev", hint: "arena", numeric: true },
   { key: "lmarena-agent", label: "Agent %", hint: "arena", numeric: true },
   { key: "context", label: "Context", hint: "tokens", numeric: true },
   { key: "input", label: "In $", hint: "/1M", numeric: true },
   { key: "output", label: "Out $", hint: "/1M", numeric: true },
+  { key: "costPerTask", label: "$/task", hint: "AA", numeric: true },
+  { key: "value", label: "AA pts/$", hint: "value", numeric: true },
 ];
 
 function toRows(models: Model[]): Row[] {
-  return models.map((m) => ({
-    model: m,
-    name: m.name,
-    "aa-intelligence": m.scores["aa-intelligence"] ?? null,
-    "lmarena-text": m.scores["lmarena-text"] ?? null,
-    "lmarena-webdev": m.scores["lmarena-webdev"] ?? null,
-    "lmarena-agent": m.scores["lmarena-agent"] ?? null,
-    context: m.contextWindow,
-    input: m.pricing?.input ?? null,
-    output: m.pricing?.output ?? null,
-  }));
+  return models.map((m) => {
+    const cost = m.costPerTask ?? null;
+    const aa = m.scores["aa-intelligence"] ?? null;
+    return {
+      model: m,
+      name: m.name,
+      "aa-intelligence": aa,
+      "lmarena-text": m.scores["lmarena-text"] ?? null,
+      "lmarena-webdev": m.scores["lmarena-webdev"] ?? null,
+      "lmarena-agent": m.scores["lmarena-agent"] ?? null,
+      context: m.contextWindow,
+      input: m.pricing?.input ?? null,
+      output: m.pricing?.output ?? null,
+      costPerTask: cost,
+      // AA points per $/task; free models get a huge-but-finite score via null (shown as ∞-ish)
+      value: cost != null && cost > 0 && aa != null ? aa / cost : null,
+    };
+  });
 }
 
 export function CompareTable({ allModels }: { allModels: Model[] }) {
@@ -62,12 +75,33 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
   const [providerFilter, setProviderFilter] = useState<string>("all");
   const [openOnly, setOpenOnly] = useState(false);
   const [hideNulls, setHideNulls] = useState(false);
+  const [pinnedSelection, setPinnedSelection] = useState<string[]>([]);
+
+  // Read ?models=a,b,c (from the pin tray) after hydration — async so the
+  // prerendered HTML matches and the page stays fully static.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const q = new URLSearchParams(window.location.search).get("models");
+      if (q) {
+        const slugs = q
+          .split(",")
+          .map((s) => s.trim())
+          .filter((s) => allModels.some((m) => m.slug === s));
+        if (slugs.length > 0) setPinnedSelection(slugs.slice(0, 4));
+      }
+    }, 0);
+    return () => clearTimeout(t);
+  }, [allModels]);
 
   const rows = useMemo(() => {
     let filtered = allModels;
-    if (providerFilter !== "all") filtered = filtered.filter((m) => m.provider === providerFilter);
-    if (openOnly) filtered = filtered.filter((m) => m.openWeights);
-    if (hideNulls) filtered = filtered.filter((m) => m.scores["aa-intelligence"] != null || m.scores["lmarena-text"] != null);
+    if (pinnedSelection.length > 0) {
+      filtered = filtered.filter((m) => pinnedSelection.includes(m.slug));
+    } else {
+      if (providerFilter !== "all") filtered = filtered.filter((m) => m.provider === providerFilter);
+      if (openOnly) filtered = filtered.filter((m) => m.openWeights);
+      if (hideNulls) filtered = filtered.filter((m) => m.scores["aa-intelligence"] != null || m.scores["lmarena-text"] != null);
+    }
 
     const mapped = toRows(filtered);
     const dir = sort.dir === "asc" ? 1 : -1;
@@ -80,7 +114,7 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
       if (bv == null) return -1;
       return dir * (av - bv);
     });
-  }, [allModels, sort, providerFilter, openOnly, hideNulls]);
+  }, [allModels, sort, providerFilter, openOnly, hideNulls, pinnedSelection]);
 
   function toggleSort(key: SortKey) {
     setSort((s) =>
@@ -128,7 +162,24 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
 
     if (key === "context") return <span className="font-mono">{formatContext(raw)}</span>;
     if (key === "input" || key === "output")
-      return <span className="font-mono">${raw < 1 ? raw.toFixed(2) : raw.toFixed(2)}</span>;
+      return <span className="font-mono">${raw.toFixed(2)}</span>;
+    if (key === "costPerTask") {
+      const best = row.costPerTask != null && row.costPerTask === Math.min(...rows.map((r) => r.costPerTask).filter((v): v is number => v != null && v > 0 || v === 0));
+      return (
+        <span className={`font-mono ${best ? "font-semibold text-emerald-600 dark:text-emerald-400" : ""}`}>
+          {raw === 0 ? "Free" : raw < 0.01 ? raw.toFixed(4) : raw.toFixed(2)}
+        </span>
+      );
+    }
+    if (key === "value") {
+      // best value = max
+      const best = row.value != null && row.value === Math.max(...rows.map((r) => r.value).filter((v): v is number => v != null));
+      return (
+        <span className={`font-mono ${best ? "font-semibold text-emerald-600 dark:text-emerald-400" : ""}`}>
+          {Math.round(raw).toLocaleString()}
+        </span>
+      );
+    }
     if (key === "lmarena-agent") return <span className="font-mono">{raw.toFixed(2)}%</span>;
     if (key === "lmarena-text" || key === "lmarena-webdev")
       return <span className="font-mono">{formatScore(raw, "elo")}</span>;
@@ -151,6 +202,30 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
 
   return (
     <div>
+      {pinnedSelection.length > 0 && (
+        <div className="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-accent/40 bg-accent-soft px-4 py-3">
+          <span className="font-mono text-[11px] uppercase tracking-widest text-accent">
+            Side-by-side
+          </span>
+          <div className="flex flex-wrap gap-1.5">
+            {pinnedSelection.map((slug) => (
+              <span
+                key={slug}
+                className="rounded-full border border-border-subtle bg-surface px-2.5 py-1 text-[12px]"
+              >
+                {allModels.find((m) => m.slug === slug)?.name ?? slug}
+              </span>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => setPinnedSelection([])}
+            className="ml-auto text-[13px] text-muted underline hover:text-foreground"
+          >
+            Show all models
+          </button>
+        </div>
+      )}
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <select
           value={providerFilter}
@@ -235,8 +310,10 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
         </table>
       </div>
       <p className="mt-3 text-xs text-muted">
-        — = no verified public score yet. Elo bars and index scaled for readability; click any
-        model for full details and sources.
+        — = no verified public score yet. <strong>$/task</strong> is the weighted
+        cost to run one AA Intelligence Index task (price × verbosity).
+        <strong> AA pts/$</strong> is intelligence per dollar — higher is better
+        value. Pin models from any card to build a side-by-side set.
       </p>
     </div>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { newsSorted } from "@/data/news";
 import { providerMap } from "@/data/providers";
+import { Reveal } from "@/components/reveal";
 
 const tagColors: Record<string, string> = {
   release: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
@@ -28,15 +29,20 @@ export default function NewsPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
       <div className="mb-10">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">News & changelog</h1>
+        <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-violet-500/15 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-violet-600 dark:text-violet-400">
+          <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+          04 · Feed
+        </div>
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">News &amp; changelog</h1>
         <p className="mt-3 max-w-2xl text-muted">
           Every release and benchmark shake-up that matters, newest first.
         </p>
       </div>
 
       <div className="space-y-10">
-        {[...byMonth.entries()].map(([month, items]) => (
-          <div key={month}>
+        {[...byMonth.entries()].map(([month, items], mi) => (
+          <Reveal key={month} delay={mi % 3}>
+            <div>
             <h2 className="mb-4 font-mono text-sm font-semibold uppercase tracking-wider text-muted">
               {new Date(month + "-01T00:00:00").toLocaleDateString("en-US", {
                 month: "long",
@@ -84,6 +90,7 @@ export default function NewsPage() {
               })}
             </div>
           </div>
+        </Reveal>
         ))}
       </div>
     </div>

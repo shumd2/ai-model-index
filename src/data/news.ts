@@ -3,11 +3,91 @@ export type NewsItem = {
   date: string; // ISO
   title: string;
   summary: string;
-  tag: "release" | "benchmark" | "research" | "industry" | "open-source";
+  tag: "release" | "benchmark" | "research" | "industry" | "open-source" | "data";
   provider?: string; // provider id
 };
 
 export const news: NewsItem[] = [
+  {
+    slug: "opus-5-5-takes-number-one",
+    date: "2026-09-23",
+    title: "Claude Opus 5.5 takes #1 on the AA Intelligence Index — 58, a new record",
+    summary:
+      "Verified against Artificial Analysis and Anthropic's announcement: Opus 5.5 (max) scores 58, with Terminal-Bench 66.4%, GDPval 1846 and HLE 67.7% — all records. At high effort it's AA 54 for $1.82/task, the new efficiency frontier.",
+    tag: "benchmark",
+    provider: "anthropic",
+  },
+  {
+    slug: "gpt-6-sol-luna-scores-land",
+    date: "2026-09-23",
+    title: "GPT-6 Sol and Luna scores land: Sol AA 48, Luna $0.0045/task — cheapest anywhere",
+    summary:
+      "The AA board filled in the GPT-6 tiers: Sol peaks at 48 (max effort) for $1.06/task; Luna (low) posts the lowest cost-per-task ever measured at $0.0045. One flag: AA lists Sol context at 872k vs OpenRouter's 1.05M.",
+    tag: "benchmark",
+    provider: "openai",
+  },
+  {
+    slug: "celeris-1-speed-record",
+    date: "2026-09-22",
+    title: "Celeris-1 hits 1,492 tokens/second — double the previous speed record",
+    summary:
+      "A stealth lab called Celeris took the fastest-model crown from Mercury 2 (now measured at 750 t/s): 1,492 t/s output, 0.59s TTFT, and a full 500-token response in 0.92s. Intelligence is modest (AA 6) — this is a speed specialist.",
+    tag: "benchmark",
+  },
+  {
+    slug: "grok-4-7-price-cut",
+    date: "2026-09-21",
+    title: "Grok 4.7 launches at AA 46 — and immediately cuts price to $1.60/$4.80",
+    summary:
+      "xAI's newest model scores 46 on the AA index (xhigh and high) with a sub-second 0.84s time-to-first-token — fastest big-model TTFT in the top tier — then dropped pricing from $2/$6 to $1.60/$4.80 within days.",
+    tag: "release",
+    provider: "xai",
+  },
+  {
+    slug: "mimo-v2-6-ships",
+    date: "2026-09-21",
+    title: "Xiaomi ships MiMo V2.6 Pro, Flash and Ultraspeed — the open-weights leader gets faster",
+    summary:
+      "The #1 open-weights model (AA 46, $0.13/task) added a Flash tier at $0.14/$0.28 and an Ultraspeed variant at $4.35/$8.70, all with 1M context.",
+    tag: "release",
+    provider: "xiaomi",
+  },
+  {
+    slug: "upstage-solar-4-launch",
+    date: "2026-09-23",
+    title: "Upstage launches Solar 4: Pro 4 (512k), Mini 4, and open Solar Open2 250B",
+    summary:
+      "Korea's champion lab shipped its new generation: Solar Mini 4 at $0.05/$0.20, Pro 4 with 512k context, and Solar Open2 250B — open weights with a 1.05M-token window.",
+    tag: "release",
+    provider: "upstage",
+  },
+  {
+    slug: "pace-the-frontier",
+    date: "2026-09-15",
+    title: "Dario Amodei: \u201cWe Must Pace the Frontier\u201d",
+    summary:
+      "Anthropic's CEO argued AI progress should be paced so safety practices stay ahead of capabilities — the framing behind Opus 5.5's external pre-release testing with Frontier Design and METR, and its Fable-class safeguards.",
+    tag: "industry",
+    provider: "anthropic",
+  },
+  {
+    slug: "model-hardware-standard",
+    date: "2026-08-27",
+    title: "Anthropic previews the Model Hardware Standard for physical agents",
+    summary:
+      "A shared specification for AI agents to safely operate physical devices, opened to a first group of scientific research labs and advanced manufacturers. If agents are moving from browsers to robots, this is the standards race starting.",
+    tag: "industry",
+    provider: "anthropic",
+  },
+  {
+    slug: "anthropic-distillation-report",
+    date: "2026-09-10",
+    title: "Anthropic details industrial-scale distillation attacks it disrupted",
+    summary:
+      "The September threat intelligence report describes operations using thousands of fake accounts to extract Claude's capabilities at industrial scale — the backdrop for Opus 5.5's 'preserved thinking' anti-distillation safeguard.",
+    tag: "research",
+    provider: "anthropic",
+  },
   {
     slug: "gpt-6-sol-luna-launch",
     date: "2026-09-23",

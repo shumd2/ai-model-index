@@ -197,6 +197,60 @@ export const benchmarks: Benchmark[] = [
     description:
       "Professional document reasoning over messy real-world PDFs — contracts, filings, reports. Scored on strict all-parts-correct criteria.",
   },
+  {
+    id: "cost-per-task",
+    name: "Cost per Intelligence Task",
+    source: "Artificial Analysis",
+    scale: "USD per task",
+    format: "price",
+    description:
+      "The weighted-average dollar cost to run one task across the AA Intelligence Index, computed from each model's input, cache-hit, cache-write, reasoning and answer token prices. The single best 'value' metric: it captures both sticker price and how many tokens a model burns (verbosity). A cheap model that thinks for 10,000 tokens can cost more per task than a pricier, terser one.",
+  },
+  {
+    id: "automationbench",
+    name: "AutomationBench-AA",
+    source: "Artificial Analysis / Zapier",
+    scale: "% tasks completed",
+    format: "percent",
+    description:
+      "Agentic SaaS workflows — models operate real automation tools to complete multi-step business processes. Zapier runs the public leaderboard, which makes it one of the most 'real job' benchmarks available.",
+  },
+  {
+    id: "frontiercode",
+    name: "FrontierCode v1.1",
+    source: "Anthropic-reported",
+    scale: "% tasks resolved",
+    format: "percent",
+    description:
+      "Agentic software engineering at the frontier: long-horizon coding tasks resolved end-to-end in a real harness. The 'Main' split measures standard difficulty.",
+  },
+  {
+    id: "cursorbench",
+    name: "CursorBench 4.0",
+    source: "Cursor / provider-reported",
+    scale: "% tasks resolved",
+    format: "percent",
+    description:
+      "In-IDE agentic coding: models drive a real editor harness through refactors, fixes and feature work. What code assistants are actually scored on.",
+  },
+  {
+    id: "chartography",
+    name: "Chartography",
+    source: "Provider-reported",
+    scale: "% correct",
+    format: "percent",
+    description:
+      "Visual chart recognition: read values, trends and mislabeled axes from real charts and figures — the skill behind financial and scientific document understanding.",
+  },
+  {
+    id: "terminal-bench-science",
+    name: "Terminal-Bench-Science 0.1",
+    source: "Public leaderboard",
+    scale: "% tasks solved",
+    format: "percent",
+    description:
+      "Agentic scientific research in a terminal: plan experiments, run analyses, and iterate on real computational science tasks end-to-end.",
+  },
 ];
 
 export const benchmarkMap = new Map(benchmarks.map((b) => [b.id, b]));

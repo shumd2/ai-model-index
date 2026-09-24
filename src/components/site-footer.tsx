@@ -24,6 +24,11 @@ export function SiteFooter() {
             <Link href="/providers" className="text-muted hover:text-foreground">Providers</Link>
           </div>
           <div className="flex flex-col gap-2">
+            <span className="font-medium">Tools</span>
+            <Link href="/tools/calculator" className="text-muted hover:text-foreground">Cost calculator</Link>
+            <Link href="/tools/value-map" className="text-muted hover:text-foreground">Value map</Link>
+          </div>
+          <div className="flex flex-col gap-2">
             <span className="font-medium">Reference</span>
             <Link href="/benchmarks" className="text-muted hover:text-foreground">Benchmarks</Link>
             <Link href="/news" className="text-muted hover:text-foreground">News</Link>

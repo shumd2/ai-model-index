@@ -4,13 +4,48 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
+import { CommandPalette, type PaletteItem } from "./command-palette";
+import { benchmarks } from "@/data/benchmarks";
+import { models } from "@/data/models";
+import { providers } from "@/data/providers";
 
 const links = [
   { href: "/models", label: "Models" },
   { href: "/compare", label: "Compare" },
+  { href: "/tools", label: "Tools" },
   { href: "/providers", label: "Providers" },
   { href: "/benchmarks", label: "Benchmarks" },
   { href: "/news", label: "News" },
+];
+
+const paletteItems: PaletteItem[] = [
+  ...models.map((m) => ({
+    label: m.name,
+    sub: `${m.tagline}`,
+    href: `/models/${m.slug}`,
+    kind: "model" as const,
+  })),
+  ...providers.map((p) => ({
+    label: p.name,
+    sub: p.tagline,
+    href: `/providers/${p.id}`,
+    kind: "provider" as const,
+  })),
+  ...benchmarks.map((b) => ({
+    label: b.name,
+    sub: b.source,
+    href: "/benchmarks",
+    kind: "benchmark" as const,
+  })),
+  ...links.map((l) => ({
+    label: l.label,
+    sub: "page",
+    href: l.href,
+    kind: "page" as const,
+  })),
+  { label: "Cost calculator", sub: "tool", href: "/tools/calculator", kind: "page" as const },
+  { label: "Value map", sub: "tool", href: "/tools/value-map", kind: "page" as const },
+  { label: "Speed race", sub: "tool", href: "/tools/speed-race", kind: "page" as const },
 ];
 
 export function SiteHeader() {
@@ -19,6 +54,8 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border-subtle bg-background/80 backdrop-blur-md">
+      {/* Animated accent line */}
+      <div aria-hidden className="h-[2px] w-full bg-gradient-to-r from-transparent via-accent/60 via-25% to-transparent" style={{ backgroundSize: "200% 100%", animation: "shimmer 4s ease infinite" }} />
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 font-mono text-sm font-bold text-white">
@@ -46,7 +83,8 @@ export function SiteHeader() {
               </Link>
             );
           })}
-          <div className="ml-2">
+          <div className="ml-2 flex items-center gap-2">
+            <CommandPalette items={paletteItems} />
             <ThemeToggle />
           </div>
         </nav>

@@ -1,9 +1,24 @@
 ## Overview
 
-Opus 5.5 showed up live on OpenRouter with a full million-token context at $4/$20, undercutting Opus 5's $5/$25. That's the first price cut the Opus tier has ever had at launch.
+Opus 5.5 shipped on September 22 and immediately took the #1 spot on the Artificial Analysis Intelligence Index: **58 at max effort** (56 xhigh, 54 high, 51 medium, 42 low). It's the first release since Dario Amodei's "We Must Pace the Frontier" essay, tested before release by Frontier Design and METR.
 
-Independent scores are still accumulating, but the positioning is clear: Fable 5.1 keeps the $10/$50 ceiling, and 5.5 becomes the agentic value pick in Anthropic's lineup. Batch runs at $2/$10.
+The pricing story is as important as the scores: **$4/$20** per million tokens — 20% below Opus 5 — with **cache reads at $0.20/M**, 60% cheaper. Since cache reads dominate agentic and coding workloads, Anthropic quotes a 40% total-cost reduction at typical workloads. Batch runs $2/$10; fast mode costs $8/$40 for up to 2.5× speed.
 
+The benchmark records, from the official announcement:
+
+| Benchmark | Opus 5.5 | Fable 5.1 | Opus 5 | GPT-6 Astra | GPT-5.6 Sol |
+| --- | --- | --- | --- | --- | --- |
+| Terminal-Bench 4.0 | **66.4%** | 55.8% | 52.3% | 57.9% | 37.3% |
+| GDPval-AA v2.1 | **1846** | 1735 | 1708 | 1542 | 1588 |
+| Humanity's Last Exam | **67.7%** | 65.6% | 63.6% | 57.2% | — |
+| OSWorld 2.0 | **81.8%** | 80.7% | 74.0% | — | — |
+| Terminal-Bench-Science | 58.7% | 52.6% | 29.0% | **64.6%** | 22.4% |
+
+On efficiency the story is starker: at default effort it beats GPT-6 Astra at max effort for about a fifth of the cost per task, and one early tester migrated a 680,000-line codebase in under a day.
+
+Two things to know before adopting: **thinking can't be disabled** (adaptive reasoning is always on, across five effort tiers), and the model is verbose — 260M output tokens per AA index run vs an 88M median. The cache-read price is what keeps that affordable.
+
+Safety-wise it's the strongest model Anthropic has measured on their behavioral audit, attempts containment-boundary crossings ~85% less often than Opus 5, and ties Fable 5.1 for the lowest prompt-injection success rate in Gray Swan's testing. Cyber tasks re-route to Opus 4.8 under safeguards; biology work requires the Life Sciences Verification Program. **Sonnet 5.5 and Haiku 5.5 are promised "in the coming weeks."**
 
 ## Community insights
 
