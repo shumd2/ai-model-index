@@ -78,12 +78,14 @@ export function CostCalculator({
         const cacheRate = p.cacheRead ?? inRate;
         const cacheTok = (inTok * cache) / 100;
         const freshTok = inTok - cacheTok;
-        const perDay = (freshTok * inRate + cacheTok * cacheRate + outTok * outRate) / 1_000_000;
-        const monthly = perDay * reqs * 30;
-        // Estimated daily tokens
-        const dailyInputTokens = freshTok + cacheTok;
+        const perRequest =
+          (freshTok * inRate + cacheTok * cacheRate + outTok * outRate) /
+          1_000_000;
+        const perDay = perRequest * reqs;
+        const monthly = perDay * 30;
+        const dailyInputTokens = (freshTok + cacheTok) * reqs;
         const dailyOutputTokens = outTok * reqs;
-        return { model: m, perDay, monthly, dailyInputTokens, dailyOutputTokens };
+        return { model: m, perRequest, perDay, monthly, dailyInputTokens, dailyOutputTokens };
       })
       .sort((a, b) => a.monthly - b.monthly);
   }, [allModels, slugs, inTok, outTok, reqs, cache, batch]);
@@ -279,7 +281,7 @@ export function CostCalculator({
                     <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: p.color }} />
                     <span className="flex-1 text-sm font-medium">{r.model.name}</span>
                     <span className="font-mono text-sm tabular-nums" style={{ color: p.color }}>AA {r.aa}</span>
-                    <span className="font-mono text-sm tabular-nums" style={{ color: inBudget ? "var(--emerald-600)" : "var(--muted)" }}>
+                    <span className="font-mono text-sm tabular-nums" style={{ color: inBudget ? "var(--positive)" : "var(--muted)" }}>
                       {fmtMoney(r.monthly)}/mo
                     </span>
                     {inBudget && <span className="text-[10px] text-emerald-600">✓ fits</span>}
@@ -304,9 +306,8 @@ export function CostCalculator({
             <p className="mt-6 text-sm text-muted">Pick at least one model with known pricing.</p>
           ) : (
             <div className="mt-5 space-y-4">
-              {results.map(({ model: m, monthly, perDay, dailyInputTokens, dailyOutputTokens }) => {
+              {results.map(({ model: m, monthly, perRequest, dailyInputTokens, dailyOutputTokens }) => {
                 const p = getProvider(m.provider);
-                const perReq = perDay / Math.max(reqs, 1);
                 return (
                   <div key={m.slug}>
                     <div className="mb-1 flex items-baseline justify-between gap-3">
@@ -319,7 +320,7 @@ export function CostCalculator({
                       </span>
                     </div>
                     <div className="flex items-center gap-4 text-[11px] text-muted">
-                      <span>≈{fmtMoney(perReq)}/req</span>
+                      <span>≈{fmtMoney(perRequest)}/req</span>
                       <span>{dailyInputTokens.toLocaleString()} in/day</span>
                       <span>{dailyOutputTokens.toLocaleString()} out/day</span>
                       <span>{m.costPerTask != null ? `$${m.costPerTask.toFixed(4)}/task` : ""}</span>
@@ -327,7 +328,7 @@ export function CostCalculator({
                     <div className="mt-0.5 h-5 border-l border-dashed border-border-subtle bg-surface-2/60">
                       <div className="flex h-full items-center justify-end pr-2 transition-all duration-300"
                         style={{ width: `${Math.max(8, (monthly / max) * 100)}%`, background: `linear-gradient(90deg, ${p.color}55, ${p.color}22)` }}>
-                        <span className="font-mono text-[11px] text-muted">{fmtMoney(perReq)}/req</span>
+                        <span className="font-mono text-[11px] text-muted">{fmtMoney(perRequest)}/req</span>
                       </div>
                     </div>
                   </div>

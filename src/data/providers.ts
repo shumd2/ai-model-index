@@ -8,7 +8,7 @@ export type Provider = {
   hq: string;
   founded: string;
   website: string;
-  category?: string;
+    category: "frontier" | "open" | "emerging";
   description: string;
   highlights: string[];
 };
@@ -24,6 +24,7 @@ export const providers: Provider[] = [
     hq: "San Francisco, USA",
     founded: "2015",
     website: "https://openai.com",
+    category: "frontier",
     description:
       "OpenAI builds the GPT family of frontier models, the ChatGPT assistant, and the Codex coding agent. In 2026 its flagship line is GPT-6 (Astra), sitting alongside the fast-moving GPT-5.5/5.6 tier and the open-weights GPT-OSS models.",
     highlights: [
@@ -42,6 +43,7 @@ export const providers: Provider[] = [
     hq: "San Francisco, USA",
     founded: "2021",
     website: "https://anthropic.com",
+    category: "frontier",
     description:
       "Anthropic builds the Claude family. In September 2026 it introduced two new lines — Fable and Mythos — alongside the continuing Opus, Sonnet and Haiku tiers. Claude Opus 5.5 (Sep 22) is currently the #1 model on the Artificial Analysis Intelligence Index; Sonnet 5.5 and Haiku 5.5 are queued.",
     highlights: [
@@ -60,6 +62,7 @@ export const providers: Provider[] = [
     hq: "London, UK & Mountain View, USA",
     founded: "2023 (merger)",
     website: "https://deepmind.google",
+    category: "frontier",
     description:
       "Google DeepMind develops the Gemini family — Pro for frontier reasoning, Flash for speed, Flash-Lite for cost, and the Omni line for native video and audio generation. Gemini models ship across Gemini app, Search and Vertex AI.",
     highlights: [
@@ -78,6 +81,7 @@ export const providers: Provider[] = [
     hq: "Palo Alto, USA",
     founded: "2023",
     website: "https://x.ai",
+    category: "frontier",
     description:
       "xAI builds the Grok family, integrated with X (Twitter) for real-time context. Grok 4.7 leads the line — AA 46 at $1.60/$4.80 with sub-second time-to-first-token — and the Grok Imagine line covers image and video generation.",
     highlights: [
@@ -96,6 +100,7 @@ export const providers: Provider[] = [
     hq: "Menlo Park, USA",
     founded: "2013 (FAIR)",
     website: "https://ai.meta.com",
+    category: "frontier",
     description:
       "Meta's Llama releases made open weights mainstream. In 2026 the Muse Spark line appeared at the very top of chat arenas, while Llama 4 Scout holds one of the largest context windows available (10M tokens).",
     highlights: [
@@ -114,6 +119,7 @@ export const providers: Provider[] = [
     hq: "Hangzhou, China",
     founded: "2023",
     website: "https://deepseek.com",
+    category: "open",
     description:
       "DeepSeek became famous for R1 and its radically efficient training. The V4 generation (Pro and Flash) continues that playbook: near-frontier quality at open-weight prices, with V4 Pro entering the arena's top 50 for text.",
     highlights: [
@@ -132,6 +138,7 @@ export const providers: Provider[] = [
     hq: "Hangzhou, China",
     founded: "1999 (Alibaba)",
     website: "https://qwen.ai",
+    category: "open",
     description:
       "Alibaba's Qwen team releases open-weight models at a relentless pace — Max, Plus, Flash and Coder tiers across many sizes. Qwen 3.8 Max is a WebDev arena top-5 model, and the Qwen3 series spans everything from 27B to 397B.",
     highlights: [
@@ -150,6 +157,7 @@ export const providers: Provider[] = [
     hq: "Beijing, China",
     founded: "2023",
     website: "https://moonshotai.com",
+    category: "open",
     description:
       "Moonshot's Kimi models are the strongest open agentic models in the world right now. Kimi K3 (Max) ranks in the top 10 of both the agent arena and WebDev arena, while staying fully open-weight.",
     highlights: [
@@ -168,6 +176,7 @@ export const providers: Provider[] = [
     hq: "Beijing, China",
     founded: "2019",
     website: "https://z.ai",
+    category: "open",
     description:
       "Zhipu (now Z.ai) develops the GLM family. GLM-5.3 Max is the #2 open-weight model on the Artificial Analysis intelligence index, and the GLM line is known for excellent price-performance and strong agentic behaviour.",
     highlights: [
@@ -186,6 +195,7 @@ export const providers: Provider[] = [
     hq: "Beijing, China",
     founded: "2010",
     website: "https://xiaomiat.com",
+    category: "open",
     description:
       "Best known for phones, Xiaomi quietly built one of the best open-weight models of 2026. MiMo-V2.6-Pro currently tops the open-weights intelligence index at 46, ahead of GLM-5.3 and Kimi K3.",
     highlights: [
@@ -204,6 +214,7 @@ export const providers: Provider[] = [
     hq: "Shanghai, China",
     founded: "2022",
     website: "https://minimax.io",
+    category: "open",
     description:
       "MiniMax builds the M-series of mixture-of-experts language models plus strong image/video generators. MiniMax M3 is a solid arena performer, and MiniMax H3 competes in video arenas.",
     highlights: [
@@ -222,6 +233,7 @@ export const providers: Provider[] = [
     hq: "San Francisco, USA",
     founded: "1999",
     website: "https://salesforce.com",
+    category: "emerging",
     description:
       "Salesforce builds enterprise CRM tools and now enters the model race with Koa — a specialized reasoning model built on Nvidia's Nemotron architecture. Trained on 27 years of internal CRM deployment data across 14 industries, Koa reportedly makes three times fewer errors than leading general models on CRM tasks. General availability expected winter 2026.",
     highlights: [
@@ -241,6 +253,7 @@ export const providers: Provider[] = [
     hq: "Shanghai, China",
     founded: "2019",
     website: "https://shlab.group",
+    category: "open",
     description:
       "The Shanghai AI Laboratory released Atria Dawn Preview in September 2026 — a 744-billion-parameter agentic mixture-of-experts model post-trained on Z.ai's GLM-5.2 base. Released under MIT license on Hugging Face with no blog post or pricing, it achieved a world-record 92.5% on BrowseComp and 96.0 on DeepSearchQA, beating GPT-5.6 Sol and Claude Opus 5 across multiple agentic benchmarks.",
     highlights: [
@@ -260,6 +273,7 @@ export const providers: Provider[] = [
     hq: "San Francisco, USA",
     founded: "2024",
     website: "https://typesafe.ai",
+    category: "emerging",
     description:
       "TypeSafe AI took a radically different approach to AI reasoning. Rather than training large transformer models that generate text token-by-token, TypeSafe developed 'System One Models' that use a novel RLCD training method to solve problems directly — reportedly 20-200x faster and 40-400x more compute-efficient than conventional LLM approaches. Their debut model, Jev, targets GPT-5.6 Terra-level performance with a fundamentally different architecture.",
     highlights: [
@@ -279,6 +293,7 @@ export const providers: Provider[] = [
     hq: "Beijing, China",
     founded: "2000",
     website: "https://baidu.com",
+    category: "open",
     description:
       "Baidu's Ernie (Wenxin) models power its search and cloud ecosystem. Ernie 5.0 and 5.1 are capable multimodal models that place in the arena's top 50 for text.",
     highlights: [
@@ -297,6 +312,7 @@ export const providers: Provider[] = [
     hq: "San Francisco, USA",
     founded: "2025",
     website: "https://thinkingmachines.ai",
+    category: "open",
     description:
       "Founded by former OpenAI CTO Mira Murati, Thinking Machines entered the leaderboard in 2026 with Inkling and Inkling Small — dark-horse models that immediately ranked in the arena's top 90 for text.",
     highlights: [
@@ -315,6 +331,7 @@ export const providers: Provider[] = [
     hq: "Paris, France",
     founded: "2023",
     website: "https://mistral.ai",
+    category: "open",
     description:
       "Mistral pairs open-weight releases with European sovereign-cloud ambitions. Mistral Large 3 (Apache 2.0) and Medium 3.5 anchor the lineup, with Ministral 3, Codestral, Voxtral and OCR 4.1 below — plus hosted third-party models like GLM-5.3.",
     highlights: [
@@ -333,6 +350,7 @@ export const providers: Provider[] = [
     hq: "Toronto, Canada",
     founded: "2019",
     website: "https://cohere.com",
+    category: "frontier",
     description:
       "Cohere builds enterprise-focused models: the Command family for agentic RAG, the North family of purpose-built models, Aya for multilingual coverage, plus Rerank, Embed, Parse and Transcribe. Command A+ (May 2026) is its first Mixture-of-Experts model.",
     highlights: [
@@ -351,6 +369,7 @@ export const providers: Provider[] = [
     hq: "Seattle, USA",
     founded: "1994 (Amazon)",
     website: "https://aws.amazon.com/ai/generative-ai/nova/",
+    category: "frontier",
     description:
       "Amazon's Nova family spans Micro (cheapest), Lite, Pro and experimental chat variants, all natively integrated with Bedrock and the AWS ecosystem. Not leaderboard-topping, but everywhere enterprise AI runs.",
     highlights: [
@@ -369,6 +388,7 @@ export const providers: Provider[] = [
     hq: "Redmond, USA",
     founded: "1975",
     website: "https://microsoft.com/ai",
+    category: "frontier",
     description:
       "Beyond hosting everyone else's models on Azure Foundry, Microsoft builds its own: the MAI line (MAI-1 for text, MAI-Image 2.6 — a top-5 image generator) and the long-running Phi small-model family.",
     highlights: [
@@ -387,6 +407,7 @@ export const providers: Provider[] = [
     hq: "Santa Clara, USA",
     founded: "1993",
     website: "https://nvidia.com",
+    category: "frontier",
     description:
       "NVIDIA's Nemotron family proves the company that makes the AI chips also makes competitive AI: Nemotron 3 Ultra (550B MoE) ranks top-110 in the arena, with Super, Lightning and Nano tiers below — all open weights.",
     highlights: [
@@ -405,6 +426,7 @@ export const providers: Provider[] = [
     hq: "Armonk, USA",
     founded: "1911",
     website: "https://ibm.com/granite",
+    category: "frontier",
     description:
       "IBM's Granite 4.x family targets the unglamorous but huge enterprise middle: cheap, reliable, Apache 2.0 models for document work and RAG. Granite 4.2 3B is one of the cheapest models measured anywhere.",
     highlights: [
@@ -423,6 +445,7 @@ export const providers: Provider[] = [
     hq: "Seattle, USA",
     founded: "2014",
     website: "https://allenai.org",
+    category: "open",
     description:
       "The nonprofit Allen Institute for AI releases OLMo: not just open weights, but open training data, code and checkpoints. OLMo 3.1 32B continues the fully-transparent lineage.",
     highlights: [
@@ -441,6 +464,7 @@ export const providers: Provider[] = [
     hq: "Shenzhen, China",
     founded: "1998",
     website: "https://hunyuan.tencent.com",
+    category: "open",
     description:
       "Tencent's Hunyuan family flies under the radar internationally while ranking solidly: HY360 sits in the arena's top 60, with HY3, T1 and the Turbos line below — plus Hunyuan video and image models.",
     highlights: [
@@ -459,6 +483,7 @@ export const providers: Provider[] = [
     hq: "Beijing, China",
     founded: "2012",
     website: "https://seed.bytedance.com",
+    category: "open",
     description:
       "ByteDance's Seed lab builds the Dola/Seed language models (Dola Seed 2.0 Pro: top-60 text arena) and the Seedream image line (top-10 text-to-image) — plus the Dreamina Seedance video family that competes at the top of video arenas.",
     highlights: [
@@ -477,6 +502,7 @@ export const providers: Provider[] = [
     hq: "Shanghai, China",
     founded: "2023",
     website: "https://stepfun.com",
+    category: "open",
     description:
       "StepFun's Step 3.5 Flash and Step 3 are quiet arena performers with strong multimodal roots, originally built around Step's own vision-language architecture.",
     highlights: [
@@ -494,6 +520,7 @@ export const providers: Provider[] = [
     hq: "Beijing, China",
     founded: "2010",
     website: "https://longcat.ai",
+    category: "open",
     description:
       "Best known for food delivery, Meituan quietly shipped LongCat Flash — a top-100 arena model with an open-weights release, built to power its super-app ecosystem.",
     highlights: [
@@ -511,6 +538,7 @@ export const providers: Provider[] = [
     hq: "Hangzhou, China",
     founded: "2014 (spun off from Alibaba)",
     website: "https://inclusionai.org",
+    category: "open",
     description:
       "Ant's inclusionAI lab releases the Ling and Ring open-weight families. Ling Flash 2.0 and Ring Flash 2.0 deliver respectable arena quality from efficient MoE designs.",
     highlights: [
@@ -529,6 +557,7 @@ export const providers: Provider[] = [
     hq: "Palo Alto, USA",
     founded: "2024",
     website: "https://mercurylm.org",
+    category: "open",
     description:
       "Inception bet on a different architecture: diffusion instead of autoregression. Mercury 2 generates at 655 tokens/second — the second-fastest model measured — by producing tokens in parallel rather than one at a time.",
     highlights: [
@@ -547,6 +576,7 @@ export const providers: Provider[] = [
     hq: "San Francisco, USA",
     founded: "2023",
     website: "https://primeintellect.ai",
+    category: "open",
     description:
       "Prime Intellect trains models on distributed compute and releases them fully open. INTELLECT-3 is a top-200 arena model built on decentralized infrastructure — a proof of concept for training outside big-tech datacenters.",
     highlights: [
@@ -564,6 +594,7 @@ export const providers: Provider[] = [
     hq: "Tel Aviv, Israel",
     founded: "2017",
     website: "https://ai21.com",
+    category: "open",
     description:
       "AI21's Jamba family pioneered hybrid Mamba-Transformer architectures for giant-context efficiency. Jamba 1.5 Large handles long documents at reasonable cost — a favourite for RAG-heavy enterprise stacks.",
     highlights: [
@@ -581,6 +612,7 @@ export const providers: Provider[] = [
     hq: "San Francisco, USA",
     founded: "2022",
     website: "https://reka.ai",
+    category: "open",
     description:
       "Reka builds multimodal models from scratch — Core for frontier-adjacent work, Flash for efficiency — with an unusually research-driven, independent culture.",
     highlights: [
@@ -598,6 +630,7 @@ export const providers: Provider[] = [
     hq: "Unknown (stealth)",
     founded: "2025",
     website: "https://celeris.ai",
+    category: "emerging",
     description:
       "A brand-new lab that appeared at the top of the speed boards: Celeris-1 generates at 1,492 tokens per second — more than double the previous record — with sub-second time-to-first-token.",
     highlights: [
@@ -616,6 +649,7 @@ export const providers: Provider[] = [
     hq: "Seoul, South Korea",
     founded: "2020",
     website: "https://upstage.ai",
+    category: "emerging",
     description:
       "Upstage is Korea's leading AI lab, built on document-intelligence DNA. The Solar 4 generation (Pro 4, Mini 4 and the open Solar Open2 250B) pairs strong Korean-language performance with production-grade latency.",
     highlights: [
@@ -634,6 +668,7 @@ export const providers: Provider[] = [
     hq: "Unknown",
     founded: "2025",
     website: "https://sapiens.ai",
+    category: "emerging",
     description:
       "Sapiens AI appeared from stealth with the Agnes family — Agnes 3.0 Flash debuted directly into AA-index top-20 territory (36) with a million-token window and no published pricing.",
     highlights: [
@@ -652,6 +687,7 @@ export const providers: Provider[] = [
     hq: "Unknown",
     founded: "2024",
     website: "https://motif.ai",
+    category: "emerging",
     description:
       "Motif Technologies showed up on the intelligence boards with Motif 3 scoring AA 34 — tied with GPT-6 Luna (xhigh) — plus a small open 12.7B sibling. Little else is public.",
     highlights: [
@@ -670,6 +706,7 @@ export const providers: Provider[] = [
     hq: "Unknown",
     founded: "2023",
     website: "https://nexagi.ai",
+    category: "emerging",
     description:
       "Nex AGI releases the open-weight N-series: N2.5 Pro and Mini ship with free OpenRouter variants and bottom-tier pricing ($0.07/$0.25 for Pro).",
     highlights: [
@@ -688,6 +725,7 @@ export const providers: Provider[] = [
     hq: "Unknown",
     founded: "2024",
     website: "https://ifm.ai",
+    category: "emerging",
     description:
       "The Institute of Foundation Models releases the K2 Horizon family: a complete open-size ladder from 3.7B edge models to a 375B-A23B MoE that scores AA 31 — plus the K2 Think reasoning line.",
     highlights: [
@@ -706,6 +744,7 @@ export const providers: Provider[] = [
     hq: "San Sebastián, Spain",
     founded: "2019",
     website: "https://multiversecomputing.com",
+    category: "emerging",
     description:
       "Multiverse applies tensor-network (quantum-inspired) compression to LLMs. Quasar 438B fits a 438B-parameter model into inference that runs at 142 t/s with a million-token window.",
     highlights: [
@@ -724,6 +763,7 @@ export const providers: Provider[] = [
     hq: "Beijing, China",
     founded: "1997 (listed)",
     website: "https://chinamobileltd.com",
+    category: "open",
     description:
       "China Mobile entered the model race with the JT family of open MoEs — the 236B-A21B flagship scores AA 27, backed by the infrastructure of the world's largest mobile carrier.",
     highlights: [
@@ -742,6 +782,7 @@ export const providers: Provider[] = [
     hq: "San Mateo, USA",
     founded: "2022",
     website: "https://fireworks.ai",
+    category: "emerging",
     description:
       "Fireworks AI provides ultra-fast inference for open-weight and frontier models. Its Ember-1 reasoning model, built on Kimi K3, produces 40% shorter reasoning traces at comparable quality — making it ideal for coding and agentic workloads where latency and cost matter.",
     highlights: [

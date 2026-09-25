@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { newsSorted } from "@/data/news";
+import { providerMap } from "@/data/providers";
 
 const tagColors: Record<string, string> = {
   release: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
@@ -14,7 +15,7 @@ const tagColors: Record<string, string> = {
 export const metadata: Metadata = {
   title: "News & changelog",
   description:
-    "Model releases, benchmark shake-ups, and industry news — the feed for what's happening on the AI frontier.",
+    "Model releases, benchmark changes and market moves across the AI model ecosystem, newest first.",
 };
 
 export default function NewsPage() {
@@ -26,43 +27,67 @@ export default function NewsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <div className="mb-10">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">News</h1>
-        <p className="mt-2 max-w-xl text-text-secondary">
-          Every release and benchmark shake-up that matters, newest first.
-        </p>
-      </div>
-
-      <div className="divide-y divide-border">
-        {[...byMonth.entries()].map(([month, items], mi) => (
-          <div key={month} className={mi > 0 ? "pt-10" : ""}>
-            <h2 className="mb-4 font-mono text-sm font-semibold uppercase tracking-wider text-text-secondary">
-              {new Date(month + "-01T00:00:00").toLocaleDateString("en-US", {
-                month: "long",
-                year: "numeric",
-              })}
-            </h2>
-            <div className="space-y-1">
-              {items.map((n) => (
-                <Link
-                  key={n.slug}
-                  href={`/news/${n.slug}`}
-                  className="group grid min-h-[3rem] grid-cols-12 items-baseline gap-2 py-5 transition-colors hover:bg-surface-raised sm:gap-4"
-                >
-                  <span className="col-span-2 font-mono text-[11px] text-text-secondary sm:col-span-1">
-                    {new Date(n.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "2-digit" })}
-                  </span>
-                  <span className={`col-span-2 w-fit px-2 py-0.5 text-center text-[10px] font-medium uppercase tracking-wider sm:col-span-2 ${tagColors[n.tag] || "bg-gray-500/15 text-gray-600"}`}>
-                    {n.tag.replace("-", " ")}
-                  </span>
-                  <span className="col-span-12 text-[15px] font-medium group-hover:text-accent sm:col-span-7">
-                    {n.title}
-                  </span>
-                </Link>
-              ))}
-            </div>
+    <div className="page-shell">
+      <header className="page-header page-header--split">
+        <div>
+          <div className="page-kicker">
+            <span className="status-dot" /> Registry changelog
           </div>
+          <h1>What changed in the model landscape.</h1>
+          <p>
+            Releases, benchmark updates and market moves—newest first, with
+            editorial context separated from the underlying model registry.
+          </p>
+        </div>
+        <div className="page-header-stat">
+          <strong>{newsSorted.length}</strong>
+          <span>tracked updates</span>
+          <small>Newest verified Sep 23, 2026</small>
+        </div>
+      </header>
+
+      <div className="space-y-12">
+        {[...byMonth.entries()].map(([month, items]) => (
+          <section key={month}>
+            <div className="lab-section-heading lab-section-heading--split">
+              <h2>
+                {new Date(`${month}-01T00:00:00`).toLocaleDateString("en-US", {
+                  month: "long",
+                  year: "numeric",
+                })}
+              </h2>
+              <span>{items.length} updates</span>
+            </div>
+            <div className="news-directory">
+              {items.map((item) => {
+                const provider = item.provider
+                  ? providerMap.get(item.provider)
+                  : undefined;
+                return (
+                  <Link
+                    key={item.slug}
+                    href={`/news/${item.slug}`}
+                    className="news-row"
+                  >
+                    <time dateTime={item.date}>
+                      {new Date(`${item.date}T00:00:00`).toLocaleDateString(
+                        "en-US",
+                        { month: "short", day: "2-digit" },
+                      )}
+                    </time>
+                    <span className={`news-tag ${tagColors[item.tag] ?? ""}`}>
+                      {item.tag.replace("-", " ")}
+                    </span>
+                    <div>
+                      <strong>{item.title}</strong>
+                      {provider && <small>{provider.name}</small>}
+                    </div>
+                    <b aria-hidden="true">→</b>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
         ))}
       </div>
     </div>

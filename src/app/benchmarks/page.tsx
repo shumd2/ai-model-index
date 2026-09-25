@@ -1,45 +1,71 @@
 import type { Metadata } from "next";
-import { benchmarks } from "@/data/benchmarks";
-import { Reveal } from "@/components/reveal";
+import { benchmarkSourceUrls, benchmarks } from "@/data/benchmarks";
+import { ExternalLink } from "@/components/external-link";
 
 export const metadata: Metadata = {
   title: "Benchmark glossary",
   description:
-    "What each AI benchmark measures — AA Intelligence Index, LMArena, Humanity's Last Exam, Terminal-Bench and more.",
+    "What each AI benchmark measures — AA Intelligence Index, LMArena, Humanity's Last Exam, Terminal-Bench and more — with official source links.",
 };
 
 export default function BenchmarksPage() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-      <div className="mb-10">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Benchmarks</h1>
-        <p className="mt-2 max-w-xl text-text-secondary">
-          What each benchmark actually measures, who runs it, and how to read it.
-        </p>
-      </div>
+    <div className="page-shell">
+      <header className="page-header page-header--split">
+        <div>
+          <div className="page-kicker">
+            <span className="status-dot" /> Measurement guide
+          </div>
+          <h1>Benchmarks, explained.</h1>
+          <p>
+            Every score answers a different question. Learn what each benchmark
+            measures, where it comes from and why a single number should never
+            stand in for “best model.”
+          </p>
+        </div>
+        <div className="page-header-stat">
+          <strong>{benchmarks.length}</strong>
+          <span>benchmarks in the glossary</span>
+          <small>Official sources linked where available</small>
+        </div>
+      </header>
 
-      <div className="space-y-4">
-        {benchmarks.map((b, i) => (
-          <Reveal key={b.id} delay={i % 3}>
-            <div className="group rounded-2xl border border-border p-6 transition-all hover:border-accent/30 hover:shadow-lg">
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h2 className="text-lg font-semibold group-hover:text-accent">{b.name}</h2>
-                <div className="flex items-center gap-2 text-xs">
-                  <span className="rounded-md bg-surface-2 px-2 py-1 font-mono text-muted">{b.scale}</span>
-                  <span className="rounded-md bg-accent-soft px-2 py-1 font-medium text-accent">{b.source}</span>
+      <div className="benchmark-directory">
+        {benchmarks.map((benchmark) => {
+          const sourceUrl = benchmarkSourceUrls[benchmark.id];
+          return (
+            <article key={benchmark.id} className="benchmark-row">
+              <div className="benchmark-row-heading">
+                <h2>{benchmark.name}</h2>
+                <div className="benchmark-row-meta">
+                  <span>{benchmark.source}</span>
+                  <span>{benchmark.scale}</span>
                 </div>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-text-secondary">{b.description}</p>
-            </div>
-          </Reveal>
-        ))}
+              <p>{benchmark.description}</p>
+              {sourceUrl ? (
+                <ExternalLink href={sourceUrl} className="benchmark-source-link">
+                  Official source
+                </ExternalLink>
+              ) : (
+                <span className="benchmark-source-missing">Source link pending</span>
+              )}
+            </article>
+          );
+        })}
       </div>
 
-      <Reveal delay={2}>
-        <div className="mt-10 rounded-2xl border border-border bg-surface p-6 text-sm leading-relaxed text-text-secondary">
-          <strong className="text-foreground">Reading scores honestly.</strong> A model topping one benchmark isn&apos;t automatically &quot;the best&quot; — arenas measure human preference, indexes weight specific evals, and contamination is a real risk. Where we couldn&apos;t verify a score from a public source, we show a dash instead of a guess.
+      <section className="method-banner">
+        <div>
+          <span className="page-kicker">Read the result in context</span>
+          <h2>A benchmark is a lens, not the whole landscape.</h2>
+          <p>
+            Preference arenas, expert exams and agent evaluations measure
+            different capabilities. Check the model variant, reasoning effort,
+            source date and access route before making a decision.
+          </p>
         </div>
-      </Reveal>
+      </section>
     </div>
   );
 }

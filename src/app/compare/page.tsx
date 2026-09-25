@@ -5,18 +5,30 @@ import { models } from "@/data/models";
 export const metadata: Metadata = {
   title: "Compare models",
   description:
-    "Sortable comparison of AI models across benchmark scores, context windows, and pricing.",
+    "Sort AI models by benchmark quality, context, publisher pricing and cost per task. Unverified values remain clearly marked.",
 };
 
 export default function ComparePage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Compare</h1>
-        <p className="mt-2 max-w-xl text-text-secondary">
-          Sort by any column. Scores without verified data show a dash, not a guess.
-        </p>
-      </div>
+    <div className="page-shell">
+      <header className="page-header page-header--split">
+        <div>
+          <div className="page-kicker">
+            <span className="status-dot" /> Comparison matrix
+          </div>
+          <h1>Compare the numbers that change decisions.</h1>
+          <p>
+            Sort by intelligence, arena preference, context, publisher pricing
+            or cost per task. Pin up to four models for a focused view.
+          </p>
+        </div>
+        <div className="page-header-stat">
+          <strong>{models.length}</strong>
+          <span>models in the matrix</span>
+          <small>Publisher prices unless a source says otherwise</small>
+        </div>
+      </header>
+
       <CompareTable allModels={models} />
     </div>
   );

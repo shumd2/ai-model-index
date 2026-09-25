@@ -7,8 +7,10 @@ import { EffortLadderExplorer } from "@/components/effort-ladder";
 import { PricingCard } from "@/components/pricing-card";
 import { RadarChart } from "@/components/radar-chart";
 import { PinButton } from "@/components/compare-tray";
+import { ExternalLink } from "@/components/external-link";
 import { formatContext, getModel, models, modelsByProvider } from "@/data/models";
 import { getProvider } from "@/data/providers";
+import { apiProvidersForLab } from "@/data/api-providers";
 
 export const dynamicParams = false;
 
@@ -71,6 +73,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
 
   const provider = getProvider(model.provider);
   const siblings = modelsByProvider(model.provider).filter((m) => m.slug !== model.slug);
+  const accessRoutes = apiProvidersForLab(model.provider);
   const { default: ModelContent } = await import(`@/content/models/${model.slug}.mdx`);
   const { cheaper, stronger } = findAlternatives(slug);
 
@@ -90,51 +93,49 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      {/* Breadcrumb */}
-      <nav className="flex items-center gap-1.5 text-sm text-muted">
-        <Link href="/models" className="hover:text-foreground">Models</Link>
+      <nav className="breadcrumb" aria-label="Breadcrumb">
+        <Link href="/models">Models</Link>
         <span>/</span>
-        <Link href={`/providers/${provider.id}`} className="hover:text-foreground">
-          {provider.name}
-        </Link>
+        <Link href={`/providers/${provider.id}`}>{provider.name}</Link>
         <span>/</span>
-        <span className="text-foreground">{model.name}</span>
+        <span aria-current="page">{model.name}</span>
       </nav>
 
-      {/* Dramatic hero header */}
-      <div className="relative overflow-hidden rounded-2xl border border-border-subtle bg-gradient-to-br from-surface to-surface-2/50 p-6 sm:p-8">
-        <div aria-hidden className="absolute -right-20 -top-20 h-48 w-48 rounded-full blur-[80px]" style={{ background: `radial-gradient(closest-side, ${provider.color}18, transparent)` }} />
-        <div className="relative grid grid-cols-12 gap-6">
-          <div className="col-span-12 sm:col-span-4">
-            <div className="relative mb-4 flex h-20 w-20 items-center justify-center rounded-2xl text-xl font-bold text-white shadow-xl transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg, ${provider.color}, ${provider.color}88)`, boxShadow: `0 12px 32px -8px ${provider.color}55` }}>
-              {provider.shortName.slice(0, 2).toUpperCase()}
-            </div>
-            <nav className="flex items-center gap-1.5 text-sm text-muted">
-              <Link href="/models" className="hover:text-foreground">Models</Link>
-              <span>/</span>
-              <Link href={`/providers/${provider.id}`} className="hover:text-foreground">{provider.name}</Link>
-              <span>/</span>
-              <span className="text-foreground font-medium">{model.name}</span>
-            </nav>
+      <header className="model-hero">
+        <div
+          className="provider-monogram provider-monogram--xl"
+          style={{ "--provider-color": provider.color } as React.CSSProperties}
+          aria-hidden="true"
+        >
+          {provider.shortName.slice(0, 2).toUpperCase()}
+        </div>
+        <div className="model-hero-copy">
+          <div className="model-hero-title-row">
+            <h1>{model.name}</h1>
+            {model.verifiedOn && (
+              <span className="verified-badge">Verified {model.verifiedOn}</span>
+            )}
           </div>
-          <div className="col-span-12 sm:col-span-8 flex items-start justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{model.name}</h1>
-              {model.verifiedOn && <span className="shrink-0 rounded-full bg-emerald-500/15 px-2.5 py-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">✓ verified {model.verifiedOn}</span>}
-            </div>
-            <p className="mt-1.5 max-w-xl text-muted">{model.tagline}</p>
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              <span className="rounded-full px-2.5 py-1 font-medium" style={{ background: `${provider.color}18`, color: provider.color }}>{provider.name}</span>
-              {model.openWeights && <span className="tag-pill bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">open weights</span>}
-              {model.reasoning && <span className="tag-pill bg-violet-500/15 text-violet-600 dark:text-violet-400">reasoning</span>}
-              {model.status === "beta" && <span className="tag-pill bg-amber-500/15 text-amber-600 dark:text-amber-400">beta</span>}
-              {model.status === "legacy" && <span className="tag-pill bg-zinc-500/15 text-zinc-500 dark:text-zinc-400">legacy</span>}
-              {model.released && <span className="rounded-full border border-border-subtle px-2.5 py-1 text-[11px] text-muted">{model.released}</span>}
-            </div>
-            <PinButton slug={model.slug} name={model.name} />
+          <p>{model.tagline}</p>
+          <div className="model-hero-tags">
+            <Link
+              href={`/providers/${provider.id}`}
+              className="provider-tag"
+              style={{ color: provider.color }}
+            >
+              {provider.name}
+            </Link>
+            {model.openWeights && <span>Open weights</span>}
+            {model.reasoning && <span>Reasoning</span>}
+            {model.status === "beta" && <span>Beta</span>}
+            {model.status === "legacy" && <span>Legacy</span>}
+            {model.released && <span>{model.released}</span>}
           </div>
         </div>
-      </div>
+        <div className="model-hero-action">
+          <PinButton slug={model.slug} name={model.name} />
+        </div>
+      </header>
 
       {/* Quick stat strip */}
       <div className="mt-6 grid grid-cols-3 gap-3 sm:grid-cols-6">
@@ -145,6 +146,72 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
         {model.latency != null && <div className="card !rounded-xl !p-3 text-center"><div className="font-mono text-2xl font-bold tabular-nums">{model.latency < 1 ? model.latency.toFixed(2) : model.latency.toFixed(1)}s</div><div className="text-[10px] uppercase tracking-wider text-muted">TTFT</div></div>}
         <div className="card !rounded-xl !p-3 text-center"><div className="flex items-center justify-center gap-1">{model.modalities.slice(0, 3).map((m) => <span key={m} className="rounded-md border border-border-subtle bg-surface-2 px-1 py-0.5 font-mono text-[10px] text-muted">{m}</span>)}</div><div className="mt-1 text-[10px] uppercase tracking-wider text-muted">modalities</div></div>
       </div>
+
+      <section className="model-access-section">
+        <div className="lab-section-heading lab-section-heading--split">
+          <div>
+            <span>Access this model</span>
+            <h2>Official API and deployment routes</h2>
+          </div>
+          <Link href="/api-providers">Compare all providers →</Link>
+        </div>
+        <p className="model-access-note">
+          Routes below expose {provider.name} model catalogs. Confirm that this
+          exact model ID, context limit and price are available in your region
+          before integrating.
+        </p>
+        <div className="model-access-grid">
+          {accessRoutes.map((route) => (
+            <article key={route.id} className="model-access-card">
+              <div className="model-access-card-heading">
+                <div
+                  className="provider-monogram"
+                  style={{ "--provider-color": route.color } as React.CSSProperties}
+                  aria-hidden="true"
+                >
+                  {route.shortName.slice(0, 2).toUpperCase()}
+                </div>
+                <div>
+                  <h3>{route.name}</h3>
+                  <span>{route.compatibility[0]}</span>
+                </div>
+              </div>
+              {model.apiIds && model.apiIds.length > 0 && (
+                <code>{model.apiIds[0]}</code>
+              )}
+              <div className="access-card-links">
+                <ExternalLink href={route.docsUrl}>API docs</ExternalLink>
+                <ExternalLink href={route.modelsUrl}>Model catalog</ExternalLink>
+                {route.pricingUrl && (
+                  <ExternalLink href={route.pricingUrl}>Pricing</ExternalLink>
+                )}
+                <ExternalLink href={route.consoleUrl}>Open console</ExternalLink>
+              </div>
+            </article>
+          ))}
+          <article className="model-access-card">
+            <div className="model-access-card-heading">
+              <div
+                className="provider-monogram"
+                style={{ "--provider-color": "#6467f2" } as React.CSSProperties}
+                aria-hidden="true"
+              >
+                OR
+              </div>
+              <div>
+                <h3>OpenRouter</h3>
+                <span>Multi-model routing</span>
+              </div>
+            </div>
+            <code>{model.apiIds?.find((id) => id.includes("/")) ?? "Search model catalog"}</code>
+            <div className="access-card-links">
+              <ExternalLink href="https://openrouter.ai/models">Search models</ExternalLink>
+              <ExternalLink href="https://openrouter.ai/docs/quickstart">API docs</ExternalLink>
+              <ExternalLink href="https://openrouter.ai/keys">Open console</ExternalLink>
+            </div>
+          </article>
+        </div>
+      </section>
 
       {/* Specs */}
       <section className="mt-10">

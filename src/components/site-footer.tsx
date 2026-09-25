@@ -1,50 +1,73 @@
 import Link from "next/link";
+import { ExternalLink } from "@/components/external-link";
+
+const explore = [
+  { href: "/models", label: "Model catalog" },
+  { href: "/compare", label: "Compare models" },
+  { href: "/providers", label: "Model labs" },
+  { href: "/api-providers", label: "API access" },
+];
+
+const tools = [
+  { href: "/tools/calculator", label: "Cost calculator" },
+  { href: "/tools/value-map", label: "Value map" },
+  { href: "/tools/speed-race", label: "Speed race" },
+];
+
+const reference = [
+  { href: "/benchmarks", label: "Benchmarks" },
+  { href: "/news", label: "News" },
+  { href: "/methodology", label: "Methodology" },
+];
 
 export function SiteFooter() {
   return (
-    <footer className="mt-20 border-t border-border-subtle">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:flex-row sm:items-start sm:justify-between sm:px-6">
-        <div className="max-w-sm">
-          <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 font-mono text-xs font-bold text-white">
-              AI
-            </span>
-            <span className="font-semibold">AI Model Index</span>
-          </div>
-          <p className="mt-3 text-sm text-muted">
-            An independent, community-driven guide to frontier AI models — specs,
-            benchmarks and context you won&apos;t find on official pages.
+    <footer className="site-footer">
+      <div className="footer-grid">
+        <div className="footer-brand">
+          <Link href="/" className="footer-logo">
+            <span>AI</span>
+            <strong>Model Index</strong>
+          </Link>
+          <p>
+            An independent reference for frontier AI models, their makers,
+            verified benchmarks and practical API access.
           </p>
+          <div className="footer-status">
+            <span className="status-dot" />
+            Registry checked Sep 25, 2026
+          </div>
         </div>
-        <div className="flex gap-14 text-sm">
-          <div className="flex flex-col gap-2">
-            <span className="font-medium">Explore</span>
-            <Link href="/models" className="text-muted hover:text-foreground">Models</Link>
-            <Link href="/compare" className="text-muted hover:text-foreground">Compare</Link>
-            <Link href="/providers" className="text-muted hover:text-foreground">Providers</Link>
+
+        <div className="footer-links">
+          <div>
+            <span>Explore</span>
+            {explore.map((item) => (
+              <Link key={item.href} href={item.href}>{item.label}</Link>
+            ))}
           </div>
-          <div className="flex flex-col gap-2">
-            <span className="font-medium">Tools</span>
-            <Link href="/tools/calculator" className="text-muted hover:text-foreground">Cost calculator</Link>
-            <Link href="/tools/value-map" className="text-muted hover:text-foreground">Value map</Link>
+          <div>
+            <span>Tools</span>
+            {tools.map((item) => (
+              <Link key={item.href} href={item.href}>{item.label}</Link>
+            ))}
           </div>
-          <div className="flex flex-col gap-2">
-            <span className="font-medium">Reference</span>
-            <Link href="/benchmarks" className="text-muted hover:text-foreground">Benchmarks</Link>
-            <Link href="/news" className="text-muted hover:text-foreground">News</Link>
+          <div>
+            <span>Reference</span>
+            {reference.map((item) => (
+              <Link key={item.href} href={item.href}>{item.label}</Link>
+            ))}
           </div>
         </div>
       </div>
-      <div className="border-t border-border-subtle">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <span>© {new Date().getFullYear()} AI Model Index. Community-maintained.</span>
-          <span>
-            Data from{" "}
-            <a href="https://lmarena.ai" target="_blank" rel="noreferrer" className="underline hover:text-foreground">LMArena</a>{" "}
-            &{" "}
-            <a href="https://artificialanalysis.ai" target="_blank" rel="noreferrer" className="underline hover:text-foreground">Artificial Analysis</a>
-            . Verify critical numbers before decisions.
-          </span>
+
+      <div className="footer-bottom">
+        <span>© 2026 AI Model Index. Community-maintained.</span>
+        <div>
+          <span>Primary sources</span>
+          <ExternalLink href="https://artificialanalysis.ai/">Artificial Analysis</ExternalLink>
+          <ExternalLink href="https://lmarena.ai/">LMArena</ExternalLink>
+          <ExternalLink href="https://openrouter.ai/models">OpenRouter</ExternalLink>
         </div>
       </div>
     </footer>

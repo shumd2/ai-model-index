@@ -2,112 +2,198 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ModelCard } from "@/components/model-card";
+import { ExternalLink } from "@/components/external-link";
 import { modelsByProvider } from "@/data/models";
 import { providers } from "@/data/providers";
+import { apiProvidersForLab } from "@/data/api-providers";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return providers.map((p) => ({ slug: p.id }));
+  return providers.map((provider) => ({ slug: provider.id }));
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<"/providers/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const provider = providers.find((p) => p.id === slug);
+  const provider = providers.find((item) => item.id === slug);
   if (!provider) return {};
   return {
-    title: `${provider.name} — models, standings and overview`,
-    description: `${provider.name}: ${provider.tagline}. Every model we track, their benchmark standings and what sets the lab apart.`,
+    title: `${provider.name} — models and API access`,
+    description: `${provider.name}: ${provider.tagline}. Tracked models, verified benchmark standing, official links and API access routes.`,
   };
 }
 
-export default async function ProviderPage({ params }: PageProps<"/providers/[slug]">) {
+export default async function ProviderPage({
+  params,
+}: PageProps<"/providers/[slug]">) {
   const { slug } = await params;
-  const provider = providers.find((p) => p.id === slug);
+  const provider = providers.find((item) => item.id === slug);
   if (!provider) notFound();
 
   const providerModels = modelsByProvider(provider.id);
+  const topModel = [...providerModels]
+    .filter(
+      (model) =>
+        model.scores["aa-intelligence"] != null && model.verifiedOn != null,
+    )
+    .sort(
+      (a, b) =>
+        (b.scores["aa-intelligence"] ?? -1) -
+        (a.scores["aa-intelligence"] ?? -1),
+    )[0];
+  const openModels = providerModels.filter((model) => model.openWeights).length;
+  const accessRoutes = apiProvidersForLab(provider.id);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <nav className="flex items-center gap-1.5 text-sm text-muted">
-        <Link href="/providers" className="hover:text-foreground">Providers</Link>
+    <div className="page-shell">
+      <nav className="breadcrumb" aria-label="Breadcrumb">
+        <Link href="/providers">Model labs</Link>
         <span>/</span>
-        <span className="text-foreground">{provider.name}</span>
+        <span aria-current="page">{provider.name}</span>
       </nav>
 
-      <header
-        className="relative mt-6 overflow-hidden rounded-3xl border border-border-subtle bg-gradient-to-br from-surface to-surface-2 p-8 sm:p-10"
-        style={{
-          background: `linear-gradient(135deg, ${provider.color}14, transparent 60%)`,
-        }}
-      >
-        {/* Ambient glow */}
-        <div aria-hidden className="absolute -right-20 -top-20 h-48 w-48 rounded-full blur-[80px]" style={{ background: `radial-gradient(closest-side, ${provider.color}25, transparent)` }} />
-        <div aria-hidden className="absolute -left-10 bottom-0 h-32 w-32 rounded-full blur-[60px]" style={{ background: `radial-gradient(closest-side, ${provider.color}15, transparent)` }} />
-
-        <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center">
-          <span
-            className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl text-2xl font-bold text-white shadow-xl"
-            style={{
-              background: `linear-gradient(135deg, ${provider.color}, ${provider.color}99)`,
-              boxShadow: `0 12px 32px -8px ${provider.color}66`,
-            }}
-          >
-            {provider.shortName.slice(0, 2).toUpperCase()}
-          </span>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{provider.name}</h1>
-            <p className="mt-1 text-muted">{provider.tagline}</p>
-            <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
-              <span className="rounded-full border border-border-subtle bg-surface px-2.5 py-1">
-                {provider.hq}
-              </span>
-              <span className="rounded-full border border-border-subtle bg-surface px-2.5 py-1">
-                Founded {provider.founded}
-              </span>
-              <a
-                href={provider.website}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-border-subtle bg-surface px-2.5 py-1 transition-colors hover:text-foreground"
-              >
-                {provider.website.replace("https://", "")} ↗
-              </a>
-            </div>
+      <header className="lab-profile-header">
+        <div
+          className="provider-monogram provider-monogram--xl"
+          style={{ "--provider-color": provider.color } as React.CSSProperties}
+          aria-hidden="true"
+        >
+          {provider.shortName.slice(0, 2).toUpperCase()}
+        </div>
+        <div className="lab-profile-copy">
+          <div className="page-kicker">Model lab profile</div>
+          <h1>{provider.name}</h1>
+          <p className="lab-profile-tagline">{provider.tagline}</p>
+          <div className="lab-profile-meta">
+            <span>{provider.hq}</span>
+            <span>Founded {provider.founded}</span>
+            <ExternalLink href={provider.website}>Official website</ExternalLink>
           </div>
         </div>
-        <p className="mt-6 max-w-3xl leading-relaxed text-muted">{provider.description}</p>
+        <p className="lab-profile-description">{provider.description}</p>
       </header>
 
-      {/* Highlights as animated cards */}
-      <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {provider.highlights.map((h) => (
-          <div key={h} className="group relative overflow-hidden rounded-2xl border border-border-subtle bg-surface p-5 transition-all hover:-translate-y-0.5 hover:border-accent/30">
-            <span
-              className="absolute -bottom-6 -right-6 h-16 w-16 rounded-full blur-[40px]"
-              style={{ background: `radial-gradient(closest-side, ${provider.color}12, transparent)` }}
-            />
-            <span
-              className="mb-3 inline-block h-1 w-8 rounded-full"
-              style={{ background: provider.color }}
-            />
-            <p className="text-sm leading-relaxed text-muted group-hover:text-foreground">{h}</p>
+      <dl className="lab-metrics">
+        <div>
+          <dt>Tracked models</dt>
+          <dd>{providerModels.length}</dd>
+          <span>In the AI Model Index</span>
+        </div>
+        <div>
+          <dt>Best verified AA</dt>
+          <dd>
+            {topModel?.scores["aa-intelligence"] != null
+              ? topModel.scores["aa-intelligence"]
+              : "—"}
+          </dd>
+          <span>{topModel?.name ?? "No verified score"}</span>
+        </div>
+        <div>
+          <dt>Open weights</dt>
+          <dd>{openModels}</dd>
+          <span>Downloadable model releases</span>
+        </div>
+        <div>
+          <dt>Access routes</dt>
+          <dd>{accessRoutes.length || "—"}</dd>
+          <span>Official API and cloud links</span>
+        </div>
+      </dl>
+
+      {provider.highlights.length > 0 && (
+        <section className="lab-highlights">
+          <div className="lab-section-heading">
+            <span>What stands out</span>
+            <h2>Lab profile</h2>
           </div>
-        ))}
+          <ul className="highlight-list">
+            {provider.highlights.map((highlight, index) => (
+              <li key={highlight}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <p>{highlight}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <section className="lab-access-section">
+        <div className="lab-section-heading lab-section-heading--split">
+          <div>
+            <span>Access</span>
+            <h2>Official API and deployment links</h2>
+          </div>
+          <Link href="/api-providers">Compare all access routes →</Link>
+        </div>
+
+        {accessRoutes.length > 0 ? (
+          <div className="access-grid">
+            {accessRoutes.map((route) => (
+              <article key={route.id} className="access-card">
+                <div className="access-card-heading">
+                  <div
+                    className="provider-monogram"
+                    style={{ "--provider-color": route.color } as React.CSSProperties}
+                    aria-hidden="true"
+                  >
+                    {route.shortName.slice(0, 2).toUpperCase()}
+                  </div>
+                  <div>
+                    <h3>{route.name}</h3>
+                    <span>{route.compatibility[0]}</span>
+                  </div>
+                </div>
+                <p>{route.summary}</p>
+                <div className="access-card-links">
+                  <ExternalLink href={route.docsUrl}>Docs</ExternalLink>
+                  <ExternalLink href={route.modelsUrl}>Models</ExternalLink>
+                  {route.pricingUrl && (
+                    <ExternalLink href={route.pricingUrl}>Pricing</ExternalLink>
+                  )}
+                  <ExternalLink href={route.consoleUrl}>Open console</ExternalLink>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="lab-no-api">
+            <div>
+              <strong>No first-party API is listed yet.</strong>
+              <p>
+                This lab may distribute weights directly or sell primarily through
+                cloud and inference partners. Use the official site for current
+                access terms.
+              </p>
+            </div>
+            <ExternalLink href={provider.website} className="btn-ghost">
+              Visit official site
+            </ExternalLink>
+          </div>
+        )}
       </section>
 
-      <section className="mt-12">
-        <h2 className="mb-5 text-sm font-semibold uppercase tracking-wider text-muted">
-          Models ({providerModels.length})
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {providerModels.map((m) => (
-            <ModelCard key={m.slug} model={m} />
-          ))}
+      <section className="lab-models-section">
+        <div className="lab-section-heading lab-section-heading--split">
+          <div>
+            <span>Catalog</span>
+            <h2>Models from {provider.name}</h2>
+          </div>
+          <span>{providerModels.length} tracked</span>
         </div>
+        {providerModels.length > 0 ? (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {providerModels.map((model) => (
+              <ModelCard key={model.slug} model={model} />
+            ))}
+          </div>
+        ) : (
+          <div className="empty-state">
+            <strong>No model pages yet.</strong>
+            <span>The lab is tracked, but its models have not been added to the index.</span>
+          </div>
+        )}
       </section>
     </div>
   );

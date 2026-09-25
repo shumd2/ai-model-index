@@ -9,7 +9,8 @@ An independent, community-driven guide to frontier AI models — specs, benchmar
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # production build (fully static)
+npm run build    # fully static export in out/
+npm start        # serve the static export on http://localhost:3000
 ```
 
 ## Interactive tools
@@ -36,9 +37,10 @@ Each model is two files that share a slug:
 > leave `null` and it renders as "—". Put anecdotes and unofficial findings in
 > the MDX community section instead.
 
-### Providers
+### Providers and API access
 
-- **`src/data/providers.ts`** — everything: description, highlights, brand color, HQ. Colors cascade into charts, cards and badges site-wide.
+- **`src/data/providers.ts`** — model makers and labs: description, highlights, brand color, HQ, lifecycle category and official website.
+- **`src/data/api-providers.ts`** — the separate access layer: first-party APIs, multi-model routers, cloud catalogs and self-hosted infrastructure. Keep model makers distinct from companies that merely host or route a model.
 
 ### News
 
@@ -67,7 +69,7 @@ community sections and future edits are for. Each model page shows a
 
 ```
 src/
-  app/            # routes: /, /models, /compare, /providers, /benchmarks, /news, /tools
+  app/            # routes: /, /models, /compare, /providers, /api-providers, /benchmarks, /methodology, /news, /tools
   components/     # cards, score bars, effort ladder, radar, cost calculator, value map, speed race, compare tray, ⌘K palette
   content/        # MDX prose (models/, news/)
   data/           # registries: models, providers, benchmarks, news

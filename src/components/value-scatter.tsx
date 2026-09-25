@@ -11,12 +11,17 @@ import { getProvider, providers } from "@/data/providers";
  */
 export function ValueScatter({ allModels }: { allModels: Model[] }) {
   const [hovered, setHovered] = useState<string | null>(null);
+  const [activeProviders, setActiveProviders] = useState<string[]>([]);
 
   // Group models by provider, sort providers by best AA score
   const providerGroups = useMemo(() => {
     const groups = new Map<string, typeof allModels>();
     for (const m of allModels) {
-      if (m.scores["aa-intelligence"] == null || m.costPerTask == null) continue;
+      if (
+        m.scores["aa-intelligence"] == null ||
+        m.costPerTask == null ||
+        m.verifiedOn == null
+      ) continue;
       const list = groups.get(m.provider) || [];
       list.push(m);
       groups.set(m.provider, list);
@@ -30,12 +35,41 @@ export function ValueScatter({ allModels }: { allModels: Model[] }) {
       .sort((a, b) => b.bestAa - a.bestAa);
   }, [allModels]);
 
-  if (providerGroups.length === 0) {
+  const activeGroups =
+    activeProviders.length > 0
+      ? providerGroups.filter((group) => activeProviders.includes(group.providerId))
+      : providerGroups;
+
+  const paretoSlugs = useMemo(() => {
+    const candidates = activeGroups
+      .flatMap((group) => group.models)
+      .sort((a, b) => a.costPerTask! - b.costPerTask!);
+    let bestScore = -Infinity;
+    const frontier = new Set<string>();
+    for (const model of candidates) {
+      const score = model.scores["aa-intelligence"]!;
+      if (score > bestScore) {
+        frontier.add(model.slug);
+        bestScore = score;
+      }
+    }
+    return frontier;
+  }, [activeGroups]);
+
+  function toggleProvider(providerId: string) {
+    setActiveProviders((current) =>
+      current.includes(providerId)
+        ? current.filter((id) => id !== providerId)
+        : [...current, providerId],
+    );
+  }
+
+  if (activeGroups.length === 0) {
     return <p className="py-12 text-center text-muted">No models with both verified scores and pricing.</p>;
   }
 
   const W = 780;
-  const H = Math.max(300, providerGroups.length * 52 + 60);
+  const H = Math.max(300, activeGroups.length * 52 + 60);
   const PAD = { l: 70, r: 30, t: 20, b: 40 };
 
   const costs = allModels.filter((m) => m.costPerTask != null && m.costPerTask > 0).map((m) => m.costPerTask!);
@@ -54,7 +88,7 @@ export function ValueScatter({ allModels }: { allModels: Model[] }) {
   };
 
   // Provider bands
-  const bandHeight = (H - PAD.t - PAD.b) / providerGroups.length;
+  const bandHeight = (H - PAD.t - PAD.b) / activeGroups.length;
 
   return (
     <div>
@@ -66,8 +100,17 @@ export function ValueScatter({ allModels }: { allModels: Model[] }) {
             const group = providerGroups.find((g) => g.providerId === p.id);
             const count = group?.models.length ?? 0;
             return (
-              <button key={p.id} type="button"
-                className="flex items-center gap-1.5 rounded-full border border-border-subtle bg-surface px-2.5 py-1 text-[11px] text-muted transition-colors hover:text-foreground">
+              <button
+                key={p.id}
+                type="button"
+                aria-pressed={activeProviders.includes(p.id)}
+                onClick={() => toggleProvider(p.id)}
+                className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] transition-colors ${
+                  activeProviders.includes(p.id)
+                    ? "border-accent bg-accent-soft text-accent"
+                    : "border-border-subtle bg-surface text-muted hover:text-foreground"
+                }`}
+              >
                 <span className="h-1.5 w-1.5 rounded-full" style={{ background: p.color }} />
                 {p.shortName}
                 <span className="font-mono text-[10px] opacity-50">{count}</span>
@@ -79,7 +122,7 @@ export function ValueScatter({ allModels }: { allModels: Model[] }) {
       <div className="overflow-x-auto rounded-2xl border border-border-subtle bg-surface p-2">
         <svg viewBox={`0 0 ${W} ${H}`} className="min-w-[640px]" role="img" aria-label="Provider value map — models plotted by intelligence vs cost">
           {/* Background bands per provider */}
-          {providerGroups.map((g, i) => {
+          {activeGroups.map((g, i) => {
             const y0 = PAD.t + i * bandHeight;
             const prov = getProvider(g.providerId);
             return (
@@ -111,24 +154,25 @@ export function ValueScatter({ allModels }: { allModels: Model[] }) {
           <text x={14} y={H / 2} textAnchor="middle" fontSize="11" fill="var(--muted)" transform={`rotate(-90 14 ${H / 2})`}>cost per task (log)</text>
 
           {/* Model dots */}
-          {providerGroups.map((g) => {
+          {activeGroups.map((g) => {
             const prov = getProvider(g.providerId);
             return g.models.map((m) => {
               const cx = sx(m.scores["aa-intelligence"]!);
               const cy = sy(m.costPerTask!);
               const isHover = hovered === m.slug;
               const isTop = m.scores["aa-intelligence"]! >= 45;
+              const isPareto = paretoSlugs.has(m.slug);
               return (
                 <g key={m.slug}>
                   <circle
-                    cx={cx} cy={cy} r={isHover ? 7 : isTop ? 5 : 3.5}
-                    fill={prov.color} fillOpacity={isHover || isTop ? 0.95 : 0.6}
-                    stroke={isHover ? "#fff" : "none"} strokeWidth="1.5"
+                    cx={cx} cy={cy} r={isHover ? 7 : isPareto ? 5.5 : isTop ? 5 : 3.5}
+                    fill={prov.color} fillOpacity={isHover || isPareto || isTop ? 0.95 : 0.6}
+                    stroke={isPareto ? "var(--foreground)" : isHover ? "#fff" : "none"} strokeWidth={isPareto ? "1.5" : "1.5"}
                     className="cursor-pointer transition-all duration-200"
                     onMouseEnter={() => setHovered(m.slug)}
                     onMouseLeave={() => setHovered(null)}
                   />
-                  {(isHover || isTop) && (
+                  {(isHover || isPareto || isTop) && (
                     <text x={cx + 8} y={cy + 3.5} fontSize="10" fill="var(--foreground)" className="pointer-events-none">
                       {m.name}
                     </text>
@@ -147,9 +191,9 @@ export function ValueScatter({ allModels }: { allModels: Model[] }) {
             <strong className="text-foreground">{allModels.find((m) => m.slug === hovered)?.name}</strong> — Hover a dot for details
           </span>
         ) : (
-          <span>Each band is a provider. Dots show models positioned by intelligence (x) and cost per task (y).</span>
+          <span>Each band is a provider. Outlined dots mark the verified cost–intelligence Pareto frontier.</span>
         )}
-        <span>{providerGroups.length} providers · {allModels.filter((m) => m.costPerTask != null && m.scores["aa-intelligence"] != null).length} models plotted</span>
+        <span>{activeGroups.length} providers · {activeGroups.reduce((total, group) => total + group.models.length, 0)} verified models plotted</span>
       </div>
     </div>
   );

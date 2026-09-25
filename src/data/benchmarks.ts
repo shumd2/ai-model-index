@@ -63,15 +63,6 @@ export const benchmarks: Benchmark[] = [
       "Long-horizon optimization on score-based programming contests (AtCoder Heuristic Contests). Instead of pass/fail, models iteratively improve solutions to maximize their contest score — measured against human contestants. Rewards persistence and self-improvement, not one-shot answers.",
   },
   {
-    id: "deepswe",
-    name: "DeepSWE",
-    source: "Agentica",
-    scale: "% tasks resolved",
-    format: "percent",
-    description:
-      "Agentic software engineering: models operate a real terminal and coding environment to resolve tasks end-to-end. Community favourite for spotting under-hyped models — a high DeepSWE score with low buzz (see Gemini 3.8 Flash) is the classic hidden-gem signal.",
-  },
-  {
     id: "terminal-bench",
     name: "Terminal-Bench 4.0",
     source: "Artificial Analysis",
@@ -261,6 +252,28 @@ export const benchmarks: Benchmark[] = [
       "Aggregated coding benchmark: Fable 5.1 leads at 81.6%, followed by Claude Opus 5 (78.0%) and GPT-5.6 Sol (77.4%). Display-only as of v4.3.2 — excluded from the overall AA Intelligence Index scoring formula.",
   },
 ];
+
+export const benchmarkSourceUrls: Record<string, string> = {
+  "aa-intelligence": "https://artificialanalysis.ai/models",
+  "lmarena-text": "https://lmarena.ai/leaderboard",
+  "lmarena-webdev": "https://lmarena.ai/leaderboard",
+  "lmarena-agent": "https://lmarena.ai/leaderboard",
+  hle: "https://lastexam.ai",
+  "ale-bench": "https://sakana.ai/ale-bench/",
+  deepswe: "https://agentica.org/",
+  "terminal-bench": "https://www.tbench.ai/",
+  "aa-briefcase": "https://artificialanalysis.ai/evaluations/aa-briefcase",
+  "gdpval-aa": "https://artificialanalysis.ai/evaluations/gdpval-aa",
+  osworld: "https://os-world.github.io/",
+  "arc-agi-2": "https://arcprize.org/leaderboard",
+  "lmarena-vision": "https://lmarena.ai/leaderboard",
+  "lmarena-search": "https://lmarena.ai/leaderboard",
+  "lmarena-t2v": "https://lmarena.ai/leaderboard",
+  scicode: "https://github.com/scidore/SciCode",
+  "gdp-pdf": "https://artificialanalysis.ai/evaluations/gdp-pdf",
+  "cost-per-task": "https://artificialanalysis.ai/models",
+  "aa-coding": "https://artificialanalysis.ai/models",
+};
 
 export const benchmarkMap = new Map(benchmarks.map((b) => [b.id, b]));
 

@@ -228,6 +228,7 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
       )}
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <select
+          aria-label="Filter by model maker"
           value={providerFilter}
           onChange={(e) => setProviderFilter(e.target.value)}
           className="rounded-lg border border-border-subtle bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
@@ -239,6 +240,7 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
         </select>
         <button
           type="button"
+          aria-pressed={openOnly}
           onClick={() => setOpenOnly((v) => !v)}
           className={`rounded-lg px-3 py-2 text-sm transition-colors ${
             openOnly
@@ -250,6 +252,7 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
         </button>
         <button
           type="button"
+          aria-pressed={hideNulls}
           onClick={() => setHideNulls((v) => !v)}
           className={`rounded-lg px-3 py-2 text-sm transition-colors ${
             hideNulls
@@ -259,22 +262,36 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
         >
           Only models with verified scores
         </button>
-        <span className="ml-auto font-mono text-xs text-muted">{rows.length} models</span>
+        <span className="ml-auto font-mono text-xs text-muted" role="status" aria-live="polite">
+          {rows.length} models
+        </span>
       </div>
 
       <div className="scrollbar-thin overflow-x-auto rounded-2xl border border-border-subtle bg-surface">
         <table className="w-full min-w-[760px] border-collapse text-sm">
+          <caption className="sr-only">
+            AI models sorted by the selected column. Use the column buttons to change sorting.
+          </caption>
           <thead>
             <tr className="border-b border-border-subtle bg-surface-2/60">
               {columns.map((c) => (
                 <th
                   key={c.key}
+                  scope="col"
+                  aria-sort={
+                    sort.key === c.key
+                      ? sort.dir === "asc"
+                        ? "ascending"
+                        : "descending"
+                      : "none"
+                  }
                   className={`px-4 py-3 text-[11px] font-medium uppercase tracking-wider text-muted ${
                     c.numeric ? "text-right" : "text-left"
                   }`}
                 >
                   <button
                     type="button"
+                    aria-label={`Sort by ${c.label}${sort.key === c.key ? (sort.dir === "asc" ? ", currently ascending" : ", currently descending") : ""}`}
                     onClick={() => toggleSort(c.key)}
                     className={`inline-flex items-center gap-1 transition-colors hover:text-foreground ${
                       sort.key === c.key ? "text-accent" : ""
@@ -296,14 +313,21 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
                 key={r.model.slug}
                 className="border-b border-border-subtle/60 transition-colors last:border-0 hover:bg-surface-2/40"
               >
-                {columns.map((c) => (
-                  <td
-                    key={c.key}
-                    className={`px-4 py-3 ${c.numeric ? "text-right tabular-nums" : "text-left"}`}
-                  >
-                    {cell(r, c.key)}
-                  </td>
-                ))}
+                {columns.map((c) => {
+                  const content = cell(r, c.key);
+                  const className = `px-4 py-3 font-normal ${
+                    c.numeric ? "text-right tabular-nums" : "text-left"
+                  }`;
+                  return c.key === "name" ? (
+                    <th key={c.key} scope="row" className={className}>
+                      {content}
+                    </th>
+                  ) : (
+                    <td key={c.key} className={className}>
+                      {content}
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>

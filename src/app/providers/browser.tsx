@@ -4,176 +4,196 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { providers } from "@/data/providers";
 import { modelsByProvider } from "@/data/models";
-import { Reveal } from "@/components/reveal";
+import { apiProvidersForLab } from "@/data/api-providers";
+import { ExternalLink } from "@/components/external-link";
 
-const categories = [
-  { id: "all", label: "All" },
-  { id: "frontier", label: "Frontier Labs" },
-  { id: "open", label: "Open Weights" },
-  { id: "emerging", label: "Emerging" },
+type CategoryId = "all" | "frontier" | "open" | "emerging";
+
+const categories: {
+  id: CategoryId;
+  label: string;
+  description: string;
+}[] = [
+  {
+    id: "frontier",
+    label: "Frontier labs",
+    description: "First-party developers of leading proprietary and platform models.",
+  },
+  {
+    id: "open",
+    label: "Open-weight labs",
+    description: "Labs shipping downloadable weights, efficient model families or open research.",
+  },
+  {
+    id: "emerging",
+    label: "Emerging labs",
+    description: "New research groups and specialized model providers entering the index.",
+  },
 ];
-
-const providerCategory: Record<string, string> = {
-  // Frontier Labs
-  openai: "frontier",
-  anthropic: "frontier",
-  google: "frontier",
-  xai: "frontier",
-  meta: "frontier",
-  amazon: "frontier",
-  microsoft: "frontier",
-  nvidia: "frontier",
-  ibm: "frontier",
-  cohere: "frontier",
-  // Open Weights
-  deepseek: "open",
-  alibaba: "open",
-  moonshot: "open",
-  zai: "open",
-  xiaomi: "open",
-  minimax: "open",
-  "shanghai-ai": "open",
-  baidu: "open",
-  mistral: "open",
-  tmi: "open",
-  tencent: "open",
-  bytedance: "open",
-  stepfun: "open",
-  meituan: "open",
-  ant: "open",
-  inception: "open",
-  "prime-intellect": "open",
-  ai21: "open",
-  reka: "open",
-  "china-mobile": "open",
-  ai2: "open",
-  // Emerging
-  salesforce: "emerging",
-  "typesafe-ai": "emerging",
-  fireworks: "emerging",
-  celeris: "emerging",
-  upstage: "emerging",
-  sapiens: "emerging",
-  motif: "emerging",
-  "nex-agi": "emerging",
-  ifm: "emerging",
-  multiverse: "emerging",
-};
 
 export function ProviderBrowser() {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState<CategoryId>("all");
 
   const filtered = useMemo(() => {
-    let result = providers;
-    if (category !== "all") {
-      result = result.filter((p) => providerCategory[p.id] === category);
-    }
-    if (query.trim()) {
-      const q = query.toLowerCase();
-      result = result.filter(
-        (p) =>
-          p.name.toLowerCase().includes(q) ||
-          p.shortName.toLowerCase().includes(q) ||
-          p.tagline.toLowerCase().includes(q),
-      );
-    }
-    return result;
-  }, [query, category]);
+    const q = query.trim().toLowerCase();
+    return providers.filter((provider) => {
+      if (category !== "all" && provider.category !== category) {
+        return false;
+      }
+      if (!q) return true;
+      return [provider.name, provider.shortName, provider.tagline, provider.hq]
+        .join(" ")
+        .toLowerCase()
+        .includes(q);
+    });
+  }, [category, query]);
+
+  const visibleCategories =
+    category === "all" ? categories : categories.filter((item) => item.id === category);
 
   return (
-    <>
-      {/* Search + Filters */}
-      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-        <div className="relative flex-1">
-          <svg className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+    <div>
+      <div className="directory-toolbar">
+        <label className="search-field">
+          <span className="sr-only">Search model labs</span>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" strokeLinecap="round" />
           </svg>
           <input
             type="search"
-            placeholder="Search labs…"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="w-full rounded-xl border border-border-subtle bg-surface px-4 py-2.5 pl-10 text-sm outline-none focus:border-accent/50"
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search labs, regions, or specialties…"
           />
-        </div>
-        <div className="flex gap-1 rounded-xl border border-border-subtle bg-surface p-1">
-          {categories.map((c) => (
+        </label>
+
+        <div className="filter-tabs" role="group" aria-label="Filter model labs">
+          <button
+            type="button"
+            className={`filter-tab ${category === "all" ? "active" : ""}`}
+            aria-pressed={category === "all"}
+            onClick={() => setCategory("all")}
+          >
+            All labs
+          </button>
+          {categories.map((item) => (
             <button
-              key={c.id}
+              key={item.id}
               type="button"
-              onClick={() => setCategory(c.id)}
-              className={`rounded-lg px-3 py-1.5 text-[13px] transition-colors ${
-                category === c.id
-                  ? "bg-accent font-medium text-white"
-                  : "text-muted hover:text-foreground"
-              }`}
+              className={`filter-tab ${category === item.id ? "active" : ""}`}
+              aria-pressed={category === item.id}
+              onClick={() => setCategory(item.id)}
             >
-              {c.label}
+              {item.label}
             </button>
           ))}
         </div>
+
+        <span className="result-count" aria-live="polite">
+          {filtered.length} / {providers.length}
+        </span>
       </div>
 
-      {/* Category sections */}
-      <div className="space-y-12">
-        {categories
-          .filter((c) => c.id !== "all")
-          .map((cat) => {
-            const catProviders = filtered.filter((p) => providerCategory[p.id] === cat.id);
-            if (catProviders.length === 0) return null;
-            return (
-              <Reveal key={cat.id}>
+      <div className="lab-directory">
+        {visibleCategories.map((group) => {
+          const groupProviders = filtered.filter(
+            (provider) => provider.category === group.id,
+          );
+          if (groupProviders.length === 0) return null;
+
+          return (
+            <section key={group.id} className="lab-group">
+              <div className="lab-group-heading">
                 <div>
-                  <h2 className="mb-4 font-mono text-[13px] font-bold uppercase tracking-widest text-text-secondary">
-                    {cat.label}
-                  </h2>
-                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                    {catProviders.map((p) => {
-                      const models = modelsByProvider(p.id);
-                      const topModel = [...models].sort(
-                        (a, b) => (b.scores["aa-intelligence"] ?? 0) - (a.scores["aa-intelligence"] ?? 0),
-                      )[0];
-                      return (
-                        <Link
-                          key={p.id}
-                          href={`/providers/${p.id}`}
-                          className="group relative flex items-start gap-4 rounded-xl border border-border-subtle bg-surface p-5 transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-lg"
-                        >
-                          <span
-                            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-sm font-bold text-white shadow-md"
-                            style={{
-                              background: `linear-gradient(135deg, ${p.color}, ${p.color}88)`,
-                            }}
-                          >
-                            {p.shortName.slice(0, 2).toUpperCase()}
-                          </span>
-                          <div className="min-w-0 flex-1">
-                            <div className="text-base font-semibold group-hover:text-accent">{p.name}</div>
-                            <div className="text-[11px] text-muted">{p.hq} · Founded {p.founded}</div>
-                            <div className="mt-1 text-[12px] text-muted">{p.tagline}</div>
-                            <div className="mt-2 flex items-center gap-3 text-[11px] text-muted">
-                              <span>{models.length} model{models.length !== 1 ? "s" : ""}</span>
-                              {topModel && (
-                                <span className="font-mono text-accent">
-                                  AA {topModel.scores["aa-intelligence"]}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
+                  <h2>{group.label}</h2>
+                  <p>{group.description}</p>
                 </div>
-              </Reveal>
-            );
-          })}
+                <span>{groupProviders.length}</span>
+              </div>
+
+              <div className="provider-directory">
+                {groupProviders.map((provider) => {
+                  const providerModels = modelsByProvider(provider.id);
+                  const verifiedScoredModels = providerModels.filter(
+                    (model) =>
+                      model.scores["aa-intelligence"] != null &&
+                      model.verifiedOn != null,
+                  );
+                  const topModel = [...verifiedScoredModels].sort(
+                    (a, b) =>
+                      (b.scores["aa-intelligence"] ?? -1) -
+                      (a.scores["aa-intelligence"] ?? -1),
+                  )[0];
+                  const openCount = providerModels.filter((model) => model.openWeights).length;
+                  const accessRoutes = apiProvidersForLab(provider.id).length;
+
+                  return (
+                    <article key={provider.id} className="provider-row">
+                      <div
+                        className="provider-monogram provider-monogram--lg"
+                        style={
+                          { "--provider-color": provider.color } as React.CSSProperties
+                        }
+                        aria-hidden="true"
+                      >
+                        {provider.shortName.slice(0, 2).toUpperCase()}
+                      </div>
+
+                      <div className="provider-row-main">
+                        <div className="provider-name-row">
+                          <Link href={`/providers/${provider.id}`}>{provider.name}</Link>
+                          {openCount > 0 && <span>Open weights</span>}
+                        </div>
+                        <p>{provider.tagline}</p>
+                        <small>{provider.hq}</small>
+                      </div>
+
+                      <dl className="provider-row-metrics">
+                        <div>
+                          <dt>Tracked</dt>
+                          <dd>{providerModels.length} models</dd>
+                        </div>
+                        <div>
+                          <dt>Best AA</dt>
+                          <dd>
+                            {topModel?.scores["aa-intelligence"] != null
+                              ? topModel.scores["aa-intelligence"]
+                              : "—"}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt>API routes</dt>
+                          <dd>{accessRoutes || "—"}</dd>
+                        </div>
+                      </dl>
+
+                      <div className="provider-row-actions">
+                        <Link href={`/providers/${provider.id}`}>View lab</Link>
+                        <ExternalLink href={provider.website}>Official site</ExternalLink>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })}
       </div>
 
       {filtered.length === 0 && (
-        <div className="py-16 text-center text-muted">No labs match <code>{query}</code> in this category.</div>
+        <div className="empty-state">
+          <strong>No labs match “{query}”.</strong>
+          <span>Try another name, region, or model category.</span>
+        </div>
       )}
-    </>
+    </div>
   );
 }
