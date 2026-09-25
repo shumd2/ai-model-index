@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { newsSorted } from "@/data/news";
-import { providerMap } from "@/data/providers";
-import { Reveal } from "@/components/reveal";
 
 const tagColors: Record<string, string> = {
-  release: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  benchmark: "bg-violet-500/10 text-violet-600 dark:text-violet-400",
-  research: "bg-sky-500/10 text-sky-600 dark:text-sky-400",
-  industry: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-  "open-source": "bg-rose-500/10 text-rose-600 dark:text-rose-400",
+  release: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
+  benchmark: "bg-violet-500/15 text-violet-600 dark:text-violet-400",
+  research: "bg-sky-500/15 text-sky-600 dark:text-sky-400",
+  industry: "bg-amber-500/15 text-amber-600 dark:text-amber-400",
+  "open-source": "bg-rose-500/15 text-rose-600 dark:text-rose-400",
+  data: "bg-cyan-500/15 text-cyan-600 dark:text-cyan-400",
 };
 
 export const metadata: Metadata = {
   title: "News & changelog",
   description:
-    "Model releases, benchmark shake-ups and industry news — the feed for what's actually happening on the AI frontier.",
+    "Model releases, benchmark shake-ups, and industry news — the feed for what's happening on the AI frontier.",
 };
 
 export default function NewsPage() {
@@ -27,70 +26,43 @@ export default function NewsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
       <div className="mb-10">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-violet-500/15 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-violet-600 dark:text-violet-400">
-          <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
-          04 · Feed
-        </div>
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">News &amp; changelog</h1>
-        <p className="mt-3 max-w-2xl text-muted">
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">News</h1>
+        <p className="mt-2 max-w-xl text-text-secondary">
           Every release and benchmark shake-up that matters, newest first.
         </p>
       </div>
 
-      <div className="space-y-10">
+      <div className="divide-y divide-border">
         {[...byMonth.entries()].map(([month, items], mi) => (
-          <Reveal key={month} delay={mi % 3}>
-            <div>
-            <h2 className="mb-4 font-mono text-sm font-semibold uppercase tracking-wider text-muted">
+          <div key={month} className={mi > 0 ? "pt-10" : ""}>
+            <h2 className="mb-4 font-mono text-sm font-semibold uppercase tracking-wider text-text-secondary">
               {new Date(month + "-01T00:00:00").toLocaleDateString("en-US", {
                 month: "long",
                 year: "numeric",
               })}
             </h2>
-            <div className="relative space-y-4 border-l border-border-subtle pl-6">
-              {items.map((n) => {
-                const provider = n.provider ? providerMap.get(n.provider) : undefined;
-                return (
-                  <Link
-                    key={n.slug}
-                    href={`/news/${n.slug}`}
-                    className="group relative block rounded-2xl border border-border-subtle bg-surface p-5 transition-colors hover:border-accent/40"
-                  >
-                    <span
-                      className="absolute -left-[31px] top-6 h-2.5 w-2.5 rounded-full border-2 border-background"
-                      style={{ background: provider?.color ?? "var(--accent)" }}
-                    />
-                    <div className="flex flex-wrap items-center gap-2 text-xs">
-                      <span className={`rounded-md px-2 py-0.5 font-medium capitalize ${tagColors[n.tag]}`}>
-                        {n.tag.replace("-", " ")}
-                      </span>
-                      {provider && (
-                        <span
-                          className="rounded-md px-2 py-0.5 font-medium"
-                          style={{ background: `${provider.color}18`, color: provider.color }}
-                        >
-                          {provider.name}
-                        </span>
-                      )}
-                      <span className="text-muted">
-                        {new Date(n.date + "T00:00:00").toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </span>
-                    </div>
-                    <h3 className="mt-3 font-semibold leading-snug group-hover:text-accent">
-                      {n.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-muted">{n.summary}</p>
-                  </Link>
-                );
-              })}
+            <div className="space-y-1">
+              {items.map((n) => (
+                <Link
+                  key={n.slug}
+                  href={`/news/${n.slug}`}
+                  className="group grid min-h-[3rem] grid-cols-12 items-baseline gap-2 py-5 transition-colors hover:bg-surface-raised sm:gap-4"
+                >
+                  <span className="col-span-2 font-mono text-[11px] text-text-secondary sm:col-span-1">
+                    {new Date(n.date + "T00:00:00").toLocaleDateString("en-US", { month: "short", day: "2-digit" })}
+                  </span>
+                  <span className={`col-span-2 w-fit px-2 py-0.5 text-center text-[10px] font-medium uppercase tracking-wider sm:col-span-2 ${tagColors[n.tag] || "bg-gray-500/15 text-gray-600"}`}>
+                    {n.tag.replace("-", " ")}
+                  </span>
+                  <span className="col-span-12 text-[15px] font-medium group-hover:text-accent sm:col-span-7">
+                    {n.title}
+                  </span>
+                </Link>
+              ))}
             </div>
           </div>
-        </Reveal>
         ))}
       </div>
     </div>

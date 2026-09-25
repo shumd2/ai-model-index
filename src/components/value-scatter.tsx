@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { Model } from "@/data/models";
 import { getProvider, providers } from "@/data/providers";
@@ -82,7 +81,6 @@ export function ValueScatter({ allModels }: { allModels: Model[] }) {
           {/* Background bands per provider */}
           {providerGroups.map((g, i) => {
             const y0 = PAD.t + i * bandHeight;
-            const y1 = y0 + bandHeight;
             const prov = getProvider(g.providerId);
             return (
               <g key={g.providerId}>

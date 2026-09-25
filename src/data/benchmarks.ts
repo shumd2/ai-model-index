@@ -251,6 +251,15 @@ export const benchmarks: Benchmark[] = [
     description:
       "Agentic scientific research in a terminal: plan experiments, run analyses, and iterate on real computational science tasks end-to-end.",
   },
+  {
+    id: "aa-coding",
+    name: "AA Coding Index",
+    source: "Artificial Analysis",
+    scale: "0–100 index",
+    format: "index",
+    description:
+      "Aggregated coding benchmark: Fable 5.1 leads at 81.6%, followed by Claude Opus 5 (78.0%) and GPT-5.6 Sol (77.4%). Display-only as of v4.3.2 — excluded from the overall AA Intelligence Index scoring formula.",
+  },
 ];
 
 export const benchmarkMap = new Map(benchmarks.map((b) => [b.id, b]));

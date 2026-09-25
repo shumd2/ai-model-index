@@ -88,17 +88,15 @@ export function CostCalculator({
       .sort((a, b) => a.monthly - b.monthly);
   }, [allModels, slugs, inTok, outTok, reqs, cache, batch]);
 
-  // Complexity-defined token volumes
-  const complexityTokens: Record<string, { input: number; output: number }> = {
-    casual: { input: 300_000, output: 5_000 },
-    standard: { input: 1_000_000, output: 10_000 },
-    heavy: { input: 10_000_000, output: 50_000 },
-    enterprise: { input: 50_000_000, output: 200_000 },
-  };
-
   // Monthly cost per model for the selected complexity, ranked by intelligence
   const recommendations = useMemo(() => {
     if (!budgetMode) return [];
+    const complexityTokens: Record<string, { input: number; output: number }> = {
+      casual: { input: 300_000, output: 5_000 },
+      standard: { input: 1_000_000, output: 10_000 },
+      heavy: { input: 10_000_000, output: 50_000 },
+      enterprise: { input: 50_000_000, output: 200_000 },
+    };
     const vol = complexityTokens[complexity] ?? complexityTokens.standard;
     return allModels
       .filter((m) => m.pricing?.input != null && m.pricing?.output != null && m.scores["aa-intelligence"] != null)

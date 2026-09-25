@@ -54,8 +54,6 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border-subtle bg-background/80 backdrop-blur-md">
-      {/* Animated accent line */}
-      <div aria-hidden className="h-[2px] w-full bg-gradient-to-r from-transparent via-accent/60 via-25% to-transparent" style={{ backgroundSize: "200% 100%", animation: "shimmer 4s ease infinite" }} />
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 font-mono text-sm font-bold text-white">
@@ -83,7 +81,7 @@ export function SiteHeader() {
               </Link>
             );
           })}
-          <div className="ml-2 flex items-center gap-2">
+          <div className="ml-4 flex items-center gap-3">
             <CommandPalette items={paletteItems} />
             <ThemeToggle />
           </div>
