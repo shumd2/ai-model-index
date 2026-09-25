@@ -8,6 +8,7 @@ export type Provider = {
   hq: string;
   founded: string;
   website: string;
+  category?: string;
   description: string;
   highlights: string[];
 };

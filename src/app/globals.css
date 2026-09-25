@@ -175,6 +175,65 @@ section {
   box-shadow: var(--shadow-lg);
 }
 
+/* ── Structured layout ── */
+.category-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.category-heading::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Filter tabs ── */
+.filter-tabs {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.filter-tab {
+  padding: 6px 14px;
+  border-radius: calc(var(--radius-md) - 2px);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.filter-tab.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+.filter-tab:hover:not(.active) {
+  color: var(--text);
+}
+
+/* ── Directory row ── */
+.dir-row {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: all 0.2s ease;
+}
+.dir-row:hover {
+  border-color: rgba(109, 92, 255, 0.3);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
 /* ── Stat block ── */
 .stat-block {
   padding: 1.25rem;
