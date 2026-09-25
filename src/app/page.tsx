@@ -108,7 +108,7 @@ export default function HomePage() {
 
       {/* ── Frontline ── */}
       <section className="mb-20">
-        <div className="mb-8 flex items-baseline gap-3 border-b border-border pb-4">
+        <div className="mb-6 category-heading">
           <span className="font-mono text-[13px] font-bold text-accent">01</span>
           <h2 className="text-2xl font-bold tracking-tight">Frontline</h2>
         </div>
@@ -166,7 +166,7 @@ export default function HomePage() {
 
       {/* ── 02 · Rankings ── */}
       <section className="mb-20">
-        <div className="mb-8 flex items-baseline gap-3 border-b border-border pb-4">
+        <div className="mb-6 category-heading">
           <span className="font-mono text-[13px] font-bold text-accent">02</span>
           <h2 className="text-2xl font-bold tracking-tight">Rankings</h2>
         </div>
@@ -214,7 +214,7 @@ export default function HomePage() {
 
       {/* ── 03 · Featured ── */}
       <section className="mb-20">
-        <div className="mb-8 flex items-baseline gap-3 border-b border-border pb-4">
+        <div className="mb-6 category-heading">
           <span className="font-mono text-[13px] font-bold text-accent">03</span>
           <h2 className="text-2xl font-bold tracking-tight">Featured</h2>
         </div>
@@ -230,7 +230,7 @@ export default function HomePage() {
 
       {/* ── 04 · Usage ── */}
       <section className="mb-20">
-        <div className="mb-8 flex items-baseline gap-3 border-b border-border pb-4">
+        <div className="mb-6 category-heading">
           <span className="font-mono text-[13px] font-bold text-accent">04</span>
           <h2 className="text-2xl font-bold tracking-tight">Usage</h2>
           <span className="text-sm text-text-secondary">OpenRouter volume</span>
@@ -245,7 +245,7 @@ export default function HomePage() {
               const p = providerMap.get(u.providerId);
               const isNew = u.tokens === 0;
               return (
-                <div key={u.name} className="flex items-center gap-3">
+                <div key={u.name} className="dir-row">
                   <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: p?.color ?? "var(--accent)" }} />
                   <span className="w-44 truncate text-sm">{u.name}</span>
                   <div className="flex-1 overflow-hidden rounded-full bg-surface-raised">
@@ -269,7 +269,7 @@ export default function HomePage() {
             {marketShare.map((s) => {
               const p = providerMap.get(s.id);
               return (
-                <div key={s.id} className="flex items-center gap-2">
+                <div key={s.id} className="dir-row dir-row--compact">
                   <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: p?.color }} />
                   <span className="text-xs text-text-secondary">{s.label}</span>
                   <span className="ml-auto font-mono text-xs">{s.share}%</span>
@@ -282,7 +282,7 @@ export default function HomePage() {
 
       {/* ── 05 · News ── */}
       <section className="pb-20">
-        <div className="mb-8 flex items-baseline gap-3 border-b border-border pb-4">
+        <div className="mb-6 category-heading">
           <span className="font-mono text-[13px] font-bold text-accent">05</span>
           <h2 className="text-2xl font-bold tracking-tight">Latest</h2>
           <Link href="/news" className="ml-auto text-sm text-accent hover:underline">All news →</Link>
