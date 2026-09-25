@@ -194,6 +194,86 @@ export const news: NewsItem[] = [
     tag: "release",
     provider: "deepseek",
   },
+  // ─── September 2026 updates ────────────────────────
+  {
+    slug: "deepseek-v4-1-flash-multimodal",
+    date: "2026-09-10",
+    title: "DeepSeek V4.1-Flash ships with native multimodal vision and lower prices",
+    summary:
+      "DeepSeek's newest Flash model adds native multimodal visual understanding to the 284B-parameter architecture. New pricing takes effect at 04:00 UTC on Sept 10, with off-peak rates at 50% of peak. Terminal-Bench 2.1: 82.7, DSBench-Hard: 59.6.",
+    tag: "release",
+    provider: "deepseek",
+  },
+  {
+    slug: "kimi-k3-multimodal",
+    date: "2026-07-20",
+    title: "Kimi K3 Multimodal brings 2.8T parameters and vision at $3/M input",
+    summary:
+      "Moonshot AI's largest K3 variant adds native multimodal input to the K3 family (AA 59.7). At 2.8T parameters with 1M context, it ranks #2 on the AA-Briefcase leaderboard with 1548 Elo — behind only Grok 4.6.",
+    tag: "release",
+    provider: "moonshot",
+  },
+  {
+    slug: "qwen-3-8-omni-flash",
+    date: "2026-09-18",
+    title: "Qwen 3.8 Omni-Flash released — audio and video rivaling Gemini 3.8 Flash",
+    summary:
+      "Alibaba's new multimodal model achieves 82.7% on LongAudioSpan, 63.4% on OmniVideoBench, and 89.7% on AliMeeting — surpassing Gemini 3.8 Flash in multiple benchmarks — at the same $0.15/$0.47 price as text-only Flash.",
+    tag: "release",
+    provider: "alibaba",
+  },
+  {
+    slug: "aa-index-v4-2-update",
+    date: "2026-09-04",
+    title: "AA Intelligence Index v4.2: Fable 5.1 leads, new benchmarks added",
+    summary:
+      "Published September 4, 2026. v4.2 adds AA-Briefcase (agentic knowledge work) and GDP.pdf (long-document reasoning) benchmarks. Fable 5.1 tops the intelligence index. GLM-5.2 becomes the leading open-weights model at AA 51.",
+    tag: "benchmark",
+  },
+  {
+    slug: "anthropic-new-model-ipo-rumors",
+    date: "2026-09-19",
+    title: "Anthropic considering new model launch ahead of expected IPO",
+    summary:
+      "Per Reuters, Anthropic is weighing a new model release to counter OpenAI's GPT-6 Astra momentum. The deliberations come as the company prepares for an expected public listing and shortly after CEO Dario Amodei publicly urged the industry to slow down.",
+    tag: "industry",
+    provider: "anthropic",
+  },
+  {
+    slug: "apple-siri-google-gemini-ios27",
+    date: "2026-09-14",
+    title: "Apple deploys rebuilt Siri powered by Google Gemini on iOS 27",
+    summary:
+      "Apple rolled out the rebuilt Siri on September 14 with iOS 27, available on iPhone 15 Pro and newer. The system is powered by Google's Gemini models — a landmark partnership that brings Gemini to hundreds of millions of Apple devices.",
+    tag: "industry",
+  },
+  {
+    slug: "google-gemini-3-8-live-audio",
+    date: "2026-09-15",
+    title: "Google releases Gemini 3.8 Live audio models with voice-agent capabilities",
+    summary:
+      "Google DeepMind launched two Gemini 3.8 Live audio models supporting voice agents that process visual input and make API calls simultaneously across 97+ languages. The Extended Thinking variant ranks first on the AA Speech-to-Speech Leaderboard at 82.6%.",
+    tag: "release",
+    provider: "google",
+  },
+  {
+    slug: "typesafe-ai-jev-launch",
+    date: "2026-09-15",
+    title: "TypeSafe AI launches Jev — reasoning without transformers",
+    summary:
+      "TypeSafe AI introduced Jev, the first 'System One Model' built on a novel RLCD training method rather than transformer architecture. Claims 20-200x faster and 40-400x more compute-efficient than LLM approaches, targeting GPT-5.6 Terra-level performance.",
+    tag: "research",
+    provider: "typesafe-ai",
+  },
+  {
+    slug: "atria-dawn-preview",
+    date: "2026-09-20",
+    title: "Shanghai AI Lab releases Atria Dawn Preview — 744B agentic MoE",
+    summary:
+      "The Shanghai AI Laboratory released Atria Dawn Preview — a 744B-parameter agentic MoE post-trained on Z.ai's GLM-5.2 base, under MIT license on Hugging Face. It achieves world-record 92.5% on BrowseComp and 96.0 on DeepSearchQA, beating GPT-5.6 Sol and Claude Opus 5.",
+    tag: "release",
+    provider: "shanghai-ai",
+  },
 ];
 
 export const newsSorted = [...news].sort((a, b) => b.date.localeCompare(a.date));

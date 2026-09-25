@@ -1,0 +1,20 @@
+## DeepSeek V4.1-Flash ships with native multimodal vision
+
+DeepSeek officially released V4.1-Flash on September 10, 2026, adding native multimodal visual understanding to the 284-billion-parameter MoE architecture. The new pricing took effect at 04:00 UTC that day, with off-peak rates at 50% of peak pricing.
+
+### Key benchmarks
+
+- **Terminal-Bench 2.1:** 82.7%
+- **DSBench-Hard:** 59.6%
+- **Toolathlon:** 70.3%
+- **DeepSWE:** 54.4%
+
+### Architecture
+
+The model uses a hybrid CSA/HCA attention mechanism on top of a Mixture-of-Experts backbone. 284B total parameters with only 13B activated per forward pass, maintaining the 1M-token context window and 384K max output from the V4 family.
+
+### Pricing
+
+Standard rates are lower than the previous V4 Flash generation. Peak/off-peak pricing continues to balance demand, with off-peak rates at exactly half the standard price. The model is available through DeepSeek's official API and third-party providers.
+
+Official announcement: [deepseek.com](https://www.deepseek.com/en/news/deepseek-v4-1-flash/)
