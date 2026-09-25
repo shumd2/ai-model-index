@@ -12,6 +12,7 @@
   --color-border-subtle: var(--border);
   --color-foreground: var(--text);
   --color-text: var(--text);
+  --color-text-secondary: var(--text-secondary);
   --color-muted: var(--text-secondary);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
