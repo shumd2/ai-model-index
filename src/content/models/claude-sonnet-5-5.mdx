@@ -1,0 +1,30 @@
+## Overview
+
+Claude Sonnet 5.5 is the strongest Sonnet ever measured: **AA 56 at max effort (with fallback)** — eighteen points above Sonnet 5 and just two behind Opus 5.5 — at Sonnet 5's unchanged **$2/$10 per 1M token** list price. It runs **30%+ faster** than Sonnet 5, and Anthropic says typical token-billed workloads cost up to 30% less.
+
+The headline gains are in agentic work. Terminal-Bench 4.0 jumped **50 points to 64%** (AA-measured; Anthropic's own harness reports 70.6%), Terminal-Bench-Science reached 53% — behind only GPT-6 Astra and Opus 5.5 — and Sonnet 5.5 reaches near-parity with Opus 5.5 on the real-work suites: **AA-Briefcase 1811 vs 1822, GDPval-AA 1844 vs 1846, AutomationBench-AA 71% vs 70%**. FrontierCode v1.1 Main scores 46.2% at max / 52.1% at xhigh (Opus 5.5: 54.4%). It is the first Sonnet with **Opus-class cyber safeguards** and distillation-prevention classifiers.
+
+## The verbosity catch
+
+Sonnet 5.5 used **~193k output tokens per AA Intelligence Index task** — the highest Artificial Analysis has ever measured, ~60% more than Opus 5.5 (max) and ~7× GPT-6 Astra (max). That pushes its cost per task to **$7.67** despite cheap per-token pricing, putting it off the Intelligence-vs-cost Pareto frontier: at lower efforts, GPT-6 Sol configurations deliver comparable scores for less. The high effort setting sits narrowly behind GPT-6 Sol at effectively the same cost per task.
+
+One caveat on the scores themselves: AA evaluated a **pre-release deployment that had a structured-outputs bug**. Anthropic fixed it for the public release and expects minimal change or slightly understated performance; AA is re-running evaluations.
+
+## Spec sheet
+
+- **Context:** 1M tokens (default, no beta header) · **Max output:** 128K (300K in Batch API beta)
+- **Pricing:** $2/$10 · cache write $2.50 (5m) / $4 (1h) · cache read $0.20 · Batch API 50% off
+- **Thinking:** adaptive, always on; default effort is `high` on the Platform, `medium` in apps; five levels low→max
+- **Model IDs:** `claude-sonnet-5-5` (API, Google Cloud, Foundry) · `anthropic.claude-sonnet-5-5` (Bedrock)
+- **Knowledge cutoff:** June 2026 · **Retirement:** not sooner than September 28, 2027
+- **Availability:** Claude Platform, Amazon Bedrock, Google Cloud, Microsoft Foundry; US-only inference at 1.1× pricing
+
+## Migration warning
+
+Five breaking changes vs Sonnet 5: up-front thinking is turned off with the new `between_tools` setting; forced tool use returns an error; thinking blocks are tied to the model and conversation; the earlier `computer_20251124` computer-use tool is no longer accepted on the Claude API and Google Cloud; and the advisor tool rejects Opus 4.8/4.7 and Sonnet 5 as advisors. Text between tool calls now arrives in thinking blocks — streamers need a `display` value or `between_tools`.
+
+## Community insights
+
+**Community section.** Real-world behaviour, pricing anecdotes, prompting
+tips and failure modes live here. Nothing on this page is marketing copy;
+send what you know and it gets added.

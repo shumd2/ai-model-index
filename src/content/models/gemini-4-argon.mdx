@@ -1,0 +1,27 @@
+## Overview
+
+Gemini 4 Argon is Google DeepMind's first proprietary model above the Flash class in over seven months, and it puts Google back in the top three labs. At **high reasoning** — the highest effort available — it scores **53 on the AA Intelligence Index v4.3.2**, matching GPT-6 Astra (max) and edging GPT-6.1 Sol (max, 52), with gains driven by lower hallucinations and stronger agentic capabilities.
+
+That is **23 points above Google's previous non-Flash model** (Gemini 3.1 Pro Preview, 30) and 12 ahead of Gemini 3.8 Flash (high). On the agentic suites it ranks **#1 on AutomationBench-AA at 78%** — seven points ahead of Sonnet 5.5 — and reaches 57% on Terminal-Bench 4.0, a 53-point jump over Gemini 3.1 Pro Preview, behind only Sonnet 5.5 (64%), Opus 5.5 (60%) and Astra (59%). Its AA-Briefcase 1494 rests on a **record 65% rubric pass rate**, and its **15% hallucination rate on AA-Omniscience is the lowest of any model scoring 45+** (Astra: 51%, GPT-6.1 Sol: 54%).
+
+## Availability and pricing
+
+Argon is **not yet publicly available**: Google is rolling it out first to trusted cyber defenders via the **Fairwind Program**, then to paid API customers and Google AI Ultra subscribers, and the Gemini API catalog does not list it yet. There is no public API model ID at the time of this update.
+
+Pricing is **$4/$20 per 1M tokens standard, discounted 50% to $2/$10 for at least one month** (Google has not confirmed the end date), with cached input **95% off ($0.10/M at promotional pricing)** — up from 90% on Gemini 3.8 Flash. At promotional prices Argon costs **$1.99 per AA task, 60% of GPT-6 Astra (max)**; after the discount ends that rises to $3.98.
+
+## Specs and the long-decode trick
+
+- **Context:** 1M tokens · **Output:** up to 1M tokens via **Long Decode Continuation**, a new Gemini API feature that pauses long responses and resumes them across follow-up calls, so reasoning can run past request timeouts
+- **Modalities:** text, image, video and speech input; text output
+- **Token use:** ~62k output tokens per AA task (vs 27k for Astra max) — efficiency comes from price, not terseness
+
+## Read the rankings carefully
+
+Argon's **provisional #1 on the LMArena text arena (1525 Elo)** rests on only 4,932 votes versus 77,000+ for the incumbents, and its confidence interval overlaps with #2 through #6 — treat it as a signal, not a coronation. Its AA-Omniscience accuracy (50%) is 13 points below Astra's, so the low hallucination rate partly reflects more "I don't know" answers. AA did not publish a speed figure for Argon at the time of writing.
+
+## Community insights
+
+**Community section.** Real-world behaviour, pricing anecdotes, prompting
+tips and failure modes live here. Nothing on this page is marketing copy;
+send what you know and it gets added.

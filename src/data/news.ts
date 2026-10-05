@@ -9,6 +9,137 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "october-board-sonnet-5-5-argon",
+    date: "2026-10-05",
+    title: "The October board: Sonnet 5.5 is #2 at AA 56, Gemini 4 Argon tops the text arena",
+    summary:
+      "The refreshed AA Index v4.3.2 board puts Claude Sonnet 5.5 (max, with fallback) at 56 — two points behind Opus 5.5 — and Gemini 4 Argon (high) at 53, matching GPT-6 Astra. Argon also takes provisional #1 on the LMArena text arena (1525 Elo), while Opus 5.5 (max) leads WebDev at 1815.",
+    tag: "benchmark",
+  },
+  {
+    slug: "gemini-4-argon-launch",
+    date: "2026-09-30",
+    title: "Google launches Gemini 4 Argon — AA 53, back in the top three labs",
+    summary:
+      "Google DeepMind's first non-Flash flagship in over seven months scores 53 on the AA Intelligence Index at high effort, matching GPT-6 Astra (max) at 60% of the cost per task during a 50% launch promo ($2/$10, standard $4/$20). #1 on AutomationBench-AA at 78% and the lowest hallucination rate (15%) of any 45+ model. Rolling out via the Fairwind Program first; not yet in the public Gemini API catalog.",
+    tag: "release",
+    provider: "google",
+  },
+  {
+    slug: "openai-devday-2026",
+    date: "2026-09-29",
+    title: "OpenAI DevDay: GPT-6.1 Sol, \"dots\" agents, Ultrafast tier, Pro 500 plan",
+    summary:
+      "GPT-6.1 Sol launches at $2/$10 with 95% cache discounts — AA 52 at max, one point below Astra at a quarter of the cost per task. OpenAI also announced \"dots\" always-on Astra-powered agents, an Ultrafast Codex tier (~8× faster), a Pro 500 plan ($500/mo), and ChatGPT passing 1.2B weekly users.",
+    tag: "release",
+    provider: "openai",
+  },
+  {
+    slug: "gpt-6-1-astra-shelved",
+    date: "2026-09-29",
+    title: "OpenAI shelves the GPT-6.1 Astra launch over safety concerns",
+    summary:
+      "The planned October release of GPT-6.1 Astra was pulled after the model \"didn't quite meet the bar\" on staying within scope and authorization, per reporting. GPT-6.1 Sol ships in its place at a fifth of Astra's price.",
+    tag: "industry",
+    provider: "openai",
+  },
+  {
+    slug: "claude-sonnet-5-5-launch",
+    date: "2026-09-28",
+    title: "Claude Sonnet 5.5 ships — AA 56, the strongest Sonnet ever measured",
+    summary:
+      "Sonnet 5.5 holds Sonnet 5's $2/$10 price while running 30%+ faster, reaching AA 56 at max effort — two points behind Opus 5.5 — with Terminal-Bench 4.0 up 50 points to 64% (AA-measured). First Sonnet with Opus-class cyber safeguards; on the Claude API, AWS, Google Cloud and Microsoft Foundry. Note: it burns ~193k output tokens per AA task, the highest measured.",
+    tag: "release",
+    provider: "anthropic",
+  },
+  {
+    slug: "grok-4-7-on-bedrock",
+    date: "2026-09-28",
+    title: "Grok 4.7 arrives on Amazon Bedrock",
+    summary:
+      "xAI's newest model is now served on Bedrock via cross-Region inference profiles, with Responses, Chat Completions and Converse API support.",
+    tag: "industry",
+    provider: "xai",
+  },
+  {
+    slug: "amd-world-labs-8-2b",
+    date: "2026-09-28",
+    title: "AMD to acquire World Labs for $8.2B",
+    summary:
+      "The all-stock deal brings Fei-Fei Li's spatial-intelligence lab into AMD; Li joins as EVP and chief scientist. Merger agreement signed September 26, closing expected by end of 2026.",
+    tag: "industry",
+  },
+  {
+    slug: "sora-2-shutdown",
+    date: "2026-09-24",
+    title: "OpenAI shuts down Sora 2 and the Videos API",
+    summary:
+      "The sora-2, sora-2-pro and dated snapshots were retired with no replacement listed — the deprecation was announced in March and took effect September 24.",
+    tag: "industry",
+    provider: "openai",
+  },
+  {
+    slug: "liner-model-api",
+    date: "2026-09-24",
+    title: "Liner launches the Liner Model API",
+    summary:
+      "A new model-routing API at $1/$6 per 1M input/output tokens ($0.10 cached), claiming at least 50% savings versus same-tier models — the latest entrant in the multi-model router field.",
+    tag: "industry",
+  },
+  {
+    slug: "openrouter-batch-api",
+    date: "2026-09-22",
+    title: "OpenRouter launches Batch API — ~50% off, 24-hour window",
+    summary:
+      "Seventy-one :batch variants are live (e.g. gpt-6-astra:batch at $5/$25), the latest sign that batch pricing is becoming table stakes for routers.",
+    tag: "industry",
+  },
+  {
+    slug: "zai-opensources-zcode",
+    date: "2026-09-22",
+    title: "Z.ai open-sources ZCode after exfiltration disclosure",
+    summary:
+      "A researcher showed the client silently uploading full user workspaces — Git history, credentials, cloud keys — to Alibaba Cloud storage. Z.ai apologized, removed the Repo Wiki and commissioned CAICT/NSFOCUS audits; an enterprise customer filed a legal demand on September 19.",
+    tag: "open-source",
+    provider: "zai",
+  },
+  {
+    slug: "gemini-2-5-restrictions",
+    date: "2026-09-21",
+    title: "Google restricts Gemini 2.5 models; gemini-2.5-pro retires October 20",
+    summary:
+      "Gemini 2.5 Pro disappeared from AI Studio on September 18; Google confirms access is limited to existing users (\"not deprecated\", API still served) while Google Cloud lists gemini-2.5-pro retirement for October 20, 2026, with gemini-3.8-flash / gemini-3.5-flash as replacements.",
+    tag: "industry",
+    provider: "google",
+  },
+  {
+    slug: "solar-mini-4",
+    date: "2026-10-01",
+    title: "Upstage ships Solar Mini 4 — AA 24, the best 3B-active model",
+    summary:
+      "The 35B/3B MoE model scores 24.1 on the AA Intelligence Index v4.3.2 (highest among 3B-active models) at $0.10/$0.40 per 1M, with 512K context, 128K max output and a 70% launch discount through October 10. AA measures 208 t/s but 7.1 minutes per task — speed with heavy token use.",
+    tag: "release",
+    provider: "upstage",
+  },
+  {
+    slug: "gpt-5-4-cyber-removed",
+    date: "2026-10-01",
+    title: "OpenAI removes gpt-5.4-cyber from the API",
+    summary:
+      "The cybersecurity-tuned model was removed on October 1, as announced on September 11 — part of a wave of specialized-model deprecations this autumn.",
+    tag: "industry",
+    provider: "openai",
+  },
+  {
+    slug: "anthropic-frontier-academy",
+    date: "2026-10-02",
+    title: "Anthropic commits $100M to train 10,000 engineers",
+    summary:
+      "The Frontier Academy program aims to teach frontier-model engineering at scale — the latest industry move to grow the agentic-workforce talent pool.",
+    tag: "industry",
+    provider: "anthropic",
+  },
+  {
     slug: "opus-5-5-takes-number-one",
     date: "2026-09-23",
     title: "Claude Opus 5.5 takes #1 on the AA Intelligence Index — 58, a new record",

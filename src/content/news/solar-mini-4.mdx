@@ -1,0 +1,5 @@
+Upstage shipped **Solar Mini 4**, a **35B-total/3B-active MoE** model that scores **24.1 on the AA Intelligence Index v4.3.2** — the highest among 3B-active models — at **$0.10 input / $0.01 cached / $0.40 output per 1M**, with a 70% launch discount through October 10 UTC.
+
+Specs: 512K context, 128K max output, text-only (Korean/English/Japanese), reasoning off by default with configurable `reasoning_effort`, JSON mode and tool calling including parallel calls. Available on the Upstage Console API, Solar Chat, OpenRouter and on-prem, free on Hermes Agent from October 5.
+
+The AA analysis carries a warning label: Solar Mini 4 runs at **208 tokens/second but takes 7.1 minutes per task** — it is fast per token and heavy per task, costing roughly 5× GPT-6 Luna (max) per task despite similar per-token prices. AA-LCR 83% and SciCode 48% lead its profile; Terminal-Bench 4.0 sits at 1%.

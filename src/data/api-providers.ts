@@ -35,7 +35,7 @@ export const apiProviders: ApiProvider[] = [
     color: "#10a37f",
     kind: "first-party",
     summary:
-      "First-party access to GPT, Codex, realtime, image and audio models through the Responses and Chat Completions APIs.",
+      "First-party access to GPT, Codex, realtime, image and audio models through the Responses and Chat Completions APIs. GPT-6.1 Sol (Sep 29) is the current value flagship at $2/$10 with 95% cache discounts.",
     bestFor: ["GPT models", "Realtime voice", "Structured outputs"],
     compatibility: ["OpenAI Responses", "Chat Completions"],
     deployment: ["Hosted API"],
@@ -44,7 +44,7 @@ export const apiProviders: ApiProvider[] = [
     consoleUrl: "https://platform.openai.com/",
     modelsUrl: "https://developers.openai.com/api/docs/models",
     pricingUrl: "https://openai.com/api/pricing/",
-    verifiedOn: "2026-09-25",
+    verifiedOn: "2026-10-05",
   },
   {
     id: "anthropic-api",
@@ -53,7 +53,7 @@ export const apiProviders: ApiProvider[] = [
     color: "#d97757",
     kind: "first-party",
     summary:
-      "Direct access to the Claude model family, including long-context tools, prompt caching and computer use.",
+      "Direct access to the Claude model family, including long-context tools, prompt caching and computer use. Sonnet 5.5 (Sep 28) is the current #2 model on the AA Index at $2/$10.",
     bestFor: ["Claude", "Agents", "Long context"],
     compatibility: ["Anthropic Messages", "Tool use"],
     deployment: ["Hosted API"],
@@ -63,7 +63,7 @@ export const apiProviders: ApiProvider[] = [
     modelsUrl:
       "https://platform.claude.com/docs/en/about-claude/models/overview",
     pricingUrl: "https://www.anthropic.com/pricing#api",
-    verifiedOn: "2026-09-25",
+    verifiedOn: "2026-10-05",
   },
   {
     id: "google-gemini-api",
@@ -72,7 +72,7 @@ export const apiProviders: ApiProvider[] = [
     color: "#4285f4",
     kind: "first-party",
     summary:
-      "Gemini models, live multimodal interaction and Google AI Studio tooling through the Gemini developer API.",
+      "Gemini models, live multimodal interaction and Google AI Studio tooling through the Gemini developer API. Gemini 4 Argon (Sep 30) is rolling out in phases and is not yet in the public catalog.",
     bestFor: ["Gemini", "Multimodal", "Developer tooling"],
     compatibility: ["Google Gen AI SDK", "REST"],
     deployment: ["Hosted API"],
@@ -81,7 +81,7 @@ export const apiProviders: ApiProvider[] = [
     consoleUrl: "https://aistudio.google.com/",
     modelsUrl: "https://ai.google.dev/gemini-api/docs/models",
     pricingUrl: "https://ai.google.dev/gemini-api/docs/pricing",
-    verifiedOn: "2026-09-25",
+    verifiedOn: "2026-10-05",
   },
   {
     id: "xai-api",
@@ -199,7 +199,7 @@ export const apiProviders: ApiProvider[] = [
     color: "#6467f2",
     kind: "multi-model",
     summary:
-      "One OpenAI-compatible endpoint for a broad model catalog, with provider routing, fallbacks and usage data.",
+      "One OpenAI-compatible endpoint for a broad model catalog, with provider routing, fallbacks, usage data and a Batch API (~50% off, 24-hour window, launched Sep 22).",
     bestFor: ["Model comparison", "Provider fallback", "One API key"],
     compatibility: ["OpenAI-compatible", "OpenRouter SDK"],
     deployment: ["Hosted router"],
@@ -208,7 +208,7 @@ export const apiProviders: ApiProvider[] = [
     consoleUrl: "https://openrouter.ai/keys",
     modelsUrl: "https://openrouter.ai/models",
     pricingUrl: "https://openrouter.ai/pricing",
-    verifiedOn: "2026-09-25",
+    verifiedOn: "2026-10-05",
   },
   {
     id: "fireworks-ai",

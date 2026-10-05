@@ -42,7 +42,7 @@ export default function NewsPage() {
         <div className="page-header-stat">
           <strong>{newsSorted.length}</strong>
           <span>tracked updates</span>
-          <small>Newest verified Sep 23, 2026</small>
+          <small>Newest verified Oct 5, 2026</small>
         </div>
       </header>
 

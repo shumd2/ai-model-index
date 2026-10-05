@@ -26,11 +26,11 @@ export const providers: Provider[] = [
     website: "https://openai.com",
     category: "frontier",
     description:
-      "OpenAI builds the GPT family of frontier models, the ChatGPT assistant, and the Codex coding agent. In 2026 its flagship line is GPT-6 (Astra), sitting alongside the fast-moving GPT-5.5/5.6 tier and the open-weights GPT-OSS models.",
+      "OpenAI builds the GPT family of frontier models, the ChatGPT assistant, and the Codex coding agent. The GPT-6 line now spans Astra (flagship), GPT-6.1 Sol (Sep 29 — AA 52 at a fifth of Astra's price) and the budget Luna tier, alongside the open-weights GPT-OSS models.",
     highlights: [
       "GPT-6 Astra tops the LMArena WebDev leaderboard",
-      "GPT-5.6 ships in three tunings — Sol, Luna and Terra",
-      "GPT-OSS 120B is one of the strongest open-weight releases",
+      "GPT-6.1 Sol: AA 52 at $2/$10 — one point below Astra at a quarter of the cost per task",
+      "GPT-6 Sol and Luna cut GPT-6 pricing by 50% at launch",
     ],
   },
   {
@@ -45,11 +45,11 @@ export const providers: Provider[] = [
     website: "https://anthropic.com",
     category: "frontier",
     description:
-      "Anthropic builds the Claude family. In September 2026 it introduced two new lines — Fable and Mythos — alongside the continuing Opus, Sonnet and Haiku tiers. Claude Opus 5.5 (Sep 22) is currently the #1 model on the Artificial Analysis Intelligence Index; Sonnet 5.5 and Haiku 5.5 are queued.",
+      "Anthropic builds the Claude family. In September 2026 it introduced two new lines — Fable and Mythos — alongside the continuing Opus, Sonnet and Haiku tiers. Claude Opus 5.5 (Sep 22) is the #1 model on the AA Intelligence Index (58), and Claude Sonnet 5.5 (Sep 28) is #2 at 56 — the strongest Sonnet ever measured.",
     highlights: [
       "Claude Opus 5.5 is the #1 model on the AA Intelligence Index (58)",
+      "Claude Sonnet 5.5 is #2 at AA 56 — Opus-class work at Sonnet prices",
       "Claude Fable 5.1 is #1 on the LMArena agent arena",
-      "Claude Mythos 5.1 targets research and scientific work",
     ],
   },
   {
@@ -64,11 +64,11 @@ export const providers: Provider[] = [
     website: "https://deepmind.google",
     category: "frontier",
     description:
-      "Google DeepMind develops the Gemini family — Pro for frontier reasoning, Flash for speed, Flash-Lite for cost, and the Omni line for native video and audio generation. Gemini models ship across Gemini app, Search and Vertex AI.",
+      "Google DeepMind develops the Gemini family — the new Gemini 4 Argon flagship (Sep 30, AA 53), Flash for speed, Flash-Lite for cost, and the Omni line for native video and audio generation. Gemini models ship across Gemini app, Search and Vertex AI.",
     highlights: [
+      "Gemini 4 Argon: AA 53 — Google back in the top three labs",
       "Gemini 3.8 Flash is a top-10 text model at Flash prices",
       "Gemini Omni 1.1 Flash leads text-to-video arenas",
-      "3.5 Flash-Lite is among the fastest mainstream models",
     ],
   },
   {
@@ -83,11 +83,11 @@ export const providers: Provider[] = [
     website: "https://x.ai",
     category: "frontier",
     description:
-      "xAI builds the Grok family, integrated with X (Twitter) for real-time context. Grok 4.7 leads the line — AA 46 at $1.60/$4.80 with sub-second time-to-first-token — and the Grok Imagine line covers image and video generation.",
+      "xAI builds the Grok family, integrated with X (Twitter) for real-time context. Grok 4.7 leads the line — AA 46 at $1.60/$4.80 with sub-second time-to-first-token, a Coding Agent Index of 56 with Grok Build, and now also on Amazon Bedrock. The Grok Imagine line covers image and video generation.",
     highlights: [
       "Grok 4.7: AA 46 at a cut price of $1.60/$4.80",
+      "Coding Agent Index 56 — DeepSWE v1.1 73% with Grok Build",
       "0.84s time-to-first-token — fastest in the top tier",
-      "Grok 4.20 beta offers a 2M-token context window",
     ],
   },
   {
@@ -104,7 +104,7 @@ export const providers: Provider[] = [
     description:
       "Meta's Llama releases made open weights mainstream. In 2026 the Muse Spark line appeared at the very top of chat arenas, while Llama 4 Scout holds one of the largest context windows available (10M tokens).",
     highlights: [
-      "Muse Spark 1.3 Max ranks in LMArena's top 10 for text",
+      "Muse Spark 1.3 Max: AA 48 — top-15 intelligence at $1.60/task",
       "Llama 4 Scout offers a 10M-token context window",
       "Llama remains the most-deployed open-weight family",
     ],
@@ -559,9 +559,9 @@ export const providers: Provider[] = [
     website: "https://mercurylm.org",
     category: "open",
     description:
-      "Inception bet on a different architecture: diffusion instead of autoregression. Mercury 2 generates at 655 tokens/second — the second-fastest model measured — by producing tokens in parallel rather than one at a time.",
+      "Inception bet on a different architecture: diffusion instead of autoregression. Mercury 2 generates at 750 tokens/second — the second-fastest model measured, behind Celeris-1's 1,492 — by producing tokens in parallel rather than one at a time.",
     highlights: [
-      "Mercury 2: 655 t/s — #2 fastest model measured",
+      "Mercury 2: 750 t/s — #2 fastest model measured",
       "Diffusion LLM architecture: parallel token generation",
       "Top-210 arena quality at radical speed",
     ],

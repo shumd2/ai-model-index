@@ -1,0 +1,7 @@
+Claude Sonnet 5.5 shipped September 28 and immediately became the **#2 model on the Artificial Analysis Intelligence Index: 56 at max effort (with fallback)**, eighteen points above Sonnet 5 and two behind Opus 5.5 — at Sonnet 5's unchanged **$2/$10 per 1M token** list price, running 30%+ faster.
+
+The agentic numbers are the story. Terminal-Bench 4.0 jumped **50 points to 64%** as measured by AA (Anthropic's own harness reports 70.6% — a different harness, not a contradiction), Terminal-Bench-Science reached 53% behind only Astra and Opus 5.5, and Sonnet 5.5 reaches near-parity with Opus 5.5 on AA-Briefcase (1811 vs 1822), GDPval-AA (1844 vs 1846) and AutomationBench-AA (71% vs 70%). It is the first Sonnet with **Opus-class cyber safeguards** and distillation-prevention classifiers.
+
+The catch: **~193k output tokens per AA task — the highest ever measured**, ~7× GPT-6 Astra. That pushes cost per task to $7.67 and puts Sonnet 5.5 off the Intelligence-vs-cost Pareto frontier; at lower efforts, GPT-6 Sol configurations match it for less. AA also notes it evaluated a pre-release deployment with a structured-outputs bug, now fixed — public-release scores may be slightly understated.
+
+Available on the Claude API (`claude-sonnet-5-5`), Amazon Bedrock, Google Cloud and Microsoft Foundry, with a 1M-token context window, 128K max output (300K in Batch API beta), cache reads at $0.20/M, and five breaking changes versus Sonnet 5 documented in the migration guide.

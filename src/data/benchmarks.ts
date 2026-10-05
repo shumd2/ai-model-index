@@ -251,6 +251,15 @@ export const benchmarks: Benchmark[] = [
     description:
       "Aggregated coding benchmark: Fable 5.1 leads at 81.6%, followed by Claude Opus 5 (78.0%) and GPT-5.6 Sol (77.4%). Display-only as of v4.3.2 — excluded from the overall AA Intelligence Index scoring formula.",
   },
+  {
+    id: "swe-atlas",
+    name: "SWE-Atlas QnA",
+    source: "Agentica / AA-reported",
+    scale: "% correct",
+    format: "percent",
+    description:
+      "Question-answering over large real-world codebases: models must locate, reason over and synthesize answers from repository-scale context. Companion to the DeepSWE family of agentic SWE evaluations.",
+  },
 ];
 
 export const benchmarkSourceUrls: Record<string, string> = {
@@ -261,7 +270,9 @@ export const benchmarkSourceUrls: Record<string, string> = {
   hle: "https://lastexam.ai",
   "ale-bench": "https://sakana.ai/ale-bench/",
   deepswe: "https://agentica.org/",
+  "swe-atlas": "https://agentica.org/",
   "terminal-bench": "https://www.tbench.ai/",
+  "terminal-bench-science": "https://www.tbench.ai/",
   "aa-briefcase": "https://artificialanalysis.ai/evaluations/aa-briefcase",
   "gdpval-aa": "https://artificialanalysis.ai/evaluations/gdpval-aa",
   osworld: "https://os-world.github.io/",
@@ -271,6 +282,13 @@ export const benchmarkSourceUrls: Record<string, string> = {
   "lmarena-t2v": "https://lmarena.ai/leaderboard",
   scicode: "https://github.com/scidore/SciCode",
   "gdp-pdf": "https://artificialanalysis.ai/evaluations/gdp-pdf",
+  "aa-omniscience": "https://artificialanalysis.ai/evaluations/aa-omniscience",
+  "aa-lcr": "https://artificialanalysis.ai/evaluations/aa-lcr",
+  critpt: "https://artificialanalysis.ai/evaluations/critpt",
+  automationbench: "https://artificialanalysis.ai/evaluations/automationbench",
+  frontiercode: "https://www.anthropic.com/claude-sonnet-5-5",
+  cursorbench: "https://www.cursor.com/",
+  chartography: "https://artificialanalysis.ai/evaluations",
   "cost-per-task": "https://artificialanalysis.ai/models",
   "aa-coding": "https://artificialanalysis.ai/models",
 };
