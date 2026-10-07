@@ -1,0 +1,46 @@
+## Overview
+
+**GLM-5.3 Flash** reached **general availability on October 1, 2026** (research blog Aug 26, AutoClaw integration blog Oct 7) — the first **natively multimodal** model in the GLM-5 series, with a **1M-token context window** and pricing at roughly **1/10th of GLM-5.2**.
+
+It was tested anonymously as **"ox-alpha"** on OpenCode and OpenRouter prior to release, and is now available on the Z.ai API, ZCode, Hugging Face, and OpenRouter (`z-ai/glm-5.3-flash`).
+
+## Specs at a glance
+
+| Property | Value |
+|---|---|
+| **Context window** | 1M tokens |
+| **Modalities** | Text + image in/out |
+| **Reasoning** | Adaptive (implied) |
+| **Open weights** | No (GLM-5.3 Max is open) |
+| **Pricing** | $0.15 / 1M in · $0.50 / 1M out · FlashX $0.37 / $1.25 |
+| **API IDs** | `glm-5.3-flash`, `z-ai/glm-5.3-flash` |
+| **Knowledge cutoff** | Not stated |
+
+## Benchmark profile (Artificial Analysis)
+
+| Benchmark | Score | Rank |
+|---|---|---|
+| **AA Intelligence Index v4.3.2** | **42** | — |
+| **Image-to-WebDev (LMArena)** | **1588 Elo** | **#10** |
+
+The Flash tier scores **AA 42** — a strong showing for a cost-optimized model — and its **Image-to-WebDev 1588 Elo places it top-10** on the LMArena WebDev leaderboard, making it a legitimate cheap WebDev player.
+
+Cost per task on the AA Index is **~$0.25**, driven by the very low per-token pricing.
+
+## Value proposition
+
+- **GA, not preview** — ready for production workloads
+- **1/10th GLM-5.2 price** — exceptional cost efficiency for multimodal work
+- **1M context** — matches the Max variant
+- **Image output** — first GLM with native image generation
+- **Broad availability** — Z.ai API, ZCode, Hugging Face, OpenRouter
+
+## Caveats
+
+- **Not open-weight** — the GLM-5.3 Max (AA 45) is the open variant; Flash is API-only
+- **Max is stronger for complex reasoning** — AA 45 vs 42; choose Max when intelligence ceiling matters
+- **FlashX tier exists** at $0.37/$1.25 for higher throughput/quality
+
+## Community insights
+
+**Community section.** Real-world behaviour, pricing anecdotes, prompting tips and failure modes live here. Nothing on this page is marketing copy; send what you know and it gets added.

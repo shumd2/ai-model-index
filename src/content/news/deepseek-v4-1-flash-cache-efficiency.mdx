@@ -1,0 +1,7 @@
+DeepSeek's **V4.1-Flash** (552B MoE, native vision, released Sep 10) introduces a redesigned architecture that **dramatically reduces per-token memory usage** for context. The practical effect: the serving cost bottleneck shifts from compute to **cache-read bandwidth**.
+
+On Artificial Analysis v4.3.2, V4.1-Flash scores **40 on the Intelligence Index** — modest absolute intelligence but **exceptional cost efficiency** for agent workloads. The architecture sidesteps the context-resend bottleneck: when agents make tool calls, they typically resend the full context; V4.1-Flash makes that dramatically cheaper.
+
+Peak/off-peak pricing is also in effect (off-peak 50% of peak). The model ID `deepseek-v4.1-flash-expires-on-0910` was a beta with an expiry date baked into the name; GA followed.
+
+This matters for the registry's cost-per-task analysis: token efficiency is now as important as sticker price.

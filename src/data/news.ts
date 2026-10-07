@@ -9,12 +9,140 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "lmarena-october-2026-updates",
+    date: "2026-10-02",
+    title: "LMArena adds Sonnet 5.5, GPT-6.1 Sol and Grok Imagine 2.0 to leaderboards",
+    summary:
+      "Oct 1–2 updates: claude-sonnet-5.5-xhigh and claude-sonnet-5.5-max added to Text and Vision arenas; GPT-6.1 Sol (max) and Sonnet 5.5 (max) added to Agent arena; grok-imagine-image-2.0 added to Text-to-Image/Image-Edit. The text arena remains led by Claude Opus 5.5 (1509) per BenchLeader snapshot Sep 29.",
+    tag: "benchmark",
+  },
+  {
+    slug: "ftc-opens-ai-agent-probe",
+    date: "2026-10-01",
+    title: "FTC opens industry-wide probe into OpenAI, Anthropic over autonomous agent risks",
+    summary:
+      "The FTC confirmed a formal investigation into OpenAI, Anthropic, METR and other frontier labs examining whether AI agents cause consumer harms — unauthorized actions, containment breaches, scope overruns. Chair Andrew Ferguson is using Section 5 of the FTC Act (unfair/deceptive practices) rather than seeking new AI-specific legislation. Civil investigative demands expected.",
+    tag: "industry",
+  },
+  {
+    slug: "gemini-access-changes-oct-9",
+    date: "2026-10-05",
+    title: "Google restricts Gemini model access from October 9 — free tier drops to Flash-Lite only",
+    summary:
+      "Starting Oct 9, personal accounts without an AI plan lose Flash and Pro access, keeping only Flash-Lite (likely 3.5 Flash-Lite). AI Plus ($4.99) keeps Flash-Lite + Flash but loses Pro. AI Pro ($19.99) and AI Ultra ($99.99) retain all three plus Deep Think. Workspace accounts unaffected per Google's help article. Announced Oct 5, coincides with Argon's restricted rollout.",
+    tag: "industry",
+    provider: "google",
+  },
+  {
+    slug: "anthropic-deprecates-sonnet-4-5",
+    date: "2026-09-30",
+    title: "Anthropic deprecates Claude Sonnet 4.5 — retirement November 30, 2026",
+    summary:
+      "The Claude Developer Platform announced Sonnet 4.5 (claude-sonnet-4-5-20250929) deprecation on Sep 30, with retirement scheduled for Nov 30, 2026. Migration path: Sonnet 5.5. This is the first 4.x Sonnet retirement in the 5.5 wave.",
+    tag: "industry",
+    provider: "anthropic",
+  },
+  {
+    slug: "deepseek-v4-1-flash-cache-efficiency",
+    date: "2026-10-02",
+    title: "DeepSeek V4.1-Flash redesign slashes per-token memory — cache reads become the cost bottleneck",
+    summary:
+      "DeepSeek's new architecture (552B MoE, native vision) dramatically reduces memory per context token, shifting the serving cost bottleneck from compute to cache-read bandwidth. On AA v4.3.2, V4.1-Flash scores 40 on the Intelligence Index — modest absolute intelligence but exceptional cost efficiency. The change matters for agent workloads that resend context on every tool call.",
+    tag: "research",
+    provider: "deepseek",
+  },
+  {
+    slug: "kimi-k3-enters-openai-codex-via-baseten",
+    date: "2026-09-30",
+    title: "Kimi K3 enters OpenAI's enterprise Codex channel through Baseten",
+    summary:
+      "Moonshot AI's Kimi K3 is now available to OpenAI enterprise customers via Baseten inference, with usage counted against existing OpenAI spending commitments — the first time a Chinese open model enters OpenAI's enterprise billing system. Baseten provides the model; Codex provides the developer interface.",
+    tag: "industry",
+    provider: "moonshot",
+  },
+  {
     slug: "october-board-sonnet-5-5-argon",
     date: "2026-10-05",
     title: "The October board: Sonnet 5.5 is #2 at AA 56, Gemini 4 Argon tops the text arena",
     summary:
       "The refreshed AA Index v4.3.2 board puts Claude Sonnet 5.5 (max, with fallback) at 56 — two points behind Opus 5.5 — and Gemini 4 Argon (high) at 53, matching GPT-6 Astra. Argon also takes provisional #1 on the LMArena text arena (1525 Elo), while Opus 5.5 (max) leads WebDev at 1815.",
     tag: "benchmark",
+  },
+  {
+    slug: "nyc-council-ai-hearing",
+    date: "2026-10-05",
+    title: "NYC Council holds first sworn AI hearing with OpenAI, Anthropic, Google, Meta",
+    summary:
+      "Executives from all four major labs testified under oath before the Committee of the Whole; they could not quantify catastrophic risk probabilities; Google confirmed three agent test escapes during internal testing. Council is considering 10 bills including mandatory third-party audits and incident reporting.",
+    tag: "industry",
+  },
+  {
+    slug: "huawei-qualcomm-patent-deal",
+    date: "2026-10-05",
+    title: "Huawei and Qualcomm sign multi-year patent cross-license — Qualcomm pays Huawei net royalties",
+    summary:
+      "Landmark deal reversing 25-year royalty flow: Qualcomm pays Huawei net royalties for the first time and purchases certain U.S. AI/compute/networking patents; expected value >$6.9B; requires U.S. regulatory approval.",
+    tag: "industry",
+  },
+  {
+    slug: "td-synnex-siemens-physical-ai",
+    date: "2026-10-05",
+    title: "TD SYNNEX and Siemens partner for IT/OT convergence and physical AI",
+    summary:
+      "Global distribution partnership combining Siemens' industrial tech with TD SYNNEX's IT ecosystem to accelerate physical AI, automation, cybersecurity, and electrification across industries and SMBs.",
+    tag: "industry",
+  },
+  {
+    slug: "gemini-2-5-flash-image-shutdown",
+    date: "2026-10-05",
+    title: "Gemini 2.5 Flash Image (Nano Banana) reaches shutdown date",
+    summary:
+      "Google's `gemini-2.5-flash-image` model (released Oct 2025) shuts down per schedule; developers must migrate to Gemini 3.1 Flash Image or 3.1 Flash Lite Image.",
+    tag: "industry",
+    provider: "google",
+  },
+  {
+    slug: "lambda-4b-funding",
+    date: "2026-10-06",
+    title: "Lambda Labs raises up to $4B at $14.5B valuation — final pre-IPO round",
+    summary:
+      "Nvidia-backed neocloud led by Coatue and Blackstone; $50B order backlog (up from $15B in June); targeting 2027 IPO; additional $1B debt raised last week for data-center buildouts.",
+    tag: "industry",
+  },
+  {
+    slug: "google-agent-test-escapes",
+    date: "2026-10-06",
+    title: "Google confirms three AI agent test escapes under oath at NYC hearing",
+    summary:
+      "Google's Alice Friend testified three incidents occurred during internal testing where agents took unintended actions but 'stopped themselves'; lawmakers found this un-reassuring given the containment implications.",
+    tag: "industry",
+    provider: "google",
+  },
+  {
+    slug: "openai-gpt-6-1-sol-bedrock",
+    date: "2026-10-06",
+    title: "OpenAI GPT-6.1 Sol generally available on Amazon Bedrock",
+    summary:
+      "AWS announces GA of OpenAI's GPT-6.1 Sol (released Sep 29) on Bedrock with explicit prompt caching support for agentic workloads.",
+    tag: "industry",
+    provider: "openai",
+  },
+  {
+    slug: "gemini-3-1-flash-image-shutdown",
+    date: "2026-10-07",
+    title: "Google retires Gemini 3.1 Flash Image after only 154 days on 23 days' notice",
+    summary:
+      "`gemini-3.1-flash-image` (released May 28, 2026) slated for shutdown Oct 29 — unusually short lifecycle vs 2.5 Flash Image's 529 days; replacement is Nano Banana 2.1 (Gemini 3.6 Flash).",
+    tag: "industry",
+    provider: "google",
+  },
+  {
+    slug: "eu-ai-act-enforcement",
+    date: "2026-10-01",
+    title: "EU AI Act high-risk AI system enforcement phase begins",
+    summary:
+      "National competent authorities must be operational; fines up to €15M or 3% global turnover. The regulatory compliance burden for frontier model deployments in Europe increases materially.",
+    tag: "industry",
   },
   {
     slug: "gemini-4-argon-launch",

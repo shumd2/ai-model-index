@@ -44,7 +44,7 @@ export const apiProviders: ApiProvider[] = [
     consoleUrl: "https://platform.openai.com/",
     modelsUrl: "https://developers.openai.com/api/docs/models",
     pricingUrl: "https://openai.com/api/pricing/",
-    verifiedOn: "2026-10-05",
+    verifiedOn: "2026-10-07",
   },
   {
     id: "anthropic-api",
@@ -63,7 +63,7 @@ export const apiProviders: ApiProvider[] = [
     modelsUrl:
       "https://platform.claude.com/docs/en/about-claude/models/overview",
     pricingUrl: "https://www.anthropic.com/pricing#api",
-    verifiedOn: "2026-10-05",
+    verifiedOn: "2026-10-07",
   },
   {
     id: "google-gemini-api",
@@ -81,7 +81,7 @@ export const apiProviders: ApiProvider[] = [
     consoleUrl: "https://aistudio.google.com/",
     modelsUrl: "https://ai.google.dev/gemini-api/docs/models",
     pricingUrl: "https://ai.google.dev/gemini-api/docs/pricing",
-    verifiedOn: "2026-10-05",
+    verifiedOn: "2026-10-07",
   },
   {
     id: "xai-api",
@@ -208,7 +208,7 @@ export const apiProviders: ApiProvider[] = [
     consoleUrl: "https://openrouter.ai/keys",
     modelsUrl: "https://openrouter.ai/models",
     pricingUrl: "https://openrouter.ai/pricing",
-    verifiedOn: "2026-10-05",
+    verifiedOn: "2026-10-07",
   },
   {
     id: "fireworks-ai",

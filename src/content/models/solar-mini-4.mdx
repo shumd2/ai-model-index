@@ -1,0 +1,49 @@
+## Overview
+
+**Solar Mini 4** launched **October 1, 2026** — a **35B-total / 3B-active MoE** model that scores **24.1 on the AA Intelligence Index v4.3.2**, the **highest among all 3B-active models**.
+
+At **$0.10 input / $0.01 cached / $0.40 output per 1M** (standard pricing; 70% launch discount through Oct 10 UTC), it targets price-sensitive agent fleets and Korean/English/Japanese document workloads.
+
+## Specs at a glance
+
+| Property | Value |
+|---|---|
+| **Architecture** | 35B total / 3B active MoE |
+| **Context window** | 512K tokens |
+| **Max output** | 128K tokens |
+| **Modalities** | Text only (Korean / English / Japanese) |
+| **Reasoning** | Off by default; configurable `reasoning_effort` |
+| **Pricing (standard)** | $0.10 in · $0.01 cached · $0.40 out per 1M |
+| **Launch discount** | 70% off through Oct 10 UTC |
+| **API IDs** | `solar-mini4` (alias `solar-mini4-260922`) |
+| **Availability** | Upstage Console API, Solar Chat, OpenRouter, on-prem, free on Hermes Agent from Oct 5 |
+
+## Benchmark profile (Artificial Analysis v4.3.2)
+
+| Metric | Value |
+|---|---|
+| **AA Intelligence Index** | **24.1** (highest among 3B-active models) |
+| **AA-LCR** | 83% |
+| **SciCode** | 48% |
+| **Terminal-Bench 4.0** | 1% |
+| **AutomationBench-AA** | 22% |
+| **Output speed** | 208 tokens/sec |
+| **Time per AA task** | ~7.1 minutes (heavy token use) |
+| **Cost per AA task** | ~$1.60 (vs $0.32 for GPT-6 Luna max) |
+
+## The speed/efficiency trade-off
+
+Solar Mini 4 is **fast per token (208 t/s)** but **heavy per task** — it burns ~7.1 minutes of output per AA Intelligence Index task, roughly **5× the cost per task of GPT-6 Luna (max)** despite similar per-token prices. This is the classic MoE pattern: sparse activation makes per-token generation cheap, but the model "thinks" extensively.
+
+For workloads where **per-token cost dominates** (high-volume classification, routing, extraction), the $0.10/$0.40 pricing is compelling. For **long-horizon agentic tasks**, the per-task cost adds up.
+
+## Capabilities
+
+- **Reasoning** configurable via `reasoning_effort` (off by default)
+- **JSON mode**, **tool calling**, **parallel tool calling**
+- **Korean / English / Japanese** optimized
+- Available on **Upstage Console, Solar Chat, OpenRouter, on-prem**, free on **Hermes Agent from Oct 5**
+
+## Community insights
+
+**Community section.** Real-world behaviour, pricing anecdotes, prompting tips and failure modes live here. Nothing on this page is marketing copy; send what you know and it gets added.
