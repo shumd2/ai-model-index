@@ -6,6 +6,7 @@ const explore = [
   { href: "/compare", label: "Compare models" },
   { href: "/providers", label: "Model labs" },
   { href: "/api-providers", label: "API access" },
+  { href: "/subscriptions", label: "Subscriptions" },
 ];
 
 const tools = [

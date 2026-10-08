@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/compare`, lastModified: lastVerified, changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseUrl}/providers`, lastModified: lastVerified, changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseUrl}/api-providers`, lastModified: lastVerified, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/subscriptions`, lastModified: new Date("2026-10-07T00:00:00Z"), changeFrequency: "weekly", priority: 0.85 },
     { url: `${baseUrl}/tools`, lastModified: lastVerified, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/benchmarks`, lastModified: lastVerified, changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/methodology`, lastModified: lastVerified, changeFrequency: "monthly", priority: 0.6 },

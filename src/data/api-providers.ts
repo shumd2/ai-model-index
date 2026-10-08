@@ -199,8 +199,8 @@ export const apiProviders: ApiProvider[] = [
     color: "#6467f2",
     kind: "multi-model",
     summary:
-      "One OpenAI-compatible endpoint for a broad model catalog, with provider routing, fallbacks, usage data and a Batch API (~50% off, 24-hour window, launched Sep 22).",
-    bestFor: ["Model comparison", "Provider fallback", "One API key"],
+      "One OpenAI-compatible endpoint for 300+ models across 60+ providers (70T monthly tokens). No subscription: pay-as-you-go credits with a 5.5% purchase fee, BYOK free to $25,000 of inference per month, provider routing, fallbacks and a Batch API (~50% off).",
+    bestFor: ["Model comparison", "Provider fallback", "One API key", "No-subscription billing"],
     compatibility: ["OpenAI-compatible", "OpenRouter SDK"],
     deployment: ["Hosted router"],
     labIds: [],

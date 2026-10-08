@@ -9,6 +9,24 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "zai-coding-plan-glm-5-3",
+    date: "2026-10-07",
+    title: "GLM Coding Plan adds GLM-5.3 and GLM-5.3-Flash across 20+ coding tools",
+    summary:
+      "Z.ai's flat-rate coding subscription now powers GLM-5.3 and GLM-5.3-Flash (formerly the anonymous OX Alpha) in ZCode, Claude Code, Codex, Cursor, OpenCode, OpenClaw and more. Lite is $18/mo (10,000 credits/week), Pro $80 (6×), Max $168 (14×), with 20% off quarterly and 30% off yearly; team seats run $88–$188.",
+    tag: "industry",
+    provider: "zai",
+  },
+  {
+    slug: "chatgpt-pro-tier-shuffle",
+    date: "2026-09-10",
+    title: "ChatGPT Pro gains a $100 tier; $200 Pro 20× pauses new sign-ups",
+    summary:
+      "OpenAI split Pro into $100 (5× Codex usage) and $200 (20×) tiers, then paused new sign-ups and upgrades to the $200 plan on Sep 10 — existing subscriptions renew as usual, with a one-time 30-day return window. A $500 Pro tier with GPT-6 Astra Ultrafast access followed at DevDay (Sep 30).",
+    tag: "industry",
+    provider: "openai",
+  },
+  {
     slug: "lmarena-october-2026-updates",
     date: "2026-10-02",
     title: "LMArena adds Sonnet 5.5, GPT-6.1 Sol and Grok Imagine 2.0 to leaderboards",

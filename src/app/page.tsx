@@ -93,6 +93,7 @@ export default function HomePage() {
           <div className="home-hero-actions">
             <Link href="/compare" className="btn-primary">Compare models</Link>
             <Link href="/api-providers" className="btn-ghost">Explore API access</Link>
+            <Link href="/subscriptions" className="btn-ghost">Subscription tiers</Link>
           </div>
           <div className="home-hero-sources">
             <span>Registry checked Sep 25, 2026</span>

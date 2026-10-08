@@ -10,6 +10,7 @@ const links = [
   { href: "/compare", label: "Compare" },
   { href: "/providers", label: "Labs" },
   { href: "/api-providers", label: "API access" },
+  { href: "/subscriptions", label: "Subscriptions" },
   { href: "/tools", label: "Tools" },
   { href: "/news", label: "News" },
 ];
