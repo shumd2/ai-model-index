@@ -1,0 +1,48 @@
+## Overview
+
+**Celeris-1-decision** (released October 8, 2026) is a **diffusion language model** that produces typed decisions instead of text. Where a normal LLM samples tokens left to right, Celeris-1-decision returns a probability distribution over the answer space — in one shot, with no token loop.
+
+It is hosted only: `POST https://inference.celeris.ai/celeris-1-decision/v1/systemone`.
+
+## Specs at a glance
+
+| Property | Value |
+|---|---|
+| **Model ID** | `celeris-1-decision` |
+| **Method** | Diffusion LM → typed decisions |
+| **Input price** | $0.04 / 1M tokens |
+| **Output price** | Free, including the optional explanation |
+| **Inputs** | Text, structured data, or images |
+| **Outputs** | Probability distributions, plus an optional one-sentence rationale |
+| **Context window** | Not published |
+| **Open weights** | No — hosted API only, no fine-tuning in this release |
+
+## The free-output structure
+
+Like Microsoft-Decision-1, which shipped the next day, Celeris bills **input only**. A decision classifier that returns structured output has no reason to charge for it — and free output means the per-request cost is knowable before you send anything.
+
+The optional explanation is included in that: Celeris will tell you *why* it decided, at no additional charge, which is unusual for a classifier.
+
+## Celeris as a lab
+
+This is the second model from Celeris. **Celeris-1** (September 2026) holds the speed record on the index at **1,492 tokens per second** with a 0.59-second time-to-first-token, but scores only 6 on the AA Intelligence Index — it was a speed specialist, not a reasoner.
+
+Celeris-1-decision plays to the same strength. Diffusion decoding suits short, bounded outputs where an autoregressive model would spend most of its time on structural tokens like braces and labels.
+
+That said, Celeris is a young lab with a short track record. Reliability under sustained load is the open question, not raw speed.
+
+## Part of a pattern
+
+Three labs shipped decision models in the same week:
+
+| Lab | Model | Date | Input | Output |
+|---|---|---|---|---|
+| Liquid AI | d1-3B / d1-omni-600M | Oct 7 | Self-host | No generation at all |
+| Celeris | Celeris-1-decision | Oct 8 | $0.04 / 1M | Free |
+| Microsoft | Microsoft-Decision-1 | Oct 9 | $0.042 / 1M | Free |
+
+Liquid goes furthest (no tokens whatsoever), Celeris and Microsoft keep a language-model backbone and bill output at zero.
+
+## Community insights
+
+**Community section.** Latency traces, calibration quality and comparisons against general models live here. Nothing on this page is marketing copy; send what you know and it gets added.

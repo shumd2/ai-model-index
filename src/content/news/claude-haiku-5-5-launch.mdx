@@ -1,0 +1,39 @@
+Anthropic completed the Claude 5.5 family on October 7 with **Claude Haiku 5.5** (`claude-haiku-5-5`) — its cheapest, fastest and most capable small model to date.
+
+## The three changes at once
+
+**Price.** For prompts up to 100,000 tokens — around 90% of traffic to the previous Haiku — it costs **90% less** than Haiku 4.5. Over 100k tokens it is still 50% cheaper. Anthropic's headline: roughly 75% less to run on average.
+
+| Per 1M tokens | Haiku 5.5 (≤100k) | Haiku 5.5 (>100k) | Haiku 4.5 |
+|---|---|---|---|
+| Input | $0.10 | $0.50 | $1.00 |
+| Output | $0.50 | $2.50 | $5.00 |
+| Cache read | $0.01 | $0.05 | $0.10 |
+| Cache write | $0.125 | $0.625 | $1.25 |
+
+**Context.** 1M tokens, up from 200k. Max output 128K, up from 64k.
+
+**Capability.** OSWorld 2.1 jumps from 15.7% to **72.4%** — past GPT-6 Luna's 48.9%. It is the first Haiku-class model with an adjustable effort setting.
+
+## Independent measurement disagrees with the lab
+
+Artificial Analysis measured Haiku 5.5 on **October 7** — the same day — and got a different answer on one benchmark:
+
+| Benchmark | Anthropic reports | Artificial Analysis |
+|---|---|---|
+| AA-Briefcase v1.1 | 1578 Elo | 1578 Elo |
+| Terminal-Bench 4.0 | **39.2%** | **33%** |
+| AutomationBench-AA | — | 35% (flagged as understated) |
+
+AA notes the AutomationBench figure is depressed by pre-release safety tuning that over-refused, and plans to re-run it.
+
+On the Intelligence Index itself, Haiku 5.5 scores **43 at max effort** for **$0.21 per task** — an effort ladder running 29 (low, $0.02) through 43 (max). At 240 tokens per second it is Anthropic's fastest model yet.
+
+## Migration gotchas
+
+- The **new tokenizer** costs roughly 30% more tokens for the same text than Haiku 4.5, partly offsetting the price cut.
+- **Thinking blocks are account-bound.** Sending one back after changing the system prompt, tools or earlier messages returns a `400`. Keep conversations append-only.
+
+## Also announced the same day
+
+**Sonnet 5.5 cache reads halved** to $0.10 per MTok, cutting typical agentic cost by around 20%. AA's cost-per-task for Sonnet 5.5 moved from $7.67 to **$5.46** as a result.

@@ -1,0 +1,34 @@
+## Overview
+
+**Liquid AI's d1 models** (released October 7, 2026) break from the language-model template entirely. They produce **no tokens at all** — a single forward pass returns the answer directly.
+
+That is the whole design. For classification, routing and triage, sampling a hundred tokens and parsing them is wasted work. d1 collapses that into one pass.
+
+## The two models
+
+| Model | Inputs | Construction |
+|---|---|---|
+| **`LiquidAI/d1-3b`** | Text + image | Merged from an LFM2.5-2.6B text backbone and an LFM2.5-VL-3B vision backbone |
+| **`LiquidAI/d1-omni-600M`** | Text + image, or text + audio | LFM2.5-Encoder-350M with FastConformer audio and vision encoders |
+
+Both ship as **open weights** with no restrictions on download, fine-tuning or deployment, and both have **llama.cpp support from day one**.
+
+## Why it matters
+
+The 600M variant is small enough to run on-device. A phone or laptop can make routing decisions locally without a network round-trip — which changes the privacy calculus for anything touching personal data.
+
+The architectural trade is straightforward: you give up the open-ended generation that makes LLMs useful for writing and reasoning, and you get latency and cost that a sampling loop cannot approach. Liquid's own testing went up to a 3.4K-token state.
+
+## The same idea, elsewhere
+
+d1 is not alone in this direction. Microsoft shipped **Microsoft-Decision-1** on October 9 (post-trained from Qwen3.5-9B, $0.042 per 1M input with **free output**), and Celeris released **Celeris-1-decision** on October 8 ($0.04 per 1M input, free output). All three labs independently converged on the same observation: a large share of production traffic never needed prose in the first place.
+
+## What is unknown
+
+- **No published token context window.** Liquid tested with state up to 3.4K tokens; that is a test ceiling, not a specification.
+- **The specific licence name is not confirmed** in Liquid's announcement, though it states the weights can be used without restrictions.
+- No hosted API at launch, and no standard benchmark results.
+
+## Community insights
+
+**Community section.** On-device latency traces, quantization results and comparison against sampling-based classifiers live here. Nothing on this page is marketing copy; send what you know and it gets added.

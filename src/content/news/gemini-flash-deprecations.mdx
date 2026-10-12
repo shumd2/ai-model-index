@@ -1,0 +1,23 @@
+Google's Gemini API changelog dated **October 8** deprecates two Flash generations with automatic rerouting rather than a hard shutdown:
+
+| Model | Status | Routes to |
+|---|---|---|
+| `gemini-3.7-flash` | Deprecated | `gemini-3.8-flash` |
+| `gemini-3.5-flash` | Deprecated | `gemini-3.6-flash` (or `gemini-3.8-flash`) |
+
+**No shutdown date was announced for either.** Requests keep working — they just stop being addressable by the old ID in future releases.
+
+## The Deep Research agent
+
+`deep-research-pro-preview-12-2025` does have a hard end: it **shuts down October 23, 2026**. Migration paths are `deep-research-preview-04-2026` or `deep-research-max-preview-04-2026`.
+
+## Already on the calendar
+
+- `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-2.5-flash-lite` retire **October 16** on the Gemini API and **October 20** on Vertex AI
+- Alibaba Cloud Model Studio retired its legacy batch models **October 10**
+
+## A pattern worth naming
+
+Three providers all chose reroute-over-retire in this window: Google on Flash, Xiaomi on MiMo-V2.5, and Z.ai auto-routing GLM-5.2/5.1 requests to GLM-5.3. The deprecated ID keeps working and the bill keeps landing on a successor.
+
+It saves migration work for developers, but it also means a model can be effectively replaced without ever appearing on a shutdown list. If you pin a specific generation for reproducibility, check that your endpoint still honours the ID.

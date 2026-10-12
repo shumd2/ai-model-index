@@ -18,6 +18,15 @@ export const benchmarks: Benchmark[] = [
       "A weighted composite of ten independent evaluations (AA-Briefcase, GDPval-AA, AutomationBench-AA, Terminal-Bench 4.0, SciCode, Humanity's Last Exam, GDP.pdf, CritPt, AA-Omniscience and AA-LCR). The single best at-a-glance measure of overall model capability in v4.3.2.",
   },
   {
+    id: "harvey-lab-aa",
+    name: "Harvey LAB-AA",
+    source: "Artificial Analysis + Harvey",
+    scale: "0–100% all-pass",
+    format: "percent",
+    description:
+      "Legal-task benchmark scored as a Hallucination-Gated All-Pass Rate: a result only counts if it is fully correct and contains no material hallucination. On 120 private tasks, over 60% of otherwise-passing answers hide a fabrication. v1.1 figures are not comparable with v1.0.",
+  },
+  {
     id: "lmarena-text",
     name: "LMArena Text Elo",
     source: "LMArena (chat)",

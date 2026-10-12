@@ -1,0 +1,41 @@
+## Overview
+
+**JetBrains Mellum2.1** (released October 8, 2026) is a coding-agent model built by the IDE company rather than by a research lab. It is a **12B mixture-of-experts with 2.5B active parameters**, released under **Apache 2.0** — the least restrictive licence in the open coding-model category.
+
+JetBrains ships its own agent harness, so Mellum2.1 is designed to run inside the IDE loops JetBrains already controls rather than as a general-purpose assistant.
+
+## Specs at a glance
+
+| Property | Value |
+|---|---|
+| **Architecture** | 12B MoE, 2.5B active |
+| **Licence** | Apache 2.0 |
+| **Model ID** | `JetBrains/Mellum2.1-12B-A2.5B-Thinking` |
+| **Formats** | safetensors + a GGUF variant |
+| **Hosted API** | None — self-host only |
+| **Context / max output** | Not stated in the release post |
+| **Extra** | MTP speculative-decoding head (vLLM head "coming soon") |
+
+## Why the licence matters
+
+Apache 2.0 means no use restrictions, no revenue threshold and no acceptable-use policy — you can fine-tune it commercially, redistribute it inside a product, or ship it as a service. Most coding-tuned open models arrive under a bespoke community licence with usage clauses. Mellum2.1 does not.
+
+At 2.5B active parameters, it is also cheap to run: an agent that makes thousands of calls per session pays a fraction of a dense 12B's compute.
+
+## The speculative-decoding angle
+
+The MTP (multi-token prediction) head is a decoding optimisation rather than a capability. It predicts several upcoming tokens at once, which suits agent loops where output is often repetitive — tool-call scaffolding, boilerplate edits, repeated file paths.
+
+The vLLM integration was not shipped at launch, so today the practical route is the raw weights or GGUF.
+
+## What is unknown
+
+- **No context window or max-output figure** in the announcement
+- **No benchmark results** published with the release, and none from independent evaluators yet
+- No dated snapshot naming convention
+
+For a model with no published numbers, treat quality claims as unverified until someone runs it through a standard evaluation.
+
+## Community insights
+
+**Community section.** Local deployment notes, quantization results and real agent-loop traces live here. Nothing on this page is marketing copy; send what you know and it gets added.

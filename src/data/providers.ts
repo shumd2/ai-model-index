@@ -791,6 +791,44 @@ export const providers: Provider[] = [
       "Competitive pricing for agentic workloads",
     ],
   },
+  {
+    id: "jetbrains",
+    name: "JetBrains",
+    shortName: "JB",
+    color: "#f97316",
+    gradient: "from-orange-500 to-amber-600",
+    tagline: "Mellum — coding agents as a core competency",
+    hq: "Amsterdam, Netherlands",
+    founded: "2000",
+    website: "https://blog.jetbrains.com/ai",
+    category: "open",
+    description:
+      "JetBrains builds Mellum as a code-specialised model family rather than a general chatbot. Mellum2.1 is a 12B MoE with 2.5B active parameters, released under Apache 2.0 and oriented toward coding-agent workloads with speculative decoding on top.",
+    highlights: [
+      "Mellum2.1: 12B MoE, 2.5B active, Apache 2.0",
+      "MTP speculative-decoding head for agent loops",
+      "Designed for IDE-native coding agents",
+    ],
+  },
+  {
+    id: "liquid-ai",
+    name: "Liquid AI",
+    shortName: "LFM",
+    color: "#06b6d4",
+    gradient: "from-cyan-500 to-teal-600",
+    tagline: "Non-generative models that answer in a single pass",
+    hq: "Cambridge, USA",
+    founded: "2023",
+    website: "https://www.liquid.ai",
+    category: "emerging",
+    description:
+      "Liquid AI builds LFM models that skip token generation entirely. Its October 2026 d1 release produces calibrated decisions in one forward pass, targeting classification, routing and on-device use cases where latency — not prose quality — is the bottleneck.",
+    highlights: [
+      "d1-3B and d1-omni-600M open weights",
+      "Single forward pass, no tokens produced",
+      "llama.cpp support from day one",
+    ],
+  },
 ];
 
 export const providerMap = new Map(providers.map((p) => [p.id, p]));

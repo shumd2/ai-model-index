@@ -1,0 +1,23 @@
+Three labs shipped dedicated **decision models** in the same week, treating "answer this decision" as its own model class rather than a prompting trick.
+
+| Lab | Model | Date | Architecture | Input | Output |
+|---|---|---|---|---|---|
+| **Liquid AI** | d1-3B, d1-omni-600M | Oct 7 | Non-generative — one forward pass | Self-host | No tokens at all |
+| **Celeris** | Celeris-1-decision | Oct 8 | Diffusion LM | $0.04 / 1M | **Free** |
+| **Microsoft** | Microsoft-Decision-1 | Oct 9 | Post-trained Qwen3.5-9B | $0.042 / 1M | **Free** |
+
+## Why free output is the design
+
+Two of the three bill **input only**. For a classifier, output tokens are a liability: you cannot cap a cost model that might ramble. Billing output at zero means the only way your bill moves is by sending more input — the number you actually control.
+
+Liquid goes furthest. Its models produce no tokens whatsoever, returning a probability distribution directly. The 600M variant has llama.cpp support from day one and is small enough to run on-device.
+
+## The shared insight
+
+All three assume the observation that most production traffic was never generative. Routing a support ticket, grading against a rubric, deciding yes/no on a transaction — none of those need prose, and all of them pay the latency cost of sampling a hundred structural tokens first.
+
+Microsoft says it will "soon rebase" Decision-1 onto its own MAI models and OpenAI models, which suggests the category is expected to move quickly.
+
+## Caveats
+
+None of the three published a context window or standard benchmark results. Liquid's models are self-host only; Celeris and Microsoft are hosted only with no weights offered.

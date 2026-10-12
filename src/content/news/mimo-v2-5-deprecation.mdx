@@ -1,0 +1,18 @@
+Xiaomi's deprecation page — last updated **October 9, 2026** — sets two dates for the MiMo-V2.5 generation:
+
+| Date | What happens |
+|---|---|
+| **October 14, 2026** | `mimo-v2.5-pro` and `mimo-v2.5` auto-route to `mimo-v2.6-pro` / `mimo-v2.6-flash` |
+| **October 21, 2026, 10:00 (UTC+8)** | The old model IDs become **invalid** |
+
+Unlike Google's Flash deprecations, this one ends in a hard failure rather than a silent reroute. Code pinned to the V2.5 IDs will start erroring.
+
+## A caveat in the source
+
+The page contradicts itself on the auto-route timing: the table states **10:00 October 14 (UTC+8)** while the note beneath it says **18:00 October 14 (UTC+8)**. Treat the October 21 invalidation date as firm and the October 14 hour as approximate.
+
+The page also does not state when the notice was published — only its update time — so the announcement itself may predate October 7.
+
+## Context
+
+MiMo-V2.6 shipped on **September 22, 2026**, so this is the standard two-generation retirement cadence rather than anything reactive. On the Artificial Analysis index, MiMo-V2.6-Pro is the leading open-weights model at 46.

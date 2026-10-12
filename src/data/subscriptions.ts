@@ -43,13 +43,15 @@ export const subscriptionProducts: SubscriptionProduct[] = [
     providerId: "openai",
     product: "ChatGPT",
     kind: "consumer",
-    verifiedOn: "2026-10-07",
+    verifiedOn: "2026-10-12",
     source: "official",
     notes: [
-      "Pro $200 (Pro 20×) paused for new sign-ups and upgrades as of Sep 10, 2026; existing subscriptions renew as usual, with a one-time return window of 30 days after access ends.",
-      "GPT-5.5 retires from ChatGPT, ChatGPT Work and Codex on all plans on Oct 14, 2026.",
-      "Codex and ChatGPT Work share a single usage allowance with regular chat.",
-      "Fast mode burns included usage at 2.5× the standard rate; GPT-6 Astra Ultrafast at 8×.",
+      "GPT-6 with Intelligent UI powers the Chat tab: GPT-6 Sol on Plus/Pro/Business/Enterprise, GPT-6 Luna on Free/Go (rolled out Oct 7–8). Work and Codex models are unchanged by that release.",
+      "GPT-6.1 Sol Ultrafast (Oct 8) is gated to Pro 500, eligible usage-based Enterprise and credit-based Edu plans — buying credits on Pro 100/200 does not unlock it at launch.",
+      "Pro 200 (20×) grandfathering: eligible subscribers keep the older, higher allowance through Oct 29, 2026, then drop to the new lower allowance. The $200 price is unchanged, and it does not grant Pro 500 features.",
+      "New sign-ups and upgrades to Pro 200 remain paused; one 30-day return window applies after access ends.",
+      "GPT-5.5 retires from ChatGPT, ChatGPT Work and Codex on all plans on Oct 14, 2026. Codex replacements: GPT-6 Sol (paid tiers), GPT-6 Luna (Free/Go).",
+      "Codex and ChatGPT Work share a single usage allowance with regular chat. Fast mode burns included usage at 2.5x; GPT-6 Astra Ultrafast at 8x.",
     ],
     tiers: [
       {
@@ -111,7 +113,9 @@ export const subscriptionProducts: SubscriptionProduct[] = [
       },
       {
         name: "Business",
-        priceMonthly: null,
+        priceMonthly: 25,
+        annualMonthly: 20,
+        billingNote: "Standard seat, per user",
         models: "GPT-6.1 Sol, GPT-6 Astra, GPT-5.6 family (flexible)",
         usage:
           "Unlimited core chat; Codex ≈ Pro 5× estimates; Business Codex is pay-as-you-go with no fixed seat fee",
@@ -119,8 +123,22 @@ export const subscriptionProducts: SubscriptionProduct[] = [
           "Secure shared workspace",
           "60+ app connectors (Slack, Google Drive, GitHub, Atlassian…)",
           "SAML SSO, MFA, admin controls",
+          "GPT-6.1 Sol Ultrafast on eligible usage-based workspaces",
         ],
         url: "https://openai.com/chatgpt/pricing",
+      },
+      {
+        name: "Business (Premium seat)",
+        priceMonthly: 125,
+        annualMonthly: 100,
+        billingNote: "Premium seat, per user",
+        models: "Everything in Business",
+        usage: "5× Standard seat usage, with no 5-hour usage limit",
+        features: [
+          "Purchased capacity reassignable between users",
+          "For teams that need sustained high-volume usage",
+        ],
+        url: "https://help.openai.com/en/articles/8792828-what-is-chatgpt-business",
       },
       {
         name: "Enterprise",
@@ -142,13 +160,16 @@ export const subscriptionProducts: SubscriptionProduct[] = [
     providerId: "anthropic",
     product: "Claude",
     kind: "consumer",
-    verifiedOn: "2026-10-07",
+    verifiedOn: "2026-10-12",
     source: "official",
     notes: [
-      "Claude Cowork has merged into Claude, rolling out to Pro and Max plans first.",
-      "Fable access: usage credits on Pro; 50% of weekly limits on Max 5× and Max 20×.",
-      "Max usage is measured per 5-hour session; Max is monthly-only on web checkout.",
-      "Team requires a 2-seat minimum (lowered from 5 in late July 2026).",
+      "Monthly Claude Platform API credits are now bundled with Max and Team (rolled out Oct 7): Max 5× gets $100/mo, Max 20× $200/mo, Team up to $500/mo pooled across users. Requires linking a Claude Console org. Credits work on any model.",
+      "Claude Haiku 5.5 (Oct 7) is available on every tier including Free; Opus requires Pro or above.",
+      "Docs, Slides and Design left beta on Oct 8 and are available on every plan including Free. Enterprise admins get them by default from Oct 15.",
+      "Motion (code-generated animations, beta) is Team and Enterprise only — not Pro, Max or Free. Dashboards (beta) is on paid plans.",
+      "Claude Cowork has merged into Claude, rolling out Pro → Max → Team/Free.",
+      "Max usage is measured per 5-hour session; Max is monthly-only on web checkout. Team requires a 2-seat minimum.",
+      "The updated 2026 Usage Policy takes effect Nov 12, 2026.",
     ],
     tiers: [
       {
@@ -176,6 +197,7 @@ export const subscriptionProducts: SubscriptionProduct[] = [
           "Claude Science",
           "Projects; hand off and schedule tasks",
           "Claude in Chrome and Microsoft 365",
+          "$100/mo Claude Platform API credits at Max 5x, $200/mo at Max 20x",
         ],
         url: "https://claude.com/pricing",
       },
@@ -212,6 +234,8 @@ export const subscriptionProducts: SubscriptionProduct[] = [
           "Shared workspace, central billing, admin",
           "Usage analytics, spend controls",
           "No training on business data by default",
+          "Up to $500/mo Claude Platform API credits, pooled across users",
+          "Motion (beta) — code-generated animation to MP4",
         ],
         url: "https://claude.com/pricing",
       },
@@ -244,20 +268,22 @@ export const subscriptionProducts: SubscriptionProduct[] = [
     providerId: "google",
     product: "Google AI plans",
     kind: "consumer",
-    verifiedOn: "2026-10-07",
+    verifiedOn: "2026-10-12",
     source: "official",
     notes: [
-      "From Oct 9, 2026 the plan determines model access in the Gemini app: Free keeps Flash-Lite only; AI Plus keeps Flash-Lite + Flash; AI Pro and AI Ultra keep Flash-Lite, Flash and Pro plus Deep Think. Workspace accounts are unaffected.",
-      "AI Ultra 5× and 20× refer to usage limits vs AI Pro.",
-      "Plans include Google One storage and, on Ultra, YouTube Premium.",
+      "The Oct 9, 2026 change shipped: users without an AI subscription lost manual model selection. The Gemini app now routes automatically — most prompts to Flash-Lite, deeper-reasoning prompts to Flash or Pro. If smart selection is turned off, free users get Flash-Lite for everything.",
+      "Model access by plan: Free = automatic routing only · AI Plus = Flash-Lite + Flash (no Pro) · AI Pro and AI Ultra = Flash-Lite, Flash and Pro, plus Deep Think on Ultra.",
+      "Effort levels (low/medium/high) are selectable per model and consume more of the limit.",
+      "AI Ultra 5× and 20× refer to usage limits vs AI Pro. Limits are compute-based, refreshing every 5 hours until the weekly cap.",
+      "Workspace (work/school) accounts are unaffected by the Oct 9 change.",
     ],
     tiers: [
       {
         name: "Free",
         priceMonthly: 0,
         models:
-          "Flash-Lite (from Oct 9); varying access to Gemini 3.1 Pro today",
-        usage: "Base limits",
+          "Automatic routing only (from Oct 9) — 3.5 Flash-Lite baseline; deeper prompts may reach Flash or Pro",
+        usage: "Base limits, compute-based, 5-hour refresh until weekly cap",
         features: [
           "Image generation and editing",
           "Deep Research, Gemini Live, Canvas, Gems",
@@ -268,7 +294,7 @@ export const subscriptionProducts: SubscriptionProduct[] = [
       {
         name: "AI Plus",
         priceMonthly: 4.99,
-        models: "Flash-Lite + Flash (from Oct 9)",
+        models: "3.6 Flash + 3.1 Pro access",
         usage: "2× higher usage than Free",
         features: [
           "200 Google Flow credits",
@@ -281,10 +307,11 @@ export const subscriptionProducts: SubscriptionProduct[] = [
       {
         name: "AI Pro",
         priceMonthly: 19.99,
-        models: "Flash-Lite + Flash + Pro (from Oct 9)",
+        models: "3.8 Flash + 3.1 Pro access",
         usage: "4× higher usage than Free",
         features: [
           "1,000 Google Flow credits",
+          "Jules coding agent, Antigravity entry limits",
           "Deep Search and agentic capabilities in AI Mode",
           "Gemini in Gmail, Docs",
           "5 TB Google storage",
@@ -294,11 +321,11 @@ export const subscriptionProducts: SubscriptionProduct[] = [
       {
         name: "AI Ultra (5×)",
         priceMonthly: 99.99,
-        models: "All models plus Deep Think; Gemini Spark (select countries)",
+        models: "3.8 Flash + 3.1 Pro, plus Deep Think; Gemini Spark (select countries)",
         usage: "5× higher usage than AI Pro",
         features: [
           "10,000 Google Flow credits",
-          "Highest limits to Jules coding agent",
+          "Project Genie, highest limits to Jules",
           "Highest access to Gemini 3 Pro in Search",
           "20 TB+ storage, YouTube Premium",
         ],
@@ -307,11 +334,11 @@ export const subscriptionProducts: SubscriptionProduct[] = [
       {
         name: "AI Ultra (20×)",
         priceMonthly: 199.99,
-        models: "All models plus Deep Think; Gemini Spark (select countries)",
+        models: "3.8 Flash + 3.1 Pro, plus Deep Think; Gemini Spark (select countries)",
         usage: "20× higher usage than AI Pro",
         features: [
           "25,000 Google Flow credits",
-          "Highest limits to Jules and agent model in Google Antigravity",
+          "Highest rate limits to the Antigravity agent model",
           "Veo 3.1 Lite trial",
           "20 TB+ storage, YouTube Premium",
         ],
@@ -324,12 +351,14 @@ export const subscriptionProducts: SubscriptionProduct[] = [
     providerId: "xai",
     product: "Grok",
     kind: "consumer",
-    verifiedOn: "2026-10-07",
+    verifiedOn: "2026-10-12",
     source: "official",
     notes: [
+      "xAI published no plan changes in the Oct 7–12 window; the pricing page shows a single 'Grok 4.7' model row rather than a per-tier split.",
+      "SuperGrok Lite ($10) and SuperGrok Heavy ($300) are listed in the plan comparison but their price tabs did not render on the fetched page — treat those two figures as unconfirmed.",
       "X Premium+ ($40/mo) bundles SuperGrok-level Grok access — separate from standalone SuperGrok plans.",
       "SuperGrok plans draw from a single weekly usage allowance across Chat, Imagine, Voice and Build.",
-      "Subscriptions do not include xAI API access; the API bills per token.",
+      "Subscriptions do not include xAI API access. On the API, grok-4.7 and grok-4.6 are identically priced ($2.00 in / $0.50 cached / $6.00 out per MTok under 200k prompt tokens, doubled above).",
     ],
     tiers: [
       {
@@ -417,20 +446,22 @@ export const subscriptionProducts: SubscriptionProduct[] = [
     providerId: "mistral",
     product: "Mistral Vibe",
     kind: "consumer",
-    verifiedOn: "2026-10-07",
-    source: "reported",
+    verifiedOn: "2026-10-12",
+    source: "official",
     notes: [
       "Le Chat was rebranded to Vibe in August 2026; chat.mistral.ai still serves the product.",
-      "Pro and Free plans include monthly API credits ($30/mo and $10/mo respectively); API billing is separate from the subscription.",
-      "Prices below are from reputable secondary sources (verified Sep 25–30, 2026); confirm on mistral.ai/pricing before subscribing.",
+      "Free and Pro plans include monthly Claude-Platform-style API credits: $15/mo on Pro, $25.50/mo on Education. API billing is separate from the subscription.",
+      "The Education price is taken from Mistral's own pricing-page FAQ ($5.99/mo, normally $14.99). Its pricing cards render inconsistently — confirm at checkout.",
+      "Note the inversion: Education ($5.99) ships more API credit than Pro ($14.99).",
+      "Mistral publishes no exact free-tier message number, only 'limited messages and web searches'.",
     ],
     tiers: [
       {
         name: "Free",
         priceMonthly: 0,
-        models: "Core Mistral models",
+        models: "Core Mistral models (3.5 Flash-Lite)",
         usage: "Limited messages and web searches (no published number)",
-        features: ["$10/mo in API credits", "100+ connectors"],
+        features: ["API credits included", "100+ connectors"],
         url: "https://mistral.ai/pricing",
       },
       {
@@ -438,7 +469,11 @@ export const subscriptionProducts: SubscriptionProduct[] = [
         priceMonthly: 5.99,
         models: "Same as Pro",
         usage: "Pro-level limits for verified students",
-        features: ["Verified .edu email required", "Capped at 12 months"],
+        features: [
+          "Verified .edu email at an accredited institution",
+          "Capped at 12 months; only for users new to Vibe/Le Chat",
+          "$25.50/mo in API credits",
+        ],
         url: "https://mistral.ai/pricing",
       },
       {
@@ -450,7 +485,7 @@ export const subscriptionProducts: SubscriptionProduct[] = [
           "All-day agentic coding in CLI, IDE and web",
           "Deep research, task scheduling",
           "15 GB library",
-          "$30/mo in API credits",
+          "$15/mo in API credits",
           "Opt out of model training",
         ],
         url: "https://mistral.ai/pricing",
@@ -458,9 +493,9 @@ export const subscriptionProducts: SubscriptionProduct[] = [
       {
         name: "Team",
         priceMonthly: 24.99,
-        billingNote: "Per user, $50/mo minimum",
+        billingNote: "Per user",
         models: "Everything in Pro",
-        usage: "Up to 6× Free per seat",
+        usage: "Up to 6× Free per seat; 200 Flash answers/day",
         features: [
           "Shared collaborative workspace",
           "30 GB storage per user",
@@ -483,13 +518,14 @@ export const subscriptionProducts: SubscriptionProduct[] = [
     providerId: "zai",
     product: "GLM Coding Plan",
     kind: "coding",
-    verifiedOn: "2026-10-07",
+    verifiedOn: "2026-10-12",
     source: "official",
     notes: [
-      "A flat-rate subscription for AI coding agents — not a general API key: quotas work inside 20+ supported tools (ZCode, Claude Code, Codex, Cursor, OpenCode, OpenClaw, Cline and more).",
-      "Usage is metered with both a 5-hour limit and a weekly credit quota.",
-      "Quarterly billing is 20% off; yearly is 30% off.",
-      "Powers GLM-5.3, GLM-5.3-Flash (formerly OX Alpha), GLM-5.2 and GLM-5-Turbo.",
+      "GLM-5.3 and GLM-5.3-Flash serve every plan. Requests for GLM-5.2/5.1 auto-route to GLM-5.3, and GLM-4.7 auto-routes to GLM-5.3-Flash.",
+      "Off-peak credits are charged at 50%; peak is Mon–Fri 14:00–18:00 SGT (UTC+8) — up to 92% cheaper than pay-as-you-go.",
+      "A flat-rate subscription for AI coding agents, not a general API key: quotas work inside 20+ supported tools (ZCode, Claude Code, Codex, Cursor, OpenCode, OpenClaw, Cline and more).",
+      "Credit quotas are metered on both a 5-hour window and a weekly total; the weekly allowance resets every 7 days.",
+      "Z.ai states only the $18/mo Lite starting price on its own page — verify Pro and Max figures at checkout.",
     ],
     tiers: [
       {
@@ -497,8 +533,8 @@ export const subscriptionProducts: SubscriptionProduct[] = [
         priceMonthly: 18,
         annualMonthly: 12.6,
         billingNote: "Quarterly 20% off; yearly 30% off",
-        models: "GLM-5.3, GLM-5.3-Flash, GLM-5.2, GLM-5-Turbo",
-        usage: "10,000 credits per week",
+        models: "GLM-5.3, GLM-5.3-Flash (5.2/5.1 and 4.7 auto-route here)",
+        usage: "2,000 credits per 5h · 10,000 credits per week",
         features: [
           "Built for lightweight iteration on small repos",
           "Rolling access to the latest flagship models",
@@ -513,7 +549,7 @@ export const subscriptionProducts: SubscriptionProduct[] = [
         annualMonthly: 56,
         billingNote: "Quarterly 20% off; yearly 30% off",
         models: "Everything in Lite",
-        usage: "6× Lite usage",
+        usage: "12,000 credits per 5h · 60,000 credits per week",
         features: [
           "Built for day-to-day development on mid-sized repos",
           "Priority access to the latest flagship models",
@@ -528,7 +564,7 @@ export const subscriptionProducts: SubscriptionProduct[] = [
         annualMonthly: 117.6,
         billingNote: "Quarterly 20% off; yearly 30% off",
         models: "Everything in Pro",
-        usage: "14× Lite usage",
+        usage: "28,000 credits per 5h · 140,000 credits per week",
         features: [
           "Built for advanced users on mid-to-large repos",
           "First access to the latest flagship models",
@@ -567,14 +603,16 @@ export const subscriptionProducts: SubscriptionProduct[] = [
     providerId: "openrouter",
     product: "OpenRouter",
     kind: "credits",
-    verifiedOn: "2026-10-07",
+    verifiedOn: "2026-10-12",
     source: "official",
     notes: [
-      "OpenRouter has no subscription on standard accounts: you buy credits once and draw them down with usage. Credits do not expire; Auto Top-Up is optional and off by default.",
+      "No subscription on standard accounts: you buy credits once and draw them down with usage. Credits do not expire; Auto Top-Up is optional and off by default.",
       "Inference is billed at each provider's list price on every plan — OpenRouter does not mark up tokens. Its fee is charged when credits are purchased.",
       "Failed or fallback attempts are not billed; with fallback routing you pay only for the run that answers.",
-      "Catalog: 300+ models across 60+ providers; 70T monthly tokens, 5M+ users (company-reported).",
-      "Public rankings (daily token totals for the top 50 models) are at openrouter.ai/rankings under CC BY 4.0, with a JSON data API.",
+      "Catalog additions in the Oct 7–12 window: Claude Haiku 5.5 (Oct 7, $0.10/$0.50, batch variant 50% off), StepFun Step 5 Preview (Oct 8, 1M ctx, $1.00/$2.70), and ElevenLabs — 9 TTS plus 2 STT models, 50% off through Oct 19, 2026.",
+      "Only three catalog models were added in that window; the rest of the announcement feed dates from Sep 22–Oct 2.",
+      "Catalog: 500+ models across 80+ providers on paid plans (company-reported).",
+      "Public rankings (daily token totals for the top 50 models) are at openrouter.ai/rankings under CC BY 4.0, with a JSON data API. Rankings figures are not snapshotted here because the page is client-rendered and changes daily.",
     ],
     tiers: [
       {

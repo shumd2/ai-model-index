@@ -1,0 +1,46 @@
+## Overview
+
+**Microsoft-Decision-1** (released October 9, 2026) is a decision-scoring model on Azure AI Foundry, post-trained from **Qwen3.5-9B**. It answers structured questions — yes/no, multiple choice, rating, rubric grading — and emits a calibrated probability rather than prose.
+
+Its pricing is the headline: **$0.042 per million input tokens, with output billed at zero**. You pay for the prompt and nothing for the verdict.
+
+## Specs at a glance
+
+| Property | Value |
+|---|---|
+| **Model ID** | `Microsoft-Decision-1` (Foundry) · `microsoft/microsoft-decision-1` (OpenRouter) |
+| **Base** | Post-trained Qwen3.5-9B |
+| **Input price** | $0.042 / 1M tokens |
+| **Output price** | Free |
+| **Method** | Single-pass scoring with calibrated probabilities |
+| **Context / max output** | Not published |
+| **Open weights** | No — Azure-hosted only |
+| **Roadmap** | Microsoft says it will "soon rebase" onto MAI and OpenAI models |
+
+## Why free output is the point
+
+For a classifier, output tokens are a liability, not a feature. You cannot cap a cost model when the model might ramble. Billing output at zero means the only way your bill moves is by sending more input — which is the number you actually control.
+
+At $0.042 per million input tokens, Microsoft is competing with the small-model tier on price while offering something the general models do not: a guarantee that the response is a valid decision, not a paragraph that needs parsing.
+
+## Part of a wider pattern
+
+Microsoft-Decision-1 is one of three independent releases in the same week that treat "answer this decision" as a distinct model class:
+
+| Lab | Model | Date | Input | Output |
+|---|---|---|---|---|
+| Liquid AI | d1-3B / d1-omni-600M | Oct 7 | Self-host | n/a (no generation) |
+| Celeris | Celeris-1-decision | Oct 8 | $0.04 / 1M | Free |
+| Microsoft | Microsoft-Decision-1 | Oct 9 | $0.042 / 1M | Free |
+
+Two labs building with a diffusion-based or single-pass approach and one post-training a 9B model are converging on the same conclusion: most production traffic is decision traffic.
+
+## Caveats
+
+- **Not a general-purpose model.** It will not answer your questions.
+- **Context window and max output are unpublished**, as are cache and batch rates.
+- **Azure Foundry only** — no weights, and no fine-tuning offered in this release.
+
+## Community insights
+
+**Community section.** Routing accuracy reports and cost comparisons against general models live here. Nothing on this page is marketing copy; send what you know and it gets added.

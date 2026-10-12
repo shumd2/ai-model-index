@@ -9,6 +9,128 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "decision-models-week-oct-2026",
+    date: "2026-10-09",
+    title: "Three labs ship decision models in one week — output billed at zero",
+    summary:
+      "Liquid AI's d1 (Oct 7, no token generation at all), Celeris-1-decision (Oct 8, $0.04/M in, free output) and Microsoft-Decision-1 (Oct 9, $0.042/M in, free output, post-trained from Qwen3.5-9B) all treat structured decisions as a distinct model class rather than a prompting trick.",
+    tag: "release",
+  },
+  {
+    slug: "october-12-leaderboard-refresh",
+    date: "2026-10-12",
+    title: "Opus 5.5 takes the agent arena; Gemini 4 Argon holds the text lead",
+    summary:
+      "LMArena's Oct 8–9 snapshots reshuffle agentic rankings: Claude Opus 5.5 (High) moves #2 to #1 at a 0.1433 task-outcome score, GPT-6 Astra rises to #2 at 0.1309, and Claude Fable 5.1 slips to #3 at 0.1266 — though all top-5 confidence intervals overlap. On the text arena Gemini 4 Argon holds #1 at 1525.40 Elo while Opus 5.5 climbed #4 to #2. AA Index remains v4.3.2, unchanged since Sep 19.",
+    tag: "benchmark",
+  },
+  {
+    slug: "harvey-lab-aa-v1-1",
+    date: "2026-10-08",
+    title: "Harvey LAB-AA v1.1: more than 60% of passing legal answers hide a hallucination",
+    summary:
+      "Artificial Analysis and Harvey published a legal benchmark whose headline is Hallucination-Gated All-Pass Rate: Grok 4.7 leads at 9.4%, Muse Spark 1.3 8.9%, GPT-6 Astra 8.6%, GPT-6.1 Sol 6.9%, Claude Fable 5.1 6.4%, Kimi K3 5.3%, Claude Opus 5.5 4.2%. Without the hallucination gate, Muse Spark 1.3 would lead at 26.7%. 120 private legal tasks.",
+    tag: "benchmark",
+  },
+  {
+    slug: "gemini-flash-deprecations",
+    date: "2026-10-08",
+    title: "Google deprecates Gemini 3.7 and 3.5 Flash with automatic rerouting",
+    summary:
+      "The Gemini API changelog deprecates gemini-3.7-flash (auto-routes to gemini-3.8-flash) and gemini-3.5-flash (auto-routes to gemini-3.6-flash), with no shutdown dates announced. The Deep Research agent deep-research-pro-preview-12-2025 shuts down October 23, 2026, migrating to the April 2026 preview IDs.",
+    tag: "industry",
+    provider: "google",
+  },
+  {
+    slug: "mimo-v2-5-deprecation",
+    date: "2026-10-09",
+    title: "Xiaomi retires MiMo-V2.5 — IDs become invalid October 21",
+    summary:
+      "Xiaomi's deprecation page routes mimo-v2.5-pro and mimo-v2.5 to mimo-v2.6-pro and mimo-v2.6-flash from October 14, 2026, and invalidates the old model IDs on October 21 at 10:00 (UTC+8). Note the page contradicts itself on the auto-route hour, listing both 10:00 and 18:00.",
+    tag: "industry",
+    provider: "xiaomi",
+  },
+  {
+    slug: "gpt-6-intelligent-ui",
+    date: "2026-10-07",
+    title: "GPT-6 arrives in ChatGPT for all 1.2B weekly users, with Intelligent UI",
+    summary:
+      "OpenAI rolled out GPT-6 across ChatGPT on Oct 7 — GPT-6 Sol for Plus/Pro/Business/Enterprise, GPT-6 Luna for Free/Go from Oct 8. Intelligent UI lets the model stream native interactive components (charts, forms, buttons). ChatGPT can now interleave thinking with answering: GPT-6 Extra High starts replying as fast as GPT-5.6 Medium while outscoring GPT-5.6 Extra High, and GPT-6 Instant answers web-search questions 44% sooner.",
+    tag: "release",
+    provider: "openai",
+  },
+  {
+    slug: "claude-haiku-5-5-launch",
+    date: "2026-10-07",
+    title: "Claude Haiku 5.5 launches — 90% cheaper than Haiku 4.5, 1M context, OSWorld 72.4%",
+    summary:
+      "Anthropic's fastest model to date at $0.10/$0.50 per MTok for prompts ≤100k tokens (vs Haiku 4.5's $1/$5), with a 1M context window (up from 200k) and 128k max output. Lab-reported OSWorld 2.1 of 72.4% versus Haiku 4.5's 15.7% and GPT-6 Luna's 48.9%. First Haiku-class model with an effort dial. Available on AWS, Google Cloud and Microsoft Azure.",
+    tag: "release",
+    provider: "anthropic",
+  },
+  {
+    slug: "sonnet-5-5-cache-price-cut",
+    date: "2026-10-07",
+    title: "Anthropic halves Sonnet 5.5 cache reads to $0.10/MTok",
+    summary:
+      "Cache reads on Claude Sonnet 5.5 drop from $0.20 to $0.10 per million tokens, which Anthropic says cuts typical agentic cost by around 20% since cache reads dominate token consumption on long-running tasks. Sonnet 5.5 stays at $2/$10 list price.",
+    tag: "industry",
+    provider: "anthropic",
+  },
+  {
+    slug: "claude-max-team-api-credits",
+    date: "2026-10-07",
+    title: "Claude Max and Team subscribers now get monthly API credits",
+    summary:
+      "Max 5× receives $100/month of Claude Platform API credit, Max 20× $200, and Team up to $500 pooled across users. Credits work on any model and require linking a Claude Console org — the first time Anthropic has bundled Platform spend with a consumer subscription.",
+    tag: "industry",
+    provider: "anthropic",
+  },
+  {
+    slug: "gpt-6-1-sol-ultrafast",
+    date: "2026-10-08",
+    title: "GPT-6.1 Sol Ultrafast ships — gated to Pro 500 and Enterprise",
+    summary:
+      "Ultrafast mode for GPT-6.1 Sol rolled into the API, Codex and ChatGPT Work on Oct 8, running up to 8× faster than Sol Standard at $12/M input and $60/M output. Access is plan-gated to ChatGPT Pro 500, eligible usage-based Enterprise workspaces and credit-based Edu plans — buying credits on Pro 100 or 200 does not unlock it at launch.",
+    tag: "release",
+    provider: "openai",
+  },
+  {
+    slug: "chatgpt-business-premium-seats",
+    date: "2026-10-10",
+    title: "ChatGPT Business adds Premium seats at $100–$125 per user",
+    summary:
+      "Business Premium seats cost $100/user/month billed annually or $125 monthly, carry 5× the Standard seat usage with no five-hour limit, and are purchased capacity that can be reassigned between users. Standard seats stay at $25 monthly / $20 annual.",
+    tag: "industry",
+    provider: "openai",
+  },
+  {
+    slug: "gemini-free-tier-auto-routing",
+    date: "2026-10-09",
+    title: "Gemini free tier loses manual model selection — automatic routing only",
+    summary:
+      "The Oct 9 change is live: users without an AI subscription can no longer pick a model. Most prompts route to Flash-Lite, with deeper-reasoning prompts reaching Flash or Pro; turning smart selection off pins free users to Flash-Lite. AI Plus keeps Flash-Lite and Flash but still has no Pro access, while AI Pro and AI Ultra retain all three plus Deep Think.",
+    tag: "industry",
+    provider: "google",
+  },
+  {
+    slug: "openrouter-elevenlabs",
+    date: "2026-10-07",
+    title: "ElevenLabs lands on OpenRouter — 11 speech models, 50% off through Oct 19",
+    summary:
+      "OpenRouter added nine TTS and two STT models from ElevenLabs, including Eleven v4 and v4 Turbo plus Scribe v2. Every ElevenLabs model is 50% off through October 19, 2026. In the same window OpenRouter added Claude Haiku 5.5 (Oct 7) and StepFun Step 5 Preview (Oct 8).",
+    tag: "release",
+  },
+  {
+    slug: "claude-docs-slides-design-free",
+    date: "2026-10-08",
+    title: "Claude Docs, Slides and Design leave beta and reach the free tier",
+    summary:
+      "Anthropic moved Docs, Slides and Design out of beta to every plan including Free after 45M+ documents created since Sep 16, adding PPT/PDF and Google Slides export. Dashboards entered beta on paid plans, while Motion — code-generated animation to MP4 — is limited to Team and Enterprise. Enterprise admins get Docs/Slides/Design by default from Oct 15.",
+    tag: "industry",
+    provider: "anthropic",
+  },
+  {
     slug: "chatgpt-pro-tier-shuffle",
     date: "2026-09-10",
     title: "ChatGPT Pro gains a $100 tier; $200 Pro 20× pauses new sign-ups",

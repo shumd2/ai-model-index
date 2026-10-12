@@ -1,0 +1,13 @@
+Anthropic halved the price of **cache reads on Claude Sonnet 5.5** from $0.20 to **$0.10 per million tokens**, effective October 7 — the headline figure in the Haiku 5.5 announcement but a separate change with its own reach.
+
+Sonnet 5.5's list price is unchanged at $2 in / $10 out. Anthropic puts the saving at **around 20% on most agentic work**.
+
+## Why cache reads are the line that matters
+
+Agent loops re-send the same context on every tool call. A 20-turn coding session over a 200K-token context spends nearly all its tokens on cache reads rather than fresh input or novel output. Halving that rate halves the effective cost of long sessions while leaving short, cache-cold requests untouched.
+
+## Measured confirmation
+
+Artificial Analysis's cost-per-task for Sonnet 5.5 fell from **$7.67 to $5.46** between the October 5 and October 12 index reads — the price cut appearing in the measurement with no change to the model itself.
+
+That is enough to move Sonnet 5.5 past Claude Opus 5.5 at xhigh effort ($3.46, also 56) on cost while matching its score.
