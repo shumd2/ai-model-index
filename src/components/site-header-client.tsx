@@ -20,15 +20,15 @@ export function SiteHeaderClient({
 
   return (
     <header className="sticky top-0 z-50 border-b border-border-subtle bg-background/85 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-foreground font-mono text-[11px] font-bold text-background">
+      <div className="mx-auto grid h-16 max-w-[1180px] grid-cols-[auto_minmax(0,1fr)_auto] items-center px-4 sm:px-6">
+        <Link href="/" className="grid grid-cols-[auto_minmax(0,auto)] items-center gap-2.5" onClick={() => setOpen(false)}>
+          <span className="grid h-8 w-8 place-items-center rounded-[10px] bg-foreground font-mono text-[11px] font-bold text-background">
             AI
           </span>
           <span className="text-[15px] font-semibold tracking-tight">Model Index</span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary navigation">
+        <nav className="hidden grid-flow-col items-center justify-self-center gap-1 md:grid" aria-label="Primary navigation">
           {links.map((link) => {
             const active = pathname.startsWith(link.href);
             return (
@@ -46,13 +46,13 @@ export function SiteHeaderClient({
               </Link>
             );
           })}
-          <div className="ml-4 flex items-center gap-3">
+          <div className="ml-4 grid grid-flow-col items-center gap-3">
             <CommandPalette items={paletteItems} />
             <ThemeToggle />
           </div>
         </nav>
 
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="grid grid-flow-col items-center justify-self-end gap-2 md:hidden">
           <ThemeToggle />
           <button
             type="button"
@@ -60,7 +60,7 @@ export function SiteHeaderClient({
             aria-expanded={open}
             aria-controls="mobile-navigation"
             onClick={() => setOpen((value) => !value)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border-subtle bg-surface text-muted"
+            className="grid h-9 w-9 place-items-center rounded-lg border border-border-subtle bg-surface text-muted"
           >
             <svg
               width="16"

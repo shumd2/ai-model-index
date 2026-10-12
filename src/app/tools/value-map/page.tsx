@@ -14,7 +14,7 @@ export default function ValueMapPage() {
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <Reveal>
         <div className="mb-8">
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-violet-500/15 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-violet-600 dark:text-violet-400">
+          <div className="mb-3 inline-grid grid-cols-[auto_minmax(0,auto)] items-center gap-2 rounded-full bg-violet-500/15 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-violet-600 dark:text-violet-400">
             <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
             03 · Tools
           </div>

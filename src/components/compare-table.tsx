@@ -141,7 +141,7 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
       return (
         <Link
           href={`/models/${row.model.slug}`}
-          className="flex items-center gap-2.5 font-medium hover:text-accent"
+          className="grid grid-cols-[auto_minmax(0,auto)] items-center gap-2.5 font-medium hover:text-accent"
         >
           <span
             className="h-2.5 w-2.5 shrink-0 rounded-full"
@@ -188,9 +188,9 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
     const pct = Math.min(100, (raw / (maxes[key] ?? 100)) * 100);
     const provider = getProvider(row.model.provider);
     return (
-      <span className="flex items-center gap-2">
+      <span className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-2">
         <span className="font-mono tabular-nums">{raw}</span>
-        <span className="hidden h-1.5 w-14 overflow-hidden rounded-full bg-surface-2 xl:block">
+        <span className="hidden h-1.5 max-w-14 overflow-hidden rounded-full bg-surface-2 xl:block">
           <span
             className="block h-full rounded-full"
             style={{ width: `${pct}%`, background: provider.color }}
@@ -203,11 +203,11 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
   return (
     <div>
       {pinnedSelection.length > 0 && (
-        <div className="mb-4 flex flex-wrap items-center gap-2 rounded-xl border border-accent/40 bg-accent-soft px-4 py-3">
+        <div className="mb-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 rounded-xl border border-accent/40 bg-accent-soft px-4 py-3">
           <span className="font-mono text-[11px] uppercase tracking-widest text-accent">
             Side-by-side
           </span>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(0,8rem))] gap-1.5">
             {pinnedSelection.map((slug) => (
               <span
                 key={slug}
@@ -226,7 +226,7 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
           </button>
         </div>
       )}
-      <div className="mb-4 flex flex-wrap items-center gap-2">
+      <div className="mb-4 grid grid-cols-[repeat(auto-fit,minmax(0,9rem))] items-center gap-2">
         <select
           aria-label="Filter by model maker"
           value={providerFilter}
@@ -268,7 +268,7 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
       </div>
 
       <div className="scrollbar-thin overflow-x-auto rounded-2xl border border-border-subtle bg-surface">
-        <table className="w-full min-w-[760px] border-collapse text-sm">
+        <table className="w-full min-w-[1180px] border-collapse text-sm">
           <caption className="sr-only">
             AI models sorted by the selected column. Use the column buttons to change sorting.
           </caption>
@@ -285,7 +285,7 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
                         : "descending"
                       : "none"
                   }
-                  className={`px-4 py-3 text-[11px] font-medium uppercase tracking-wider text-muted ${
+                  className={`px-3 py-3 text-[11px] font-medium uppercase tracking-wider text-muted ${
                     c.numeric ? "text-right" : "text-left"
                   }`}
                 >
@@ -293,11 +293,13 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
                     type="button"
                     aria-label={`Sort by ${c.label}${sort.key === c.key ? (sort.dir === "asc" ? ", currently ascending" : ", currently descending") : ""}`}
                     onClick={() => toggleSort(c.key)}
-                    className={`inline-flex items-center gap-1 transition-colors hover:text-foreground ${
+                    className={`grid w-full grid-cols-[minmax(0,auto)_minmax(0,auto)_auto] items-center gap-1 whitespace-nowrap transition-colors hover:text-foreground ${
+                      c.numeric ? "[&>*:first-child]:justify-self-end" : ""
+                    } ${
                       sort.key === c.key ? "text-accent" : ""
                     }`}
                   >
-                    {c.label}
+                    <span className="truncate">{c.label}</span>
                     {c.hint && <span className="font-normal normal-case opacity-60">({c.hint})</span>}
                     <span className="text-[9px]">
                       {sort.key === c.key ? (sort.dir === "desc" ? "▼" : "▲") : "↕"}
@@ -315,8 +317,8 @@ export function CompareTable({ allModels }: { allModels: Model[] }) {
               >
                 {columns.map((c) => {
                   const content = cell(r, c.key);
-                  const className = `px-4 py-3 font-normal ${
-                    c.numeric ? "text-right tabular-nums" : "text-left"
+                  const className = `px-3 py-3 font-normal ${
+                    c.numeric ? "text-right tabular-nums whitespace-nowrap" : "text-left"
                   }`;
                   return c.key === "name" ? (
                     <th key={c.key} scope="row" className={className}>

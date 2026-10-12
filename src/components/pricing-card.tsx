@@ -37,7 +37,7 @@ export function PricingCard({ pricing }: { pricing: Pricing }) {
 
   return (
     <div className="rounded-2xl border border-border-subtle bg-surface p-5">
-      <div className="flex items-baseline justify-between">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline">
         <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">Pricing</h3>
         <span className="font-mono text-[11px] text-muted">USD / 1M tokens</span>
       </div>

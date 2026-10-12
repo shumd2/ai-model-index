@@ -144,7 +144,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
         {model.speed != null && <div className="card !rounded-xl !p-3 text-center"><div className="font-mono text-2xl font-bold tabular-nums">{model.speed}</div><div className="text-[10px] uppercase tracking-wider text-muted">t/s</div></div>}
         {model.contextWindow && <div className="card !rounded-xl !p-3 text-center"><div className="font-mono text-2xl font-bold tabular-nums">{formatContext(model.contextWindow)}</div><div className="text-[10px] uppercase tracking-wider text-muted">context</div></div>}
         {model.latency != null && <div className="card !rounded-xl !p-3 text-center"><div className="font-mono text-2xl font-bold tabular-nums">{model.latency < 1 ? model.latency.toFixed(2) : model.latency.toFixed(1)}s</div><div className="text-[10px] uppercase tracking-wider text-muted">TTFT</div></div>}
-        <div className="card !rounded-xl !p-3 text-center"><div className="flex items-center justify-center gap-1">{model.modalities.slice(0, 3).map((m) => <span key={m} className="rounded-md border border-border-subtle bg-surface-2 px-1 py-0.5 font-mono text-[10px] text-muted">{m}</span>)}</div><div className="mt-1 text-[10px] uppercase tracking-wider text-muted">modalities</div></div>
+        <div className="card !rounded-xl !p-3 text-center"><div className="grid grid-cols-[repeat(3,minmax(0,auto))] justify-center gap-1">{model.modalities.slice(0, 3).map((m) => <span key={m} className="rounded-md border border-border-subtle bg-surface-2 px-1 py-0.5 font-mono text-[10px] text-muted">{m}</span>)}</div><div className="mt-1 text-[10px] uppercase tracking-wider text-muted">modalities</div></div>
       </div>
 
       <section className="model-access-section">
@@ -215,7 +215,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
 
       {/* Specs */}
       <section className="mt-10">
-        <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+        <div className="mb-4 grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-2">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">Specifications</h2>
           {model.verifiedOn && (
             <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
@@ -254,11 +254,11 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
             value={model.latency != null ? `${model.latency < 1 ? model.latency.toFixed(2) : model.latency.toFixed(1)}s` : "—"}
           />
         </div>
-        <div className="mt-3 flex flex-wrap items-center gap-3 rounded-xl border border-border-subtle bg-surface p-4">
+        <div className="mt-3 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 gap-y-2 rounded-xl border border-border-subtle bg-surface p-4">
           <span className="text-[11px] uppercase tracking-wider text-muted">Modalities</span>
           <ModalityBadges modalities={model.modalities} />
           {model.apiIds && (
-            <span className="ml-auto flex flex-wrap items-center gap-1.5">
+            <span className="col-span-2 grid grid-cols-[repeat(auto-fit,minmax(0,12rem))] items-center gap-1.5">
               {model.apiIds.map((id) => (
                 <code
                   key={id}
@@ -310,13 +310,13 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
       {/* Assessment */}
       <section className="mt-10 grid gap-4 lg:grid-cols-3">
         <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-5">
-          <h3 className="flex items-center gap-2 font-semibold text-emerald-600 dark:text-emerald-400">
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/15 text-xs">✓</span>
+          <h3 className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2 font-semibold text-emerald-600 dark:text-emerald-400">
+            <span className="grid h-5 w-5 place-items-center rounded-full bg-emerald-500/15 text-xs">✓</span>
             Strengths
           </h3>
           <ul className="mt-3 space-y-2 text-sm">
             {model.strengths.map((s) => (
-              <li key={s} className="flex gap-2 text-muted">
+              <li key={s} className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 text-muted">
                 <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-emerald-500" />
                 {s}
               </li>
@@ -324,13 +324,13 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
           </ul>
         </div>
         <div className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-5">
-          <h3 className="flex items-center gap-2 font-semibold text-amber-600 dark:text-amber-400">
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-500/15 text-xs">!</span>
+          <h3 className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2 font-semibold text-amber-600 dark:text-amber-400">
+            <span className="grid h-5 w-5 place-items-center rounded-full bg-amber-500/15 text-xs">!</span>
             Considerations
           </h3>
           <ul className="mt-3 space-y-2 text-sm">
             {model.considerations.map((s) => (
-              <li key={s} className="flex gap-2 text-muted">
+              <li key={s} className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 text-muted">
                 <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-500" />
                 {s}
               </li>
@@ -338,11 +338,11 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
           </ul>
         </div>
         <div className="rounded-2xl border border-violet-500/20 bg-violet-500/5 p-5">
-          <h3 className="flex items-center gap-2 font-semibold text-violet-600 dark:text-violet-400">
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-violet-500/15 text-xs">★</span>
+          <h3 className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2 font-semibold text-violet-600 dark:text-violet-400">
+            <span className="grid h-5 w-5 place-items-center rounded-full bg-violet-500/15 text-xs">★</span>
             Best for
           </h3>
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-3 grid grid-cols-[repeat(auto-fit,minmax(0,12rem))] gap-2">
             {model.bestFor.map((s) => (
               <span
                 key={s}
@@ -433,7 +433,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
             More from {provider.name}
           </h2>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(0,12rem))] gap-2">
             {siblings.map((s) => (
               <Link
                 key={s.slug}

@@ -36,7 +36,7 @@ function ScoreRing({ score, color, size = 40 }: { score: number; color: string; 
           className="transition-all duration-700"
         />
       </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 grid place-items-center">
         <span className="font-mono text-sm font-bold tabular-nums">{score}</span>
       </div>
     </div>
@@ -48,14 +48,14 @@ export function ModelCard({ model }: { model: Model }) {
   const aaScore = model.scores["aa-intelligence"];
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-border-subtle bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5">
+    <article className="group relative grid grid-rows-[auto_minmax(0,1fr)] overflow-hidden rounded-2xl border border-border-subtle bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5">
       <Link
         href={`/models/${model.slug}`}
         aria-label={`View ${model.name} model details`}
         className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       />
 
-      <div className="pointer-events-none relative z-20 flex h-full flex-col">
+      <div className="pointer-events-none relative z-20 grid grid-rows-[auto_minmax(0,1fr)]">
         <div
           className="h-[3px] w-full transition-all duration-300 group-hover:h-[4px]"
           style={{
@@ -63,11 +63,11 @@ export function ModelCard({ model }: { model: Model }) {
           }}
         />
 
-        <div className="flex flex-1 flex-col p-5">
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex min-w-0 items-center gap-3">
+        <div className="grid content-start p-5">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
+            <div className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
               <div
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-[12px] font-bold text-white transition-shadow group-hover:shadow-lg"
+                className="grid h-11 w-11 shrink-0 place-items-center rounded-xl text-[12px] font-bold text-white transition-shadow group-hover:shadow-lg"
                 style={{
                   background: `linear-gradient(135deg, ${provider.color}, ${provider.color}aa)`,
                   boxShadow: `0 4px 12px ${provider.color}33`,
@@ -85,7 +85,7 @@ export function ModelCard({ model }: { model: Model }) {
             {aaScore != null ? (
               <ScoreRing score={aaScore} color={provider.color} />
             ) : (
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border-subtle bg-surface-2 text-[11px] text-muted">
+              <div className="grid h-10 w-10 place-items-center rounded-lg border border-border-subtle bg-surface-2 text-[11px] text-muted">
                 —
               </div>
             )}
@@ -96,7 +96,7 @@ export function ModelCard({ model }: { model: Model }) {
           </p>
 
           <div className="mt-auto pt-4">
-            <div className="flex items-center justify-between gap-2 text-xs text-muted">
+            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 text-xs text-muted">
               <span className="font-mono">
                 {model.contextWindow ? (
                   <>
@@ -109,7 +109,7 @@ export function ModelCard({ model }: { model: Model }) {
                   <span className="italic opacity-50">ctx n/a</span>
                 )}
               </span>
-              <div className="flex items-center gap-1.5">
+              <div className="grid grid-flow-col items-center gap-1.5">
                 {model.openWeights && (
                   <span className="tag-pill bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
                     open
@@ -128,7 +128,7 @@ export function ModelCard({ model }: { model: Model }) {
               </div>
             </div>
 
-            <div className="mt-3 flex items-center justify-between border-t border-border-subtle pt-3">
+            <div className="mt-3 grid grid-cols-[minmax(0,1fr)_auto] items-center border-t border-border-subtle pt-3">
               <ModalityBadges modalities={model.modalities.slice(0, 3)} />
               <div className="pointer-events-auto relative z-30">
                 <PinButton slug={model.slug} name={model.name} />

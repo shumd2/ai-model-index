@@ -168,12 +168,12 @@ export function RadarChart({
           </div>
         )}
         {rival && rivalProvider && (
-          <div className="mt-3 flex flex-wrap gap-4 text-[13px]">
-            <span className="flex items-center gap-2">
+          <div className="mt-3 grid grid-cols-[repeat(auto-fit,minmax(0,9rem))] gap-4 text-[13px]">
+            <span className="grid grid-cols-[auto_minmax(0,auto)] items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-sm" style={{ background: provider.color }} />
               <Link href={`/models/${model.slug}`} className="hover:text-accent">{model.name}</Link>
             </span>
-            <span className="flex items-center gap-2 text-muted">
+            <span className="grid grid-cols-[auto_minmax(0,auto)] items-center gap-2 text-muted">
               <span className="h-2.5 w-2.5 rounded-sm border-2 border-dashed" style={{ borderColor: rivalProvider.color }} />
               <Link href={`/models/${rival.slug}`} className="hover:text-accent">{rival.name}</Link>
             </span>

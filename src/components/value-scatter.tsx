@@ -93,7 +93,7 @@ export function ValueScatter({ allModels }: { allModels: Model[] }) {
   return (
     <div>
       {/* Provider filter */}
-      <div className="mb-4 flex flex-wrap gap-1.5">
+      <div className="mb-4 grid grid-cols-[repeat(auto-fit,minmax(0,7rem))] gap-1.5">
         {providers
           .filter((p) => providerGroups.some((g) => g.providerId === p.id))
           .map((p) => {
@@ -105,7 +105,7 @@ export function ValueScatter({ allModels }: { allModels: Model[] }) {
                 type="button"
                 aria-pressed={activeProviders.includes(p.id)}
                 onClick={() => toggleProvider(p.id)}
-                className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] transition-colors ${
+                className={`grid grid-cols-[auto_minmax(0,auto)] items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] transition-colors ${
                   activeProviders.includes(p.id)
                     ? "border-accent bg-accent-soft text-accent"
                     : "border-border-subtle bg-surface text-muted hover:text-foreground"
@@ -185,7 +185,7 @@ export function ValueScatter({ allModels }: { allModels: Model[] }) {
       </div>
 
       {/* Legend & hover detail */}
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-muted">
+      <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 text-xs text-muted">
         {hovered ? (
           <span>
             <strong className="text-foreground">{allModels.find((m) => m.slug === hovered)?.name}</strong> — Hover a dot for details

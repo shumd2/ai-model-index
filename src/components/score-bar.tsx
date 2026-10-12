@@ -43,7 +43,7 @@ export function ScoreBar({
 
   return (
     <div>
-      <div className="mb-1.5 flex items-baseline justify-between gap-2">
+      <div className="mb-1.5 grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-2">
         <span className="text-[13px] text-muted">{bm?.name ?? benchmarkId}</span>
         <span className="font-mono text-[13px] font-semibold tabular-nums" style={{ color }}>
           {bm ? formatScore(value, bm.format) : value}

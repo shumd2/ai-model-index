@@ -70,7 +70,7 @@ export function SpeedRace({ allModels }: { allModels: Model[] }) {
     <div className="space-y-8">
       {/* The race */}
       <div className="rounded-2xl border border-border-subtle bg-surface p-5">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-2">
           <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">
             Output speed race — top 10
           </h3>
@@ -98,7 +98,7 @@ export function SpeedRace({ allModels }: { allModels: Model[] }) {
                 </Link>
                 <div className="h-5 border-l border-dashed border-border-subtle bg-surface-2/60">
                   <div
-                    className="flex h-full items-center justify-end pr-2 transition-[width] duration-200"
+                    className="grid h-full grid-cols-[minmax(0,1fr)_auto] items-center justify-items-end pr-2 transition-[width] duration-200"
                     style={{
                       width: `${Math.max(2, pct)}%`,
                       background: `linear-gradient(90deg, ${p.color}55, ${p.color}22)`,
@@ -129,7 +129,7 @@ export function SpeedRace({ allModels }: { allModels: Model[] }) {
           The same paragraph, streamed at each model&apos;s real rate (scaled to be
           watchable). Switch models mid-stream to compare.
         </p>
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(0,9rem))] gap-2">
           {fastest.slice(0, 6).map((m) => {
             const p = getProvider(m.provider);
             const active = demoModel === m.slug;
@@ -173,7 +173,7 @@ export function SpeedRace({ allModels }: { allModels: Model[] }) {
           )}
         </div>
         {started && (
-          <div className="mt-2 flex items-baseline justify-between text-[11px] text-muted">
+          <div className="mt-2 grid grid-cols-[minmax(0,1fr)_auto] items-baseline text-[11px] text-muted">
             <span>
               {allModels.find((m) => m.slug === demoModel)?.name} ·{" "}
               {allModels.find((m) => m.slug === demoModel)?.speed} t/s measured

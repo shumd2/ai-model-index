@@ -60,7 +60,7 @@ export default function ToolsPage() {
           <Link key={tool.href} href={tool.href} className="home-route-card">
             <span>{tool.number}</span>
             <div>
-              <div className="mb-2 inline-flex rounded-full bg-accent-soft px-2 py-0.5 text-[10px] font-semibold text-accent">
+              <div className="mb-2 inline-block rounded-full bg-accent-soft px-2 py-0.5 text-[10px] font-semibold text-accent">
                 {tool.tag}
               </div>
               <h2>{tool.name}</h2>

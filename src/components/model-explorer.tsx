@@ -42,8 +42,8 @@ export function ModelExplorer({ allModels }: { allModels: Model[] }) {
 
   return (
     <div>
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <div className="relative flex-1">
+      <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+        <div className="relative">
           <svg
             className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted"
             width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
@@ -70,7 +70,7 @@ export function ModelExplorer({ allModels }: { allModels: Model[] }) {
         </select>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(0,9rem))] gap-2">
         {filters.map((f) => (
           <button
             key={f.id}

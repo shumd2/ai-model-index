@@ -131,18 +131,18 @@ export function CostCalculator({
       {/* Controls */}
       <div className="lg:col-span-2">
         {/* Budget mode toggle */}
-        <div className="mb-4 flex rounded-2xl border border-border-subtle bg-surface overflow-hidden">
+        <div className="mb-4 grid grid-cols-2 overflow-hidden rounded-2xl border border-border-subtle bg-surface">
           <button
             type="button"
             onClick={() => setBudgetMode(false)}
-            className={`flex-1 px-3 py-2 text-[12px] font-medium transition-colors ${!budgetMode ? "bg-accent text-white" : "text-muted hover:text-foreground"}`}
+            className={`px-3 py-2 text-[12px] font-medium transition-colors ${!budgetMode ? "bg-accent text-white" : "text-muted hover:text-foreground"}`}
           >
             Calculate costs
           </button>
           <button
             type="button"
             onClick={() => setBudgetMode(true)}
-            className={`flex-1 px-3 py-2 text-[12px] font-medium transition-colors ${budgetMode ? "bg-accent text-white" : "text-muted hover:text-foreground"}`}
+            className={`px-3 py-2 text-[12px] font-medium transition-colors ${budgetMode ? "bg-accent text-white" : "text-muted hover:text-foreground"}`}
           >
             💰 Budget advisor
           </button>
@@ -156,7 +156,7 @@ export function CostCalculator({
           {budgetMode ? (
             <div className="mt-4 space-y-5">
               <div>
-                <div className="flex items-baseline justify-between text-[13px]">
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline text-[13px]">
                   <span className="text-muted">Monthly budget</span>
                   <span className="font-mono font-semibold tabular-nums">{fmtMoney(budgetAmount)}</span>
                 </div>
@@ -168,7 +168,7 @@ export function CostCalculator({
                   onChange={(e) => setBudgetAmount(Number(e.target.value))}
                   className="mt-1.5 w-full accent-[var(--accent)]"
                 />
-                <div className="mt-1 flex justify-between text-[11px] text-muted">
+                <div className="mt-1 grid grid-cols-2 text-[11px] text-muted [&>*:last-child]:text-right">
                   <span>$5</span>
                   <span>$500</span>
                 </div>
@@ -211,7 +211,7 @@ export function CostCalculator({
             </div>
           ) : (
             <>
-              <div className="mt-3 flex flex-wrap gap-2">
+              <div className="mt-3 grid grid-cols-[repeat(auto-fit,minmax(0,9rem))] gap-2">
                 {presets.map((p) => {
                   const active = p.inTok === inTok && p.outTok === outTok && p.reqs === reqs && p.cache === cache;
                   return (
@@ -227,13 +227,13 @@ export function CostCalculator({
                 <NumberRow label="Output tokens / request" value={outTok} setValue={setOutTok} min={1} max={200_000} step={50} />
                 <NumberRow label="Requests / day" value={reqs} setValue={setReqs} min={1} max={100_000} step={10} />
                 <div>
-                  <div className="flex items-baseline justify-between text-[13px]">
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline text-[13px]">
                     <span className="text-muted">Cache-hit share of input</span>
                     <span className="font-mono font-semibold tabular-nums">{cache}%</span>
                   </div>
                   <input type="range" min={0} max={95} value={cache} onChange={(e) => setCache(Number(e.target.value))} className="mt-1.5 w-full accent-[var(--accent)]" />
                 </div>
-                <label className="flex cursor-pointer items-center gap-2.5 text-[13px]">
+                <label className="grid cursor-pointer grid-cols-[auto_minmax(0,1fr)] items-center gap-2.5 text-[13px]">
                   <input type="checkbox" checked={batch} onChange={(e) => setBatch(e.target.checked)} className="h-4 w-4 accent-[var(--accent)]" />
                   Use batch pricing where available
                 </label>
@@ -251,9 +251,9 @@ export function CostCalculator({
                 const active = slugs.includes(m.slug);
                 return (
                   <button key={m.slug} type="button" onClick={() => toggle(m.slug)}
-                    className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-left text-[13px] transition-colors ${active ? "bg-accent-soft font-medium text-accent" : "text-muted hover:bg-surface-2 hover:text-foreground"}`}>
+                    className={`grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-left text-[13px] transition-colors ${active ? "bg-accent-soft font-medium text-accent" : "text-muted hover:bg-surface-2 hover:text-foreground"}`}>
                     <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: p.color }} />
-                    <span className="flex-1 truncate">{m.name}</span>
+                    <span className="truncate">{m.name}</span>
                     <span className="font-mono text-[11px] tabular-nums">${m.pricing!.input}/${m.pricing!.output}</span>
                   </button>
                 );
@@ -276,10 +276,10 @@ export function CostCalculator({
                 const p = getProvider(r.model.provider);
                 const inBudget = r.monthly <= budgetAmount;
                 return (
-                  <div key={r.model.slug} className={`flex items-center gap-3 rounded-xl border px-4 py-3 ${inBudget ? "border-emerald-500/20 bg-emerald-500/5" : "border-border-subtle bg-surface-2/30 opacity-50"}`}>
+                  <div key={r.model.slug} className={`grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 rounded-xl border px-4 py-3 ${inBudget ? "border-emerald-500/20 bg-emerald-500/5" : "border-border-subtle bg-surface-2/30 opacity-50"}`}>
                     <span className="font-mono text-[11px] font-bold text-muted">#{i + 1}</span>
                     <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: p.color }} />
-                    <span className="flex-1 text-sm font-medium">{r.model.name}</span>
+                    <span className="text-sm font-medium">{r.model.name}</span>
                     <span className="font-mono text-sm tabular-nums" style={{ color: p.color }}>AA {r.aa}</span>
                     <span className="font-mono text-sm tabular-nums" style={{ color: inBudget ? "var(--positive)" : "var(--muted)" }}>
                       {fmtMoney(r.monthly)}/mo
@@ -294,7 +294,7 @@ export function CostCalculator({
         )}
 
         <div className="rounded-2xl border border-border-subtle bg-surface p-5">
-          <div className="flex items-baseline justify-between">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-muted">
               {budgetMode ? "Est. monthly at complexity" : "Estimated monthly cost"}
             </h3>
@@ -310,7 +310,7 @@ export function CostCalculator({
                 const p = getProvider(m.provider);
                 return (
                   <div key={m.slug}>
-                    <div className="mb-1 flex items-baseline justify-between gap-3">
+                    <div className="mb-1 grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-3">
                       <Link href={`/models/${m.slug}`} className="truncate text-[13px] font-medium hover:text-accent">
                         <span className="mr-2 inline-block h-2 w-2 rounded-full align-middle" style={{ background: p.color }} />
                         {m.name}
@@ -319,14 +319,14 @@ export function CostCalculator({
                         {fmtMoney(monthly)}<span className="text-muted">/mo</span>
                       </span>
                     </div>
-                    <div className="flex items-center gap-4 text-[11px] text-muted">
+                    <div className="grid grid-cols-[repeat(auto-fit,minmax(0,8rem))] items-center gap-4 text-[11px] text-muted">
                       <span>≈{fmtMoney(perRequest)}/req</span>
                       <span>{dailyInputTokens.toLocaleString()} in/day</span>
                       <span>{dailyOutputTokens.toLocaleString()} out/day</span>
                       <span>{m.costPerTask != null ? `$${m.costPerTask.toFixed(4)}/task` : ""}</span>
                     </div>
                     <div className="mt-0.5 h-5 border-l border-dashed border-border-subtle bg-surface-2/60">
-                      <div className="flex h-full items-center justify-end pr-2 transition-all duration-300"
+                      <div className="grid h-full grid-cols-[minmax(0,1fr)_auto] items-center justify-items-end pr-2 transition-all duration-300"
                         style={{ width: `${Math.max(8, (monthly / max) * 100)}%`, background: `linear-gradient(90deg, ${p.color}55, ${p.color}22)` }}>
                         <span className="font-mono text-[11px] text-muted">{fmtMoney(perRequest)}/req</span>
                       </div>
@@ -348,7 +348,7 @@ export function CostCalculator({
 function NumberRow({ label, value, setValue, min, max, step }: { label: string; value: number; setValue: (v: number) => void; min: number; max: number; step: number }) {
   return (
     <div>
-      <div className="flex items-baseline justify-between text-[13px]">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline text-[13px]">
         <span className="text-muted">{label}</span>
         <input type="number" value={value} min={min} max={max} step={step} onChange={(e) => setValue(Math.max(min, Math.min(max, Number(e.target.value) || min)))}
           className="w-28 rounded-md border border-border-subtle bg-surface-2/60 px-2 py-1 text-right font-mono text-[13px] tabular-nums outline-none focus:border-accent" />

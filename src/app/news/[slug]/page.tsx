@@ -38,7 +38,7 @@ export default async function NewsPostPage({ params }: PageProps<"/news/[slug]">
 
       <article>
         <header className="mt-4">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-muted">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(0,10rem))] items-center gap-2 text-xs text-muted">
             {provider && (
               <span
                 className="rounded-md px-2 py-1 font-medium"

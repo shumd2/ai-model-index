@@ -113,7 +113,7 @@ export default function SubscriptionsPage() {
 
       {subscriptionProducts.map((product) => (
         <section key={product.id} className="mt-12" id={product.id}>
-          <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+          <div className="mb-4 grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-2">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">
               {product.product}
               <span className="ml-2 normal-case text-[11px] font-normal">
@@ -138,7 +138,7 @@ export default function SubscriptionsPage() {
           {product.notes && product.notes.length > 0 && (
             <ul className="mb-4 mt-3 space-y-2 text-sm">
               {product.notes.map((note) => (
-                <li key={note} className="flex gap-2 text-muted">
+                <li key={note} className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 text-muted">
                   <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
                   <span>{note}</span>
                 </li>
@@ -183,7 +183,7 @@ export default function SubscriptionsPage() {
                     <td>
                       <ul className="space-y-1.5 text-[13px]">
                         {tier.features.map((feature) => (
-                          <li key={feature} className="flex gap-2 text-muted">
+                          <li key={feature} className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 text-muted">
                             <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
                             <span>{feature}</span>
                           </li>
@@ -200,7 +200,7 @@ export default function SubscriptionsPage() {
               </tbody>
             </table>
           </div>
-          <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
+          <div className="mt-3 grid grid-cols-[repeat(auto-fit,minmax(0,12rem))] items-center gap-3 text-sm">
             <ExternalLink href={product.tiers[0].url}>
               Official pricing page →
             </ExternalLink>

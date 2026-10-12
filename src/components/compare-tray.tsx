@@ -89,17 +89,17 @@ export function CompareTray() {
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border-subtle bg-background/95 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 sm:px-6">
+      <div className="mx-auto grid max-w-6xl grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-6">
         <span className="font-mono text-[11px] uppercase tracking-widest text-muted">
           Pinned ({pinned.length}/4)
         </span>
-        <div className="flex flex-1 flex-wrap gap-1.5">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(0,10rem))] gap-1.5">
           {pinned.map((slug) => (
             <button
               key={slug}
               type="button"
               onClick={() => writePinned(readPinned().filter((s) => s !== slug))}
-              className="group flex items-center gap-1.5 rounded-full border border-border-subtle bg-surface px-2.5 py-1 text-[12px]"
+              className="group grid grid-cols-[auto_minmax(0,auto)_auto] items-center gap-1.5 rounded-full border border-border-subtle bg-surface px-2.5 py-1 text-[12px]"
             >
               {slug}
               <span className="text-muted transition-colors group-hover:text-foreground">×</span>

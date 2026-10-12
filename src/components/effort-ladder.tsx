@@ -50,7 +50,7 @@ export function EffortLadderExplorer({
   return (
     <div>
       {/* tier selector */}
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(0,9rem))] gap-2">
         {ladder.map((t, i) => (
           <button
             key={t.effort}
@@ -77,7 +77,7 @@ export function EffortLadderExplorer({
       <div className="mt-5 space-y-3.5">
         {rows.map((r) => (
           <div key={r.label}>
-            <div className="mb-1 flex items-baseline justify-between text-[13px]">
+            <div className="mb-1 grid grid-cols-[minmax(0,1fr)_auto] items-baseline text-[13px]">
               <span className="text-muted">{r.label}</span>
               <span className="font-mono font-semibold tabular-nums">{r.value}</span>
             </div>

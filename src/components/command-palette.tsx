@@ -64,7 +64,7 @@ export function CommandPalette({ items }: { items: PaletteItem[] }) {
         type="button"
         onClick={openPalette}
         aria-label="Search (⌘K)"
-        className="hidden items-center gap-1.5 rounded-lg border border-border-subtle bg-surface px-2.5 py-1.5 text-[12px] text-muted transition-colors hover:text-foreground lg:flex"
+        className="hidden grid grid-cols-[auto_minmax(0,auto)] items-center gap-1.5 rounded-lg border border-border-subtle bg-surface px-2.5 py-1.5 text-[12px] text-muted transition-colors hover:text-foreground lg:grid"
       >
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <circle cx="11" cy="11" r="7" />
@@ -83,14 +83,14 @@ export function CommandPalette({ items }: { items: PaletteItem[] }) {
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-start justify-center bg-black/40 px-4 pt-[12vh] backdrop-blur-sm"
+      className="fixed inset-0 z-[60] grid items-start justify-items-center bg-black/40 px-4 pt-[12vh] backdrop-blur-sm"
       onClick={() => setOpen(false)}
     >
       <div
         className="w-full max-w-lg overflow-hidden rounded-2xl border border-border-subtle bg-surface shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-2 border-b border-border-subtle px-4 py-3">
+        <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2 border-b border-border-subtle px-4 py-3">
           <svg className="text-muted" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <circle cx="11" cy="11" r="7" />
             <path d="m20 20-3.5-3.5" />
@@ -114,7 +114,7 @@ export function CommandPalette({ items }: { items: PaletteItem[] }) {
               }
             }}
             placeholder="Search models, labs, benchmarks…"
-            className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted"
+            className="min-w-0 bg-transparent text-sm outline-none placeholder:text-muted"
           />
           <kbd className="rounded border border-border-subtle bg-surface-2 px-1.5 py-0.5 font-mono text-[10px] text-muted">esc</kbd>
         </div>
@@ -128,18 +128,18 @@ export function CommandPalette({ items }: { items: PaletteItem[] }) {
                 type="button"
                 onMouseEnter={() => setCursor(i)}
                 onClick={() => go(r.href)}
-                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left transition-colors ${
+                className={`grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-xl px-3 py-2 text-left transition-colors ${
                   i === cursor ? "bg-accent-soft" : ""
                 }`}
               >
                 <span
-                  className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md font-mono text-[10px] font-bold ${
+                  className={`grid h-6 w-6 shrink-0 place-items-center rounded-md font-mono text-[10px] font-bold ${
                     i === cursor ? "bg-accent text-white" : "bg-surface-2 text-muted"
                   }`}
                 >
                   {r.kind === "model" ? "M" : r.kind === "provider" ? "L" : r.kind === "benchmark" ? "B" : "→"}
                 </span>
-                <span className="min-w-0 flex-1">
+                <span className="min-w-0">
                   <span className={`block truncate text-[13px] font-medium ${i === cursor ? "text-accent" : ""}`}>
                     {r.label}
                   </span>

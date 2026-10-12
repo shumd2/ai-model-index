@@ -12,7 +12,7 @@ const labels: Record<Modality, { label: string; icon: string }> = {
 
 export function ModalityBadges({ modalities }: { modalities: Modality[] }) {
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(0,6rem))] gap-1.5">
       {modalities.map((m) => (
         <span
           key={m}
