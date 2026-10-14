@@ -1,0 +1,36 @@
+## Overview
+
+LFM2.5-24B-A2B is a mixture-of-experts model from Liquid AI with a shape that keeps showing up in the most interesting releases of the past year: **24 billion total parameters, 2 billion active**. Forty layers, 64 experts, top-4 routing, 33 trillion pretraining tokens, 128K vocabulary.
+
+Two features make it unusual for its size class. It carries a **131,072-token context window**, which is generous in a 2B-active model. And it is **reasoning-only** — it always emits a `<think>` block before its answer, with no mode that skips it.
+
+Two builds ship: the post-trained `LFM2.5-24B-A2B` and the pretrained `LFM2.5-24B-A2B-Base`. Both are available on Hugging Face, alongside GGUF, MLX (4, 5, 6 and 8-bit) and ONNX conversions.
+
+## Pricing
+
+USD per 1M tokens:
+
+| | Rate |
+|---|---|
+| **Input** | $0.10 |
+| **Cached input** | $0.05 |
+| **Output** | $1.00 |
+
+That places it among the cheapest reasoning models available anywhere. The input rate is a tenth of a cent-equivalent of a frontier model; the output rate sits well below several open-weight models an order of magnitude larger.
+
+## The licence caveat
+
+The weights are open under the **Liquid LFM licence**, which is a custom, company-specific agreement — **not** an OSI-approved licence like Apache 2.0 or MIT. Open availability and open-source permission are not the same thing. If you are shipping commercially, read the terms before you build on it, and compare them against the LFM2.x predecessor terms if you have used those.
+
+## Self-hosting shape
+
+The point of a 2B-active MoE is that you pay for 2 billion parameters of compute per token, not 24. On a single consumer GPU, running the 8-bit MLX or GGUF build gives you reasoning with reasoning-model-class behaviour at a memory and latency budget that a dense 24B could never meet. Quantisation to 4 bits roughly halves that again.
+
+The trade is the usual one: no independent benchmark coverage yet, no serving infrastructure ecosystem maturity around it, and a mandatory reasoning block that costs tokens on every simple request. A 131K context window in a model this small is also worth testing rather than trusting — small models often degrade well before they hit the nominal limit.
+
+## Community insights
+
+> **This section is reserved for community-sourced knowledge** — things you
+> can't find on the official page: real-world behaviour, quirks, pricing
+> anecdotes, prompting tips, failure modes. Edit this file in
+> `src/content/models/` and share what you know.

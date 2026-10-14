@@ -1,0 +1,46 @@
+**Meta released Muse Wonder and Muse Wonder Full on October 12, 2026** — the first frontier agentic models from its Superintelligence Labs, and a four-to-eight point jump on Muse Spark 1.3 across a release gap of six weeks.
+
+| Model | AA Intelligence Index | Route |
+|---|---|---|
+| **Muse Wonder Full** | **56** (max) | Muse Code only — Power ($50) or Maximum ($200) |
+| **Muse Wonder** | **52** (max) | Meta Model API and every Muse Code plan |
+
+At 56, Full ties Sonnet 5.5 (max) for **#2 on the entire board**, behind only Claude Opus 5.5 at 58. Artificial Analysis lists Full as having **no publicly available API**.
+
+One note on price: at $4 input / $20 output, Muse Wonder costs **exactly what Claude Opus 5.5 costs**. Meta Superintelligence Labs chief Alexandr Wang had said Wonder would be priced "meaningfully below" OpenAI and Anthropic. On the API, that turned out not to be the case.
+
+## Active Memory and Active Focus
+
+These are the headline capabilities, and neither is a benchmark result:
+
+- **Active Memory** carries context across separate conversations, so an agent does not rebuild its understanding every time you return to it
+- **Active Focus** keeps the agent working through its own errors rather than abandoning the task, and has it check in before taking actions with real consequences
+
+Meta frames the line around personal and professional agentic work, naming law, finance and health as particular strengths, alongside "frontier coding performance".
+
+## The API problem
+
+**Muse Wonder Full has no API model ID.** Meta's own model documentation states it is unavailable on the Meta Model API in either Standard or Contributor mode. There is no per-token purchase at any volume — your only route is a Muse Code subscription, and only the two priciest plans.
+
+Muse Wonder itself is `muse-wonder-1.0` at `https://api.meta.ai/v1`:
+
+| | USD per 1M tokens |
+|---|---|
+| Input | $4.00 |
+| Cached input | $0.20 |
+| Output | $20.00 |
+
+1,048,576-token context with **no long-context premium**, reasoning effort from `minimal` to `max`, text/image/video/audio/PDF input, and preview status. Web-search grounding is $2.50 per 1,000 queries; rate limits are 3,000 RPM and 4M TPM.
+
+Note that Contributor mode — which prices Muse Spark 1.3 at $0.10/$0.20 instead of $1.25/$4.25, a cut of more than 12× — is **not offered for Wonder on the Model API**.
+
+## Muse Code plans
+
+| Plan | Monthly | Usage | Wonder Full? |
+|---|---|---|---|
+| Everyday Usage | $5 | 10–50 prompts every 5 hours | No |
+| High Usage | $15 | 5× Everyday | No |
+| Power Usage | $50 | 20× Everyday | **Yes** |
+| Maximum Usage | $200 | Highest allowance | **Yes** |
+
+Subscriptions meter requests rather than tokens, and default to Contributor mode where Meta may train on your prompts and code — switchable in settings, and off by default on pay-as-you-go.

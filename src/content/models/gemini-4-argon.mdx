@@ -6,19 +6,34 @@ That is **23 points above Google's previous non-Flash model** (Gemini 3.1 Pro Pr
 
 ## Availability and pricing
 
-Argon is **not yet publicly available**: Google is rolling it out first to trusted cyber defenders via the **Fairwind Program**, then to paid API customers and Google AI Ultra subscribers, and the Gemini API catalog does not list it yet. There is no public API model ID at the time of this update.
+**Gemini 4 Argon went generally available on the Gemini API on October 13, 2026** as `gemini-4-argon`, ending the Fairwind Program rollout. Batch, Flex and Priority inference all apply.
 
-Pricing is **$4/$20 per 1M tokens standard, discounted 50% to $2/$10 for at least one month** (Google has not confirmed the end date), with cached input **95% off ($0.10/M at promotional pricing)** — up from 90% on Gemini 3.8 Flash. At promotional prices Argon costs **$1.99 per AA task, 60% of GPT-6 Astra (max)**; after the discount ends that rises to $3.98.
+Pricing is **$4/$20 per 1M tokens standard, discounted 50% to $2/$10 through November 30, 2026** — Google has since published the end date the launch post omitted. From **December 1** the rate doubles to $4/$20 and cache reads rise from $0.10 to $0.20. Batch and Flex are half the standard rate; Priority is 1.8×.
 
-## Specs and the long-decode trick
+At promotional prices Argon costs **$1.99 per AA task, 60% of GPT-6 Astra (max)**; after December 1 that rises to $3.98.
 
-- **Context:** 1M tokens · **Output:** up to 1M tokens via **Long Decode Continuation**, a new Gemini API feature that pauses long responses and resumes them across follow-up calls, so reasoning can run past request timeouts
-- **Modalities:** text, image, video and speech input; text output
+Argon is **not available on the Gemini API Free tier or on the consumer Google AI Pro plan** — it reaches consumers through Google AI Ultra.
+
+## Specs
+
+- **Model code:** `gemini-4-argon` (stable)
+- **Context:** 1,048,576 tokens, unified across input and output
+- **Max output:** 65,536 by default · up to **1,048,576 with long decode**, a Gemini API feature that pauses long responses and resumes them across follow-up calls so reasoning can run past request timeouts
+- **Modalities:** text, image, video, audio and PDF in; text out
+- **Thinking levels:** low, medium, high — there is no xhigh or max, so AA's 53 is the ceiling
 - **Token use:** ~62k output tokens per AA task (vs 27k for Astra max) — efficiency comes from price, not terseness
+
+## Two capability gaps
+
+**Explicit context caching is not supported.** Argon does implicit caching only. On long agentic runs that re-send the same context each turn, you lose the ability to set or extend cache TTLs — a lever most competing providers treat as standard.
+
+**No audio or image output.** Argon takes audio and images as input but produces text only, and it is not on the Live API.
+
+It does support function calling, structured outputs, code execution, file search, URL context, search and Maps grounding, and **computer use in preview**. Agentic video understanding works but defaults to static mode.
 
 ## Read the rankings carefully
 
-Argon's **provisional #1 on the LMArena text arena (1525 Elo)** rests on only 4,932 votes versus 77,000+ for the incumbents, and its confidence interval overlaps with #2 through #6 — treat it as a signal, not a coronation. Its AA-Omniscience accuracy (50%) is 13 points below Astra's, so the low hallucination rate partly reflects more "I don't know" answers. AA did not publish a speed figure for Argon at the time of writing.
+Argon's **provisional #1 on the LMArena text arena (1525.40 Elo, Oct 8 snapshot)** rests on only 4,892 votes versus 79,000+ for the incumbents, and its confidence interval overlaps with #2 through #6 — treat it as a signal, not a coronation. Its AA-Omniscience accuracy (50%) is 13 points below Astra's, so the low hallucination rate partly reflects more "I don't know" answers. AA has not published a speed figure for Argon.
 
 ## Community insights
 

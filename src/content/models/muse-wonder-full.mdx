@@ -1,0 +1,48 @@
+## Overview
+
+Muse Wonder Full is the more capable of Meta's two October models, and the strange one: it scores **56 on the AA Intelligence Index v4.3.2** — level with Sonnet 5.5 (max) for **#2 on the entire board**, behind only Claude Opus 5.5 at 58 — and **you cannot buy it by the token**. There is no API model ID. Artificial Analysis records it as having no publicly available API at all. It exists inside Meta's Muse Code terminal agent, and only on the two most expensive plans.
+
+That AA 56 is eight points above Muse Spark 1.3 (max) on a release gap of six weeks. Meta describes the jump as material rather than incremental.
+
+## What it is built for
+
+Meta positions the Muse Wonder line around long-running professional agents rather than single-turn chat:
+
+- **Active Memory** carries context across separate conversations, so an agent does not restart from zero when you return to it tomorrow
+- **Active Focus** keeps the agent working through its own errors instead of abandoning the task, and checks in before taking actions with real consequences
+- Multi-file code changes, sub-agent delegation and parallel tool use
+- Strong performance in law, finance and health — the domains Meta names explicitly
+- 1M-token context at inference
+
+Muse Wonder (the sibling, at AA 52) and Full share the model card and the 1M context window. Meta describes them as one family released together, built under the Meta Superintelligence Scaling Framework.
+
+## Why there is no API
+
+This is the part worth internalising before you plan anything around it. Meta's own model documentation states that **Muse Wonder Full is not available on the Meta Model API in any mode** — Standard or Contributor. It appears only in Muse Code, and only on the Power Usage ($50/mo) and Maximum Usage ($200/mo) plans.
+
+So the practical consequences:
+
+- You cannot pay per million tokens for it, at any volume
+- Your cost is a flat subscription, which means the effective per-task cost depends entirely on how much you use it
+- Your only integration path is the Muse Code CLI
+- Selecting reasoning effort "max" on plain Muse Wonder does **not** give you Full — they are separate products with separate access rules
+
+If you are building a product that calls a frontier model from server-side code, Full is not reachable. Muse Wonder, its slightly weaker sibling, is.
+
+## Specs
+
+| Property | Value |
+|---|---|
+| **Context length** | 1,048,576 tokens at inference |
+| **Max output** | Not stated on Meta's official pages |
+| **Modalities** | Text, image, video, audio in → text out |
+| **Languages** | Multilingual training data, substantial worldwide representation |
+| **Weights** | Closed |
+| **AA Intelligence Index** | 56 at max reasoning effort |
+
+## Community insights
+
+> **This section is reserved for community-sourced knowledge** — things you
+> can't find on the official page: real-world behaviour, quirks, pricing
+> anecdotes, prompting tips, failure modes. Edit this file in
+> `src/content/models/` and share what you know.

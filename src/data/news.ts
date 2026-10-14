@@ -9,6 +9,51 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "openai-gpt4-api-deprecation",
+    date: "2026-10-14",
+    title: "OpenAI deprecates the GPT-4 series in the API, retiring it January 14, 2027",
+    summary:
+      "gpt-4o-2024-08-06, gpt-4o-2024-11-20, gpt-4o-mini-2024-07-18, gpt-4.1-2025-04-14 and gpt-4.1-mini-2025-04-14 are all deprecated with gpt-6-luna as the named replacement. Fine-tuned variants follow their base model's schedule. A companion migration guide, 'Migrating from GPT-4.x to GPT-6 Luna', is now live on the OpenAI help center. The three-month notice is OpenAI's stated window for legacy variants.",
+    tag: "release",
+    provider: "openai",
+  },
+  {
+    slug: "muse-wonder-release",
+    date: "2026-10-12",
+    title: "Meta releases Muse Wonder and Muse Wonder Full, its first frontier agentic models",
+    summary:
+      "muse-wonder-1.0 (AA 52 at max) is available on the Meta Model API at $4/$20 per MTok with a 1,048,576-token context and no long-context premium — the same rate as Claude Opus 5.5. Muse Wonder Full (AA 56) has no API ID at all; Artificial Analysis lists it as having no publicly available API, and it is reachable only through Muse Code on the $50 Power or $200 Maximum plans. Both introduce Active Memory, which carries context across conversations, and Active Focus, which keeps agents working through errors.",
+    tag: "release",
+    provider: "meta",
+  },
+  {
+    slug: "gemini-shutdowns-oct-2026",
+    date: "2026-10-12",
+    title: "Google's Gemini API shutdown calendar tightens through late October",
+    summary:
+      "veo-3.1-lite-generate-preview, veo-3.1-generate-preview, veo-3.1-fast-generate-preview and gemini-omni-flash-preview shut down October 22, 2026; deep-research-pro-preview-12-2025 on October 23. Five TTS and live-audio previews go on November 17, 2026, and gemini-3.1-flash-lite on May 7, 2027. Separately, Gemini 2.5 models are access-restricted rather than deprecated — they will keep serving users who have actively used them.",
+    tag: "release",
+    provider: "google",
+  },
+  {
+    slug: "gemini-4-argon-ga",
+    date: "2026-10-13",
+    title: "Gemini 4 Argon reaches general availability on the Gemini API",
+    summary:
+      "Google shipped gemini-4-argon to GA, ending the Fairwind-only rollout. The model carries a 1,048,576-token unified context window, 65,536 default max output (up to 1,048,576 with long decode), thinking levels low/medium/high, and Batch, Flex and Priority tiers. Pricing is $2/$10 through Nov 30, then $4/$20 from Dec 1. Explicit caching is not supported.",
+    tag: "release",
+    provider: "google",
+  },
+  {
+    slug: "nano-banana-2-1-ga",
+    date: "2026-10-06",
+    title: "Gemini Nano Banana 2.1 goes GA, deprecating Gemini 3.1 Flash Image",
+    summary:
+      "gemini-nano-banana-2.1 replaces gemini-3.1-flash-image with improved visual quality, multi-turn character consistency, text rendering and 1:4 to 8:1 aspect ratios at 1K, 2K and 4K. Output is $30/MTok — about $0.034 per 1K image, or $0.0168 on batch. The old model is deprecated with no shutdown date announced.",
+    tag: "release",
+    provider: "google",
+  },
+  {
     slug: "decision-models-week-oct-2026",
     date: "2026-10-09",
     title: "Three labs ship decision models in one week — output billed at zero",

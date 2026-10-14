@@ -1,0 +1,61 @@
+## Overview
+
+Muse Wonder is Meta's first genuinely frontier-class model with an actual API behind it. It reached **52 on the AA Intelligence Index at max reasoning effort** on release, against 48 for Muse Spark 1.3 (max) six weeks earlier — a four-point jump that puts Meta in the same band as GPT-6 Astra.
+
+Its sibling, **Muse Wonder Full**, scores 56 but is reachable only through a Muse Code subscription. Wonder is the one you can actually build on.
+
+## Active Memory and Active Focus
+
+These are the two features Meta leads with, and they are behavioural rather than benchmark-visible:
+
+- **Active Memory** maintains context across conversations, so an agent picking up work after a break does not rebuild its understanding from scratch
+- **Active Focus** keeps the agent working when it hits errors, and has it check in before taking actions with real-world consequences
+
+Meta frames both around personal and professional agentic tasks — legal, financial and health work where the agent runs across days rather than seconds.
+
+## Pricing
+
+Meta Model API, Standard mode, USD per 1M tokens:
+
+| | Rate |
+|---|---|
+| **Input** | $4.00 |
+| **Cached input** | $0.20 |
+| **Output** | $20.00 |
+
+Two things stand out.
+
+**There is no long-context premium.** Meta's pricing page lists a single rate, so a request at 10% of the 1M context window costs the same per token as one at 100%. Several competing labs now charge more for the longer half of the window.
+
+**Contributor mode is not offered for Wonder on the Model API.** This matters because the same platform prices Muse Spark 1.3 at **$1.25 in / $4.25 out** normally but **$0.10 / $0.20** in Contributor mode — a cut of more than 12×, in exchange for letting Meta train on your content. Wonder's $4/$20 is the only rate available, so a team that would happily trade data for price has no such lever on Meta's strongest model.
+
+Web-search grounding is billed separately at $2.50 per 1,000 queries. Rate limits are 3,000 requests per minute and 4M tokens per minute.
+
+Worth sitting with: **those rates are identical to Claude Opus 5.5's** — $4 in, $20 out. Meta Superintelligence Labs chief Alexandr Wang had said Wonder would be priced "meaningfully below" OpenAI and Anthropic. On the API that turned out not to be the case. The genuinely cheaper Meta option remains Muse Spark 1.3 at $1.25/$4.25, or $0.10/$0.20 if you take Contributor mode — and you cannot take Contributor mode on Wonder.
+
+## Specs
+
+| Property | Value |
+|---|---|
+| **Model ID** | `muse-wonder-1.0` |
+| **Endpoint** | `https://api.meta.ai/v1` |
+| **Context window** | 1,048,576 tokens |
+| **Max output** | Not published |
+| **Modalities** | Text, image, video, audio, PDF in → text out |
+| **Reasoning effort** | `minimal` through `max` |
+| **Status** | Preview |
+
+Supported capabilities: computer use, tool calling, tool search, search grounding, image understanding and generation, speech to text, video understanding, media segmentation, file handling, structured output, reasoning, and prompt caching. It is reachable through the Responses API, Chat Completions API and Messages API.
+
+Meta notes that Spark 1.3 has better audio understanding than Wonder; Wonder's advantage is software engineering and long-horizon agentic work.
+
+## Do not confuse the settings
+
+Contributor mode is available to Muse Code subscribers — it trades usage for training rights — but not on pay-as-you-go for Wonder. And setting reasoning effort to `max` on Wonder does not upgrade you to Wonder Full. Both settings look like they should do what people expect, and neither does.
+
+## Community insights
+
+> **This section is reserved for community-sourced knowledge** — things you
+> can't find on the official page: real-world behaviour, quirks, pricing
+> anecdotes, prompting tips, failure modes. Edit this file in
+> `src/content/models/` and share what you know.

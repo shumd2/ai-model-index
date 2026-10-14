@@ -1,0 +1,27 @@
+Google's Gemini API deprecation page, last updated **October 12, 2026**, sets out a shutdown calendar that runs from this week into next spring.
+
+## October 22–23, 2026
+
+| Model | Shutdown |
+|---|---|
+| `veo-3.1-lite-generate-preview` | Oct 22, 2026 |
+| `veo-3.1-generate-preview` | Oct 22, 2026 |
+| `veo-3.1-fast-generate-preview` | Oct 22, 2026 |
+| `gemini-omni-flash-preview` | Oct 22, 2026 |
+| `deep-research-pro-preview-12-2025` | Oct 23, 2026 |
+
+The Veo 3.1 video previews and the omni-flash preview go together, which suggests a single platform capability retiring rather than four independent decisions. For deep-research, Google names the replacements: `deep-research-preview-04-2026` or `deep-research-max-preview-04-2026`.
+
+## November 17, 2026
+
+Five audio and realtime previews: `gemini-3.1-flash-tts-preview`, `gemini-3.1-flash-live-preview`, `gemini-2.5-flash-native-audio-preview-12-2025`, `gemini-2.5-flash-preview-tts`, `gemini-2.5-flash-preview-tts`.
+
+## May 7, 2027
+
+`gemini-3.1-flash-lite` — the longest-dated item on the calendar, at roughly nineteen weeks out.
+
+## What is *not* deprecated
+
+Google changed **Gemini 2.5 model access** on September 18 in a way that is easy to misread as a deprecation. It was not. Google **restricted access** to users who have actively used the 2.5 models, and stated they "will continue to be served until further notice". The models are still there; the audience for them narrowed.
+
+This is the third distinct mechanism Google has used to wind down model families — full deprecation with a shutdown date, auto-routing to a successor (the Oct 8 change covering `gemini-3.7-flash` → `gemini-3.8-flash` and `gemini-3.5-flash` → `gemini-3.6-flash`), and access restriction. Each requires a different response from a team maintaining production traffic, which is the real cost of the pattern.

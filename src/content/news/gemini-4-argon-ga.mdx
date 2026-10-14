@@ -1,0 +1,42 @@
+**Gemini 4 Argon** (`gemini-4-argon`) reached **general availability on the Gemini API on October 13, 2026**, ending the Fairwind Program rollout that began at its September 30 launch.
+
+## What GA actually means
+
+| Property | Value |
+|---|---|
+| **Model code** | `gemini-4-argon` |
+| **Context window** | 1,048,576 tokens (unified input + output) |
+| **Max output** | 65,536 default · up to **1,048,576 with long decode** |
+| **Inputs** | Text, image, video, audio, PDF → text output |
+| **Thinking** | low, medium, high |
+| **Versions** | Stable `gemini-4-argon` |
+
+## Pricing — and the cliff on December 1
+
+| Tier | Through Nov 30, 2026 | From Dec 1, 2026 |
+|---|---|---|
+| **Standard** input | $2.00 | **$4.00** |
+| **Standard** output | $10.00 | **$20.00** |
+| Context caching | $0.10 | **$0.20** |
+| **Batch / Flex** input | $1.00 | $2.00 |
+| **Batch / Flex** output | $5.00 | $10.00 |
+| **Priority** input | $3.60 | $7.20 |
+| **Priority** output | $18.00 | $36.00 |
+
+The launch promotion had no published end date when Argon was announced. The pricing page now gives one: **November 30, 2026**. If Argon is going into production this quarter, the bill roughly doubles in December unless you move to Batch or Flex, which halve it.
+
+Search and Maps grounding are separate: 5,000 free requests per month shared across all Gemini 3+ models, then $14 per 1,000.
+
+## Two capability gaps worth planning around
+
+**Explicit caching is not supported.** Argon does implicit caching only, which means you cannot set or extend cache TTLs. On long agentic runs that re-send the same context every turn, you lose the lever that other providers treat as standard.
+
+**No audio or image generation.** Argon accepts audio and images as input but produces text only, and is not on the Live API.
+
+## What it does support
+
+Function calling, structured outputs, code execution, file search, URL context, search grounding, Maps grounding, and **computer use in preview**. Agentic video understanding is supported but defaults to static mode. Batch, Flex and Priority inference all apply.
+
+## Consumer access
+
+Google's pricing page notes Argon is **not available on the Free tier or on the consumer Google AI Pro plan** — the $19.99 subscription. It reaches consumers through Google AI Ultra, and developers through the paid API tier.

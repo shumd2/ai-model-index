@@ -1,0 +1,31 @@
+**OpenAI deprecated the GPT-4 series in the API on October 14, 2026**, with a shutdown date of **January 14, 2027** — a three-month notice, matching OpenAI's stated policy for legacy model variants.
+
+## What is deprecated
+
+| Model ID | Replacement |
+|---|---|
+| `gpt-4o-2024-08-06` | `gpt-6-luna` |
+| `gpt-4o-2024-11-20` | `gpt-6-luna` |
+| `gpt-4o-mini-2024-07-18` | `gpt-6-luna` |
+| `gpt-4.1-2025-04-14` | `gpt-6-luna` |
+| `gpt-4.1-mini-2025-04-14` | `gpt-6-luna` |
+
+Fine-tuned variants follow the shutdown schedule of their base model, so there is no window in which a fine-tune outlives its parent.
+
+OpenAI published a companion guide alongside the notice: **"Migrating from GPT-4.x to GPT-6 Luna"** on the help center.
+
+## Why the replacement is Luna
+
+The mapping is consistent rather than granular — every deprecated ID points at the same model. `gpt-6-luna` is the low-cost tier of the GPT-6 family, so the intent is a price-and-capability reset rather than a like-for-like swap. Teams migrating should expect to re-tune any behaviour that depended on GPT-4.1's instruction-following profile, and should re-run evals rather than assuming the swap is transparent.
+
+## Separately: what actually shuts down October 23
+
+It is easy to conflate two different OpenAI dates. The **Batch API is not being retired** — it is live and healthy, with a 24-hour window and a 50% discount.
+
+What shuts down **October 23, 2026** is a block of legacy GPT snapshots announced back on April 22:
+
+`gpt-3.5-turbo-0125`, `gpt-4-0613`, `gpt-4-1106-preview`, `gpt-4-turbo`, `gpt-4.1-nano`, `gpt-4o-2024-05-13`, `gpt-image-1`, `o1-2024-12-17`, `o1-pro-2025-03-19`, `o3-mini-2025-01-31`, `o4-mini-2025-04-16`, `ft-o4-mini-2025-04-16`, plus the fine-tuned `ft-gpt-3.5-turbo`, `ft-gpt-4`, `ft-gpt-4.1-nano-2025-04-14`, `ft-babbage-002` and `ft-davinci-002`.
+
+## On GPT-5.5
+
+Several trackers listed a GPT-5.5 retirement dated October 14. OpenAI's own release notes, model release notes and help center contain **no such notice**. GPT-5.5 no longer appears on the ChatGPT pricing page's model list, which is consistent with it having been superseded rather than formally retired on a published schedule.
