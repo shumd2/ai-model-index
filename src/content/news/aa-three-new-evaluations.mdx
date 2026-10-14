@@ -1,0 +1,40 @@
+Artificial Analysis published **three new evaluations in three days**. None of them enters the Intelligence Index — the Index remains v4.3.2 with its existing ten evaluations — so current Index scores are unaffected.
+
+## AA-3D (Oct 12) — building interactive 3D worlds
+
+Each model is an agent in an offline sandbox turning a brief into a working **three.js scene**: Blender, Rapier physics, headless browser, CC0 asset library. 55 tasks, a **3-hour and 250-turn cap**, Elo from blind pairwise votes by a recruited panel.
+
+| # | Model | Elo | 95% CI |
+|---|---|---|---|
+| 1 | Claude Sonnet 5.5 (Max, Default Fallback) | 1194 | ±34 |
+| 2 | Claude Opus 5.5 (Max, Default Fallback) | 1190 | ±35 |
+| 3 | GPT-6 Astra (Max) | 1165 | ±34 |
+| 4 | Claude Fable 5.1 (Max, Default Fallback) | 1131 | ±34 |
+| 8 | GPT-6 Luna (Max) | 1000 | *anchor* |
+
+**The top four are statistically tied** — every confidence interval overlaps. Cost per scene ranges from $0.20 (Luna) to $32.08 (Fable 5.1), a 160× spread.
+
+## FrontierCode 1.1 (Oct 12) — would a maintainer merge this?
+
+Cognition published the original; **AA runs its own independent implementation** and states plainly that it is **not** part of the Intelligence Index. 100 tasks, 3 attempts each, Stirrup harness capped at 250 turns, GPT-6 Luna (medium) as judge.
+
+| Model | Score | Pass rate |
+|---|---|---|
+| Claude Opus 5.5 (Max, Default Fallback) | **52.2%** | 58% |
+| GPT-6.1 Sol (Max) | 49.1% | — |
+| Claude Fable 5.1 (Max, Default Fallback) | 49.0% | — |
+| MiMo-V2.6-Pro (best open-weights) | 45% | — |
+
+Cost per task spans **$0.09 to $12.00**. The best-value result is GPT-6.1 Sol (max) at roughly 49% for **$0.81 per task**.
+
+The framing matters more than the ranking: this tests whether a change is good enough that a human would accept it, not whether the code runs. Leading models still fail more than 40% of the time.
+
+## AA Decision Index v1.0 (Oct 13) — a new category
+
+Four evaluations at 25% each: **AA-Omniscience-Decision** (500 private questions), **HLE-MultiChoice** (513 HLE multiple-choice items), **When2Call** (NVIDIA) and **WildGuardTest** (Ai2).
+
+The composite measures knowing **when to answer, when to decline and when to escalate** — a different axis from raw capability, and one that a general-purpose leaderboard has always missed.
+
+It also formalises a category that several labs have been shipping independently. Jev 1.13 leads the dedicated decision models at **58**, with GLiDE and Microsoft-Decision-1 at 54.
+
+The instructive result: **Claude Haiku 5.5 (Low) scores 61 overall — three points ahead of Jev 1.13**, at 1.4 s/task versus 0.13 s, and $184 versus $42 per 1M tasks. A frontier-adjacent general model still outscores models purpose-built for the job, while costing more and running slower. The category exists, but the generalists have not yet been displaced.

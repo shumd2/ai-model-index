@@ -217,12 +217,39 @@ export const benchmarks: Benchmark[] = [
   },
   {
     id: "frontiercode",
-    name: "FrontierCode v1.1",
-    source: "Anthropic-reported",
+    name: "FrontierCode 1.1",
+    source: "Cognition (independent implementation by Artificial Analysis)",
     scale: "% tasks resolved",
     format: "percent",
     description:
-      "Agentic software engineering at the frontier: long-horizon coding tasks resolved end-to-end in a real harness. The 'Main' split measures standard difficulty.",
+      "Agentic software engineering at the frontier: long-horizon coding tasks resolved end-to-end in a real harness, testing whether a model makes changes a maintainer would actually merge. Cognition published the original; Artificial Analysis runs its own implementation (100 'Main' tasks, 3 attempts each, 250-turn cap) and states explicitly that it is NOT part of the Intelligence Index. Leading models still fail more than 40% of the time. CAUTION: AA's independent scores and the lab-reported scores are different measurement series and must not be compared directly.",
+  },
+  {
+    id: "aa-3d",
+    name: "AA-3D",
+    source: "Artificial Analysis",
+    scale: "Elo (≈1000–1200)",
+    format: "elo",
+    description:
+      "Interactive 3D experience benchmark, published Oct 12 2026. Each model is an agent in an offline sandbox turning a brief into a working three.js scene — Blender, Rapier physics, headless browser — with a 3-hour, 250-turn cap. 55 tasks, Elo from blind pairwise votes by a recruited panel. The top four models are statistically tied.",
+  },
+  {
+    id: "aa-decision-index",
+    name: "AA Decision Index v1.0",
+    source: "Artificial Analysis",
+    scale: "0–100 index",
+    format: "index",
+    description:
+      "Published Oct 13 2026, alongside a new 'decision model' category. A composite of four evaluations at 25% each: AA-Omniscience-Decision (500 private questions), HLE-MultiChoice, When2Call (NVIDIA) and WildGuardTest (Ai2). Measures knowing when to answer, when to decline and when to escalate — a different axis from raw capability.",
+  },
+  {
+    id: "aa-coding-agents",
+    name: "AA Coding Agents Index",
+    source: "Artificial Analysis",
+    scale: "0–100 index",
+    format: "index",
+    description:
+      "A composite measuring models as agents operating real coding tools end-to-end, rather than answering isolated questions. Distinct from both the Intelligence Index and the raw Terminal-Bench accuracy figure.",
   },
   {
     id: "cursorbench",

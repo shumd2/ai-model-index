@@ -1,0 +1,56 @@
+LMArena republished four of its boards with a **2026-10-13** publish date, read from the Hugging Face dataset `lmarena-ai/leaderboard-dataset`. Vision did not update — **vision is now the stale board**.
+
+## Text — Gemini 4 Argon extends its lead, but the sample is still thin
+
+| # | Model | Elo | 95% CI | Votes |
+|---|---|---|---|---|
+| 1 | gemini-4-argon-high | **1533.239** | 1524.438–1542.039 | 4,903 |
+| 2 | claude-opus-5.5-high | 1515.535 | 1508.013–1523.058 | 7,687 |
+| 3 | claude-fable-5.1-max | 1509.939 | 1503.841–1516.036 | 14,121 |
+| 4 | claude-opus-5-max | 1507.231 | 1502.414–1512.049 | 31,907 |
+| 5 | muse-wonder-max | 1503.871 | 1490.687–1517.055 | 1,944 |
+
+Argon gained about eight Elo since the Oct 8 snapshot, but it has moved just **eleven votes** in that time, from 4,892 to 4,903. Its confidence interval still overlaps #2 through #6. `muse-wonder-max` is the only addition; ranks 1–4 are otherwise unchanged.
+
+## WebDev — the real change
+
+77 models were added in this publish, including `gemini-4-argon-high`, `claude-opus-4-8`, `hy4-preview`, `muse-wonder-max`, `mistral-large-4` and `kimi-k2-thinking-turbo`. `gpt-5.1-high` was removed.
+
+| # | Model | Elo | 95% CI | Votes |
+|---|---|---|---|---|
+| 1 | claude-opus-5.5-max | **1811.149** | 1796.564–1825.735 | 2,597 |
+| 2 | gpt-6-astra-max | 1780.244 | 1769.703–1790.785 | 5,746 |
+| 3 | claude-sonnet-5.5-xhigh | 1773.661 | 1759.811–1787.512 | 2,858 |
+| 4 | gpt-6.1-sol-max | 1760.088 | 1746.170–1774.006 | 2,592 |
+| 5 | claude-fable-5.1-max | 1742.652 | 1733.505–1751.800 | 7,230 |
+
+One inconsistency worth knowing: the `image_to_webdev` sub-board still carries an **Oct 9** publish date and is out of sync with the rest of the WebDev board. It ranks Sonnet 5.5 (xhigh) #2 and Astra #3, where the Oct 13 overall flips those two.
+
+## Agent — two publishes in three days
+
+The agent arena scores a **0–1 task-outcome delta centred on zero**, not Elo, and the published distribution extends negative (−0.198 to +0.170). Read it as a relative improvement, not a win rate.
+
+| # | Model | Score | 95% CI | Sessions |
+|---|---|---|---|---|
+| 1 | Claude Opus 5.5 (Max) | 0.170150 | 0.135012–0.205288 | 6,025 |
+| 2 | GPT 6.1 Sol (Max) | 0.150522 | 0.129472–0.171571 | 12,052 |
+| 3 | Claude Fable 5.1 (Max) | 0.143222 | 0.122789–0.163655 | 16,212 |
+| 4 | GPT 6 Astra (Max) | 0.136907 | 0.113504–0.160310 | 12,774 |
+| 5 | Gemini 4 Argon (High) | 0.135902 | 0.120060–0.151744 | 26,905 |
+| 6 | Claude Sonnet 5.5 (Max) | 0.129952 | 0.098255–0.161649 | 7,404 |
+
+The Oct 12 snapshot had Opus 5.5 at 0.178894 and Argon at #4; the Oct 13 publish revised every value and added `Claude Haiku 5.5 (High)` at #27. **Ranks 1 and 2 are statistically tied** — their confidence intervals overlap almost entirely.
+
+## Search is back
+
+The search arena had been dormant since **August 24**, about seven weeks. It republished on October 13 with nine models added, including `qwen3.8-max` entering at #2.
+
+| # | Model | Elo | 95% CI | Votes |
+|---|---|---|---|---|
+| 1 | gpt-5.6-sol-xhigh | 1261.131 | 1254.841–1267.421 | 60,437 |
+| 2 | qwen3.8-max | 1261.076 | 1247.892–1274.260 | 1,870 |
+| 3 | claude-opus-4-6-search | 1251.368 | 1246.829–1255.907 | 173,191 |
+| 4 | gpt-5.5-search | 1246.555 | 1241.654–1251.455 | 125,957 |
+| 5 | claude-fable-5.1-high | 1245.845 | 1238.793–1252.898 | 12,782 |
+
+Ranks 1 and 2 differ by **0.055 Elo** on a 1,870-vote sample. The ordering is noise.

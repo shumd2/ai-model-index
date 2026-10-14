@@ -9,6 +9,22 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    slug: "lmarena-oct-13-refresh",
+    date: "2026-10-14",
+    title: "LMArena republishes text, WebDev, agent and search — the search board returns after seven weeks",
+    summary:
+      "All four boards carry a 2026-10-13 publish date. Text added only muse-wonder-max at #5 (1503.87 on 1,944 votes); WebDev was the big change, adding 77 models with Opus 5.5 max at 1811.15. Gemini 4 Argon leads text at 1533.24 on 4,903 votes, still provisional. Search resumed after being dormant since Aug 24, with gpt-5.6-sol-xhigh and qwen3.8-max statistically tied at ~1261. Vision did not update and is now the stale board.",
+    tag: "benchmark",
+  },
+  {
+    slug: "aa-three-new-evaluations",
+    date: "2026-10-12",
+    title: "Artificial Analysis publishes three new evaluations in three days, none entering the Index",
+    summary:
+      "AA-3D (Oct 12) turns briefs into working three.js scenes under a 3-hour, 250-turn cap, scored by blind pairwise vote; Sonnet 5.5 leads at 1194 Elo with the top four statistically tied. FrontierCode 1.1 (Oct 12) is AA's independent implementation of Cognition's benchmark, testing whether models make changes a maintainer would merge — Opus 5.5 scores 52.2%. The AA Decision Index v1.0 (Oct 13) is a new composite with four evals at 25% each, creating a formal 'decision model' category.",
+    tag: "benchmark",
+  },
+  {
     slug: "openai-gpt4-api-deprecation",
     date: "2026-10-14",
     title: "OpenAI deprecates the GPT-4 series in the API, retiring it January 14, 2027",
