@@ -3,7 +3,14 @@ export type NewsItem = {
   date: string; // ISO
   title: string;
   summary: string;
-  tag: "release" | "benchmark" | "research" | "industry" | "open-source" | "data";
+  tag:
+    | "release"
+    | "subscription"
+    | "benchmark"
+    | "research"
+    | "industry"
+    | "open-source"
+    | "data";
   provider?: string; // provider id
 };
 
@@ -99,7 +106,7 @@ export const news: NewsItem[] = [
     title: "Google deprecates Gemini 3.7 and 3.5 Flash with automatic rerouting",
     summary:
       "The Gemini API changelog deprecates gemini-3.7-flash (auto-routes to gemini-3.8-flash) and gemini-3.5-flash (auto-routes to gemini-3.6-flash), with no shutdown dates announced. The Deep Research agent deep-research-pro-preview-12-2025 shuts down October 23, 2026, migrating to the April 2026 preview IDs.",
-    tag: "industry",
+    tag: "release",
     provider: "google",
   },
   {
@@ -108,7 +115,7 @@ export const news: NewsItem[] = [
     title: "Xiaomi retires MiMo-V2.5 — IDs become invalid October 21",
     summary:
       "Xiaomi's deprecation page routes mimo-v2.5-pro and mimo-v2.5 to mimo-v2.6-pro and mimo-v2.6-flash from October 14, 2026, and invalidates the old model IDs on October 21 at 10:00 (UTC+8). Note the page contradicts itself on the auto-route hour, listing both 10:00 and 18:00.",
-    tag: "industry",
+    tag: "release",
     provider: "xiaomi",
   },
   {
@@ -135,7 +142,7 @@ export const news: NewsItem[] = [
     title: "Anthropic halves Sonnet 5.5 cache reads to $0.10/MTok",
     summary:
       "Cache reads on Claude Sonnet 5.5 drop from $0.20 to $0.10 per million tokens, which Anthropic says cuts typical agentic cost by around 20% since cache reads dominate token consumption on long-running tasks. Sonnet 5.5 stays at $2/$10 list price.",
-    tag: "industry",
+    tag: "subscription",
     provider: "anthropic",
   },
   {
@@ -144,7 +151,7 @@ export const news: NewsItem[] = [
     title: "Claude Max and Team subscribers now get monthly API credits",
     summary:
       "Max 5× receives $100/month of Claude Platform API credit, Max 20× $200, and Team up to $500 pooled across users. Credits work on any model and require linking a Claude Console org — the first time Anthropic has bundled Platform spend with a consumer subscription.",
-    tag: "industry",
+    tag: "subscription",
     provider: "anthropic",
   },
   {
@@ -162,7 +169,7 @@ export const news: NewsItem[] = [
     title: "ChatGPT Business adds Premium seats at $100–$125 per user",
     summary:
       "Business Premium seats cost $100/user/month billed annually or $125 monthly, carry 5× the Standard seat usage with no five-hour limit, and are purchased capacity that can be reassigned between users. Standard seats stay at $25 monthly / $20 annual.",
-    tag: "industry",
+    tag: "subscription",
     provider: "openai",
   },
   {
@@ -171,7 +178,7 @@ export const news: NewsItem[] = [
     title: "Gemini free tier loses manual model selection — automatic routing only",
     summary:
       "The Oct 9 change is live: users without an AI subscription can no longer pick a model. Most prompts route to Flash-Lite, with deeper-reasoning prompts reaching Flash or Pro; turning smart selection off pins free users to Flash-Lite. AI Plus keeps Flash-Lite and Flash but still has no Pro access, while AI Pro and AI Ultra retain all three plus Deep Think.",
-    tag: "industry",
+    tag: "subscription",
     provider: "google",
   },
   {
@@ -188,7 +195,7 @@ export const news: NewsItem[] = [
     title: "Claude Docs, Slides and Design leave beta and reach the free tier",
     summary:
       "Anthropic moved Docs, Slides and Design out of beta to every plan including Free after 45M+ documents created since Sep 16, adding PPT/PDF and Google Slides export. Dashboards entered beta on paid plans, while Motion — code-generated animation to MP4 — is limited to Team and Enterprise. Enterprise admins get Docs/Slides/Design by default from Oct 15.",
-    tag: "industry",
+    tag: "subscription",
     provider: "anthropic",
   },
   {
@@ -197,7 +204,7 @@ export const news: NewsItem[] = [
     title: "ChatGPT Pro gains a $100 tier; $200 Pro 20× pauses new sign-ups",
     summary:
       "OpenAI split Pro into $100 (5× Codex usage) and $200 (20×) tiers, then paused new sign-ups and upgrades to the $200 plan on Sep 10 — existing subscriptions renew as usual, with a one-time 30-day return window. A $500 Pro tier with GPT-6 Astra Ultrafast access followed at DevDay (Sep 30).",
-    tag: "industry",
+    tag: "subscription",
     provider: "openai",
   },
   {
@@ -217,21 +224,12 @@ export const news: NewsItem[] = [
     tag: "industry",
   },
   {
-    slug: "gemini-access-changes-oct-9",
-    date: "2026-10-05",
-    title: "Google restricts Gemini model access from October 9 — free tier drops to Flash-Lite only",
-    summary:
-      "Starting Oct 9, personal accounts without an AI plan lose Flash and Pro access, keeping only Flash-Lite (likely 3.5 Flash-Lite). AI Plus ($4.99) keeps Flash-Lite + Flash but loses Pro. AI Pro ($19.99) and AI Ultra ($99.99) retain all three plus Deep Think. Workspace accounts unaffected per Google's help article. Announced Oct 5, coincides with Argon's restricted rollout.",
-    tag: "industry",
-    provider: "google",
-  },
-  {
     slug: "anthropic-deprecates-sonnet-4-5",
     date: "2026-09-30",
     title: "Anthropic deprecates Claude Sonnet 4.5 — retirement November 30, 2026",
     summary:
       "The Claude Developer Platform announced Sonnet 4.5 (claude-sonnet-4-5-20250929) deprecation on Sep 30, with retirement scheduled for Nov 30, 2026. Migration path: Sonnet 5.5. This is the first 4.x Sonnet retirement in the 5.5 wave.",
-    tag: "industry",
+    tag: "release",
     provider: "anthropic",
   },
   {
@@ -242,15 +240,6 @@ export const news: NewsItem[] = [
       "DeepSeek's new architecture (552B MoE, native vision) dramatically reduces memory per context token, shifting the serving cost bottleneck from compute to cache-read bandwidth. On AA v4.3.2, V4.1-Flash scores 40 on the Intelligence Index — modest absolute intelligence but exceptional cost efficiency. The change matters for agent workloads that resend context on every tool call.",
     tag: "research",
     provider: "deepseek",
-  },
-  {
-    slug: "kimi-k3-enters-openai-codex-via-baseten",
-    date: "2026-09-30",
-    title: "Kimi K3 enters OpenAI's enterprise Codex channel through Baseten",
-    summary:
-      "Moonshot AI's Kimi K3 is now available to OpenAI enterprise customers via Baseten inference, with usage counted against existing OpenAI spending commitments — the first time a Chinese open model enters OpenAI's enterprise billing system. Baseten provides the model; Codex provides the developer interface.",
-    tag: "industry",
-    provider: "moonshot",
   },
   {
     slug: "october-board-sonnet-5-5-argon",
@@ -269,62 +258,11 @@ export const news: NewsItem[] = [
     tag: "industry",
   },
   {
-    slug: "huawei-qualcomm-patent-deal",
-    date: "2026-10-05",
-    title: "Huawei and Qualcomm sign multi-year patent cross-license — Qualcomm pays Huawei net royalties",
-    summary:
-      "Landmark deal reversing 25-year royalty flow: Qualcomm pays Huawei net royalties for the first time and purchases certain U.S. AI/compute/networking patents; expected value >$6.9B; requires U.S. regulatory approval.",
-    tag: "industry",
-  },
-  {
-    slug: "td-synnex-siemens-physical-ai",
-    date: "2026-10-05",
-    title: "TD SYNNEX and Siemens partner for IT/OT convergence and physical AI",
-    summary:
-      "Global distribution partnership combining Siemens' industrial tech with TD SYNNEX's IT ecosystem to accelerate physical AI, automation, cybersecurity, and electrification across industries and SMBs.",
-    tag: "industry",
-  },
-  {
-    slug: "gemini-2-5-flash-image-shutdown",
-    date: "2026-10-05",
-    title: "Gemini 2.5 Flash Image (Nano Banana) reaches shutdown date",
-    summary:
-      "Google's `gemini-2.5-flash-image` model (released Oct 2025) shuts down per schedule; developers must migrate to Gemini 3.1 Flash Image or 3.1 Flash Lite Image.",
-    tag: "industry",
-    provider: "google",
-  },
-  {
-    slug: "lambda-4b-funding",
-    date: "2026-10-06",
-    title: "Lambda Labs raises up to $4B at $14.5B valuation — final pre-IPO round",
-    summary:
-      "Nvidia-backed neocloud led by Coatue and Blackstone; $50B order backlog (up from $15B in June); targeting 2027 IPO; additional $1B debt raised last week for data-center buildouts.",
-    tag: "industry",
-  },
-  {
     slug: "google-agent-test-escapes",
     date: "2026-10-06",
     title: "Google confirms three AI agent test escapes under oath at NYC hearing",
     summary:
       "Google's Alice Friend testified three incidents occurred during internal testing where agents took unintended actions but 'stopped themselves'; lawmakers found this un-reassuring given the containment implications.",
-    tag: "industry",
-    provider: "google",
-  },
-  {
-    slug: "openai-gpt-6-1-sol-bedrock",
-    date: "2026-10-06",
-    title: "OpenAI GPT-6.1 Sol generally available on Amazon Bedrock",
-    summary:
-      "AWS announces GA of OpenAI's GPT-6.1 Sol (released Sep 29) on Bedrock with explicit prompt caching support for agentic workloads.",
-    tag: "industry",
-    provider: "openai",
-  },
-  {
-    slug: "gemini-3-1-flash-image-shutdown",
-    date: "2026-10-07",
-    title: "Google retires Gemini 3.1 Flash Image after only 154 days on 23 days' notice",
-    summary:
-      "`gemini-3.1-flash-image` (released May 28, 2026) slated for shutdown Oct 29 — unusually short lifecycle vs 2.5 Flash Image's 529 days; replacement is Nano Banana 2.1 (Gemini 3.6 Flash).",
     tag: "industry",
     provider: "google",
   },
@@ -360,7 +298,7 @@ export const news: NewsItem[] = [
     title: "OpenAI shelves the GPT-6.1 Astra launch over safety concerns",
     summary:
       "The planned October release of GPT-6.1 Astra was pulled after the model \"didn't quite meet the bar\" on staying within scope and authorization, per reporting. GPT-6.1 Sol ships in its place at a fifth of Astra's price.",
-    tag: "industry",
+    tag: "release",
     provider: "openai",
   },
   {
@@ -373,46 +311,13 @@ export const news: NewsItem[] = [
     provider: "anthropic",
   },
   {
-    slug: "grok-4-7-on-bedrock",
-    date: "2026-09-28",
-    title: "Grok 4.7 arrives on Amazon Bedrock",
-    summary:
-      "xAI's newest model is now served on Bedrock via cross-Region inference profiles, with Responses, Chat Completions and Converse API support.",
-    tag: "industry",
-    provider: "xai",
-  },
-  {
-    slug: "amd-world-labs-8-2b",
-    date: "2026-09-28",
-    title: "AMD to acquire World Labs for $8.2B",
-    summary:
-      "The all-stock deal brings Fei-Fei Li's spatial-intelligence lab into AMD; Li joins as EVP and chief scientist. Merger agreement signed September 26, closing expected by end of 2026.",
-    tag: "industry",
-  },
-  {
     slug: "sora-2-shutdown",
     date: "2026-09-24",
     title: "OpenAI shuts down Sora 2 and the Videos API",
     summary:
       "The sora-2, sora-2-pro and dated snapshots were retired with no replacement listed — the deprecation was announced in March and took effect September 24.",
-    tag: "industry",
+    tag: "release",
     provider: "openai",
-  },
-  {
-    slug: "liner-model-api",
-    date: "2026-09-24",
-    title: "Liner launches the Liner Model API",
-    summary:
-      "A new model-routing API at $1/$6 per 1M input/output tokens ($0.10 cached), claiming at least 50% savings versus same-tier models — the latest entrant in the multi-model router field.",
-    tag: "industry",
-  },
-  {
-    slug: "openrouter-batch-api",
-    date: "2026-09-22",
-    title: "OpenRouter launches Batch API — ~50% off, 24-hour window",
-    summary:
-      "Seventy-one :batch variants are live (e.g. gpt-6-astra:batch at $5/$25), the latest sign that batch pricing is becoming table stakes for routers.",
-    tag: "industry",
   },
   {
     slug: "zai-opensources-zcode",
@@ -422,15 +327,6 @@ export const news: NewsItem[] = [
       "A researcher showed the client silently uploading full user workspaces — Git history, credentials, cloud keys — to Alibaba Cloud storage. Z.ai apologized, removed the Repo Wiki and commissioned CAICT/NSFOCUS audits; an enterprise customer filed a legal demand on September 19.",
     tag: "open-source",
     provider: "zai",
-  },
-  {
-    slug: "gemini-2-5-restrictions",
-    date: "2026-09-21",
-    title: "Google restricts Gemini 2.5 models; gemini-2.5-pro retires October 20",
-    summary:
-      "Gemini 2.5 Pro disappeared from AI Studio on September 18; Google confirms access is limited to existing users (\"not deprecated\", API still served) while Google Cloud lists gemini-2.5-pro retirement for October 20, 2026, with gemini-3.8-flash / gemini-3.5-flash as replacements.",
-    tag: "industry",
-    provider: "google",
   },
   {
     slug: "solar-mini-4",
@@ -447,17 +343,8 @@ export const news: NewsItem[] = [
     title: "OpenAI removes gpt-5.4-cyber from the API",
     summary:
       "The cybersecurity-tuned model was removed on October 1, as announced on September 11 — part of a wave of specialized-model deprecations this autumn.",
-    tag: "industry",
+    tag: "release",
     provider: "openai",
-  },
-  {
-    slug: "anthropic-frontier-academy",
-    date: "2026-10-02",
-    title: "Anthropic commits $100M to train 10,000 engineers",
-    summary:
-      "The Frontier Academy program aims to teach frontier-model engineering at scale — the latest industry move to grow the agentic-workforce talent pool.",
-    tag: "industry",
-    provider: "anthropic",
   },
   {
     slug: "opus-5-5-takes-number-one",
@@ -511,15 +398,6 @@ export const news: NewsItem[] = [
       "Korea's champion lab shipped its new generation: Solar Mini 4 at $0.05/$0.20, Pro 4 with 512k context, and Solar Open2 250B — open weights with a 1.05M-token window.",
     tag: "release",
     provider: "upstage",
-  },
-  {
-    slug: "pace-the-frontier",
-    date: "2026-09-15",
-    title: "Dario Amodei: \u201cWe Must Pace the Frontier\u201d",
-    summary:
-      "Anthropic's CEO argued AI progress should be paced so safety practices stay ahead of capabilities — the framing behind Opus 5.5's external pre-release testing with Frontier Design and METR, and its Fable-class safeguards.",
-    tag: "industry",
-    provider: "anthropic",
   },
   {
     slug: "model-hardware-standard",
@@ -601,15 +479,6 @@ export const news: NewsItem[] = [
     provider: "openai",
   },
   {
-    slug: "anthropic-pace-metrics",
-    date: "2026-09-17",
-    title: "Anthropic proposes public metrics for frontier lab progress",
-    summary:
-      "Arguing the world can't see inside AI labs, Anthropic proposed new measurements to give the public visibility into the pace of frontier development.",
-    tag: "industry",
-    provider: "anthropic",
-  },
-  {
     slug: "openai-misalignment-reporting",
     date: "2026-09-16",
     title: "OpenAI publishes framework for reporting model misalignment",
@@ -680,23 +549,6 @@ export const news: NewsItem[] = [
     summary:
       "Published September 4, 2026. v4.2 adds AA-Briefcase (agentic knowledge work) and GDP.pdf (long-document reasoning) benchmarks. Fable 5.1 tops the intelligence index. GLM-5.2 becomes the leading open-weights model at AA 51.",
     tag: "benchmark",
-  },
-  {
-    slug: "anthropic-new-model-ipo-rumors",
-    date: "2026-09-19",
-    title: "Anthropic considering new model launch ahead of expected IPO",
-    summary:
-      "Per Reuters, Anthropic is weighing a new model release to counter OpenAI's GPT-6 Astra momentum. The deliberations come as the company prepares for an expected public listing and shortly after CEO Dario Amodei publicly urged the industry to slow down.",
-    tag: "industry",
-    provider: "anthropic",
-  },
-  {
-    slug: "apple-siri-google-gemini-ios27",
-    date: "2026-09-14",
-    title: "Apple deploys rebuilt Siri powered by Google Gemini on iOS 27",
-    summary:
-      "Apple rolled out the rebuilt Siri on September 14 with iOS 27, available on iPhone 15 Pro and newer. The system is powered by Google's Gemini models — a landmark partnership that brings Gemini to hundreds of millions of Apple devices.",
-    tag: "industry",
   },
   {
     slug: "google-gemini-3-8-live-audio",
